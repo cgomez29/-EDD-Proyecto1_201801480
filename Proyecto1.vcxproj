@@ -149,15 +149,21 @@
   <ItemGroup>
     <ClCompile Include="Cabecera.cpp" />
     <ClCompile Include="ControllerProject.cpp" />
+    <ClCompile Include="Libreria.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Nodo.cpp" />
+    <ClCompile Include="NodoSL.cpp" />
     <ClCompile Include="Proyecto1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cabecera.h" />
     <ClInclude Include="ControllerProject.h" />
+    <ClInclude Include="Libreria.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Matrix.h" />
     <ClInclude Include="Nodo.h" />
+    <ClInclude Include="NodoSL.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
