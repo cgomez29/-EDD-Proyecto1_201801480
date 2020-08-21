@@ -154,7 +154,9 @@
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Nodo.cpp" />
     <ClCompile Include="NodoSL.cpp" />
+    <ClCompile Include="Point.cpp" />
     <ClCompile Include="Proyecto1.cpp" />
+    <ClCompile Include="SimpleList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cabecera.h" />
@@ -164,6 +166,8 @@
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Nodo.h" />
     <ClInclude Include="NodoSL.h" />
+    <ClInclude Include="Point.h" />
+    <ClInclude Include="SimpleList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
