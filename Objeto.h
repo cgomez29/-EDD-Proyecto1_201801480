@@ -1,11 +1,12 @@
 #pragma once
 #include "SimpleList.h"
 #include "Point.h"
+#include "Nodo.h"
 #include <iostream>
 
 using namespace std;
 
-class Libreria
+class Objeto:public Nodo
 {
 private:
 	int id;
@@ -15,7 +16,7 @@ private:
 	SimpleList<Point>* list;
 
 public:
-	Libreria();
+	Objeto();
 	int getId();
 	string getName();
 	string getLetter();
@@ -27,4 +28,3 @@ public:
 	void setColor(string color);
 	void setSimpleList(SimpleList<Point>* list);
 };
-

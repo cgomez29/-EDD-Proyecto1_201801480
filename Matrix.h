@@ -1,6 +1,6 @@
 #pragma once
 #include "Cabecera.h"
-#include "Libreria.h"
+#include "Objeto.h"
 
 using namespace std;
 
@@ -18,7 +18,7 @@ private:
 public:
 	Matrix();
 	~Matrix();
-	void add(Libreria* libreria);
+	void add(Objeto* obj);
 	void graficar();
 };
 
