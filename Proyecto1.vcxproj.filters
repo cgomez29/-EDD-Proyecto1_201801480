@@ -33,9 +33,6 @@
     <ClCompile Include="Matrix.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Libreria.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="NodoSL.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -43,6 +40,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Point.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Objeto.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,9 +62,6 @@
     <ClInclude Include="Matrix.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Libreria.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="NodoSL.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -72,6 +69,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Point.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Objeto.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

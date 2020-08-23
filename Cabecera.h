@@ -7,9 +7,15 @@ class Cabecera:public Nodo
 {
 private:
 	string nombre;
+	/*string x;
+	string y;*/
 public:
 	Cabecera(string nombre);
 	void setNombre(string nombre);
 	string getNombre();
+	/*void setX(string x);
+	string getX();
+	void setY(string y);
+	string getY();*/
 };
 

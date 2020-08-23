@@ -1,5 +1,6 @@
 #pragma once
 #include "Cabecera.h"
+#include "Nodo.h"
 #include "Objeto.h"
 
 using namespace std;

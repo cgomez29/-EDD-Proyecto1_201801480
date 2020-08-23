@@ -194,6 +194,45 @@ Cabecera* Matrix::getVertical(string y)
 
 void Matrix::add(Objeto* obj)
 {
+	Cabecera* vertical = this->getVertical(obj->getName());
+	Cabecera* horizontal = this->getHorizontal(obj->getName());
+	if (vertical == nullptr)
+	{
+		vertical = crearVertical(obj->getName());
+	}
+	if (horizontal == nullptr)
+	{
+		horizontal = crearHorizontal(obj->getName());
+	}
 
-	
+	Nodo* left = getUltimoH(vertical, obj->getName());
+	Nodo* up = getUltimoV(horizontal, obj->getName());
+
+	if (left->getNext() == nullptr)
+	{
+		left->setNext(obj);
+		obj->setPrevious(left);
+	}
+	else
+	{
+		Nodo* temp = left->getNext();
+		left->setNext(obj);
+		obj->setPrevious(left);
+		temp->setPrevious(obj);
+		obj->setNext(temp);
+	}
+
+	if (up->getDown() == nullptr)
+	{
+		up->setDown(obj);
+		obj->setUp(up);
+	}
+	else
+	{
+		Nodo* temp = up->getDown();
+		up->setDown(obj);
+		obj->setUp(up);
+		temp->setUp(obj);
+		obj->setDown(temp);
+	}
 }
