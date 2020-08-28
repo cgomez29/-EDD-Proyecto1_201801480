@@ -1,11 +1,13 @@
 #include "Objeto.h"
 
-Objeto::Objeto(string name)
+Objeto::Objeto(string name, string x, string y)
 {
 	this->id = 0;
 	this->name = name;
 	this->letter = "";
 	this->color = "";
+	this->x = x;
+	this->y = y;
 	//this->list = NULL;
 }
 
@@ -50,6 +52,12 @@ void Objeto::setColor(string color)
 {
 	this->color = color;
 }
+
+void Objeto::setX(string x) { this->x = x; }
+string Objeto::getX() { return this->x; }
+void Objeto::setY(string y) { this->y = y; }
+string Objeto::getY() { return this->y; }
+
 /*void Objeto::setSimpleList(SimpleList<Point>* list)
 {
 	this->list = list;

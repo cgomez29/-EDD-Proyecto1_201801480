@@ -1,3 +1,6 @@
+#ifndef NODO_H
+#define NODO_H
+
 #include <iostream>
 
 using namespace std;
@@ -20,5 +23,6 @@ public:
     Nodo* getUp();
     Nodo* getDown();
     Nodo* getPrevious();
-
 };
+
+#endif // NODO_H

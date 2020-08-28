@@ -1,7 +1,12 @@
-#pragma once
-#include "Cabecera.h"
+#ifndef MATRIX_H
+#define MATRIX_H
+
 #include "Nodo.h"
+#include "Cabecera.h"
 #include "Objeto.h"
+#include <ostream>
+#include <sstream>
+#include <fstream>
 
 using namespace std;
 
@@ -19,7 +24,8 @@ private:
 public:
 	Matrix();
 	~Matrix();
-	void add(Objeto* obj);
+	void add(Objeto* obj, string x, string y);
 	void graficar();
 };
 
+#endif //MATRIX_H

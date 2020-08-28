@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CABECERA_H
+#define CABECERA_H
+
 #include "Nodo.h"
 #include <iostream>
 using namespace std;
@@ -19,3 +21,4 @@ public:
 	string getY();*/
 };
 
+#endif //CABECERA_H
