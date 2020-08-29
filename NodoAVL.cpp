@@ -20,7 +20,7 @@ NodoAVL* NodoAVL::getLeft()
 
 void NodoAVL::setRigth(NodoAVL* rigth)
 {
-	this->rigth = right;
+	this->rigth = rigth;
 }
 
 NodoAVL* NodoAVL::getRigth()

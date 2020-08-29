@@ -1,8 +1,7 @@
 #ifndef NODOAVL_H
 #define NODOAVL_H
+
 #include "Project.h"
-
-
 class NodoAVL
 {
 private:
@@ -23,8 +22,4 @@ public:
 	Project getProject();
 };
 
-
 #endif // NODOAVL_H
-
-
-

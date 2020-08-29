@@ -1,14 +1,20 @@
 #include "Objeto.h"
 
-Objeto::Objeto(string name, string x, string y)
+Objeto::Objeto(string name)
 {
 	this->id = 0;
 	this->name = name;
 	this->letter = "";
 	this->color = "";
-	this->x = x;
-	this->y = y;
-	//this->list = NULL;
+	this->x = "";
+	this->y = "";
+	
+}
+
+void Objeto::insertPos(string x, string y)
+{
+	Point p = Point(x, y);
+	this->list->add(p);
 }
 
 int Objeto::getId()
@@ -31,10 +37,10 @@ string Objeto::getColor()
 	return this->color;
 }
 
-/*SimpleList<Point>* Objeto::getList()
+SimpleList<Point>* Objeto::getList()
 {
 	return this->list;
-}*/
+}
 
 void Objeto::setId(int id)
 {

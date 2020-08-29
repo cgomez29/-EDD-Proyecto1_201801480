@@ -2,26 +2,32 @@
 
 Point::Point()
 {
-	this->x = 0;
-	this->y = 0;
+	this->x = "";
+	this->y = "";
 }
 
-int Point::getX()
+Point::Point(string x, string y)
+{
+	this->x = x;
+	this->y = y;
+}
+
+string Point::getX()
 {
 	return this->x;
 }
 
-void Point::setX(int x)
+void Point::setX(string x)
 {
 	this->x = x;
 }
 
-int Point::getY()
+string Point::getY()
 {
 	return this->y;
 }
 
-void Point::setY(int y)
+void Point::setY(string y)
 {
 	this->y = y;
 }

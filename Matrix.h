@@ -21,10 +21,11 @@ private:
 	Cabecera* getVertical(string y);
 	Nodo* getUltimoV(Cabecera* cabecera, string y);
 	Nodo* getUltimoH(Cabecera* cabecera, string x);
+	void add(Objeto* obj, string x, string y);
 public:
 	Matrix();
 	~Matrix();
-	void add(Objeto* obj, string x, string y);
+	void add(Objeto* obj);
 	void graficar();
 };
 

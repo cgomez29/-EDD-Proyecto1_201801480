@@ -194,7 +194,31 @@ Cabecera* Matrix::getVertical(string y)
 	return nullptr;
 }
 
-void Matrix::add(Objeto *obj,string x , string y )
+void Matrix::add(Objeto* obj)
+{
+	NodoSL<Point>* aux = obj->getList()->getHead();
+	string x = "";
+	string y = "";
+	Objeto* obj2;
+	
+	while (aux != nullptr)
+	{
+		obj2 = new Objeto(obj->getName());
+		x = aux->getValue().getX();
+		y = aux->getValue().getY();
+		obj2->setColor(obj->getColor());
+		obj2->setLetter(obj->getLetter());
+
+		obj2->setX(x);
+		obj2->setY(y);
+
+		add(obj2, x, y);
+
+		aux = aux->getSiguiente();
+	}
+}
+
+void Matrix::add(Objeto* obj,string x , string y )
 {
 	Cabecera* vertical = this->getVertical(y);
 	Cabecera* horizontal = this->getHorizontal(x);

@@ -15,7 +15,7 @@ public:
     SimpleList();
     ~SimpleList();
     void add(T valor);
-    //void delete_nodo(T valor);
+    void remove(T val);
     NodoSL<T>* getHead();
     void vaciar();
 };

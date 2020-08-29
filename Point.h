@@ -1,18 +1,25 @@
-#pragma once
+#ifndef POINT_H
+#define POINT_H
+
+#include <iostream>
 using namespace std;
 
 class Point
 {
 private: 
 	//Coordenadas
-	int x;
-	int y;
+	string x;
+	string y;
 
 public:
 	Point();
-	int getX();
-	void setX(int x);
-	int getY();
-	void setY(int y);
+	Point(string x, string y);
+	string getX();
+	void setX(string x);
+	string getY();
+	void setY(string y);
 };
+
+#endif // !POINT_H
+
 
