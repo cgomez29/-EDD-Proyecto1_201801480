@@ -1,5 +1,5 @@
-#ifndef PERSONA_H
-#define PERSONA_H
+#ifndef OBJETO_H
+#define OBJETO_H
 
 #include "Nodo.h"
 #include "Point.h"
@@ -42,4 +42,4 @@ public:
 	string getY();
 };
 
-#endif // PERSONA_H
+#endif // OBJETO_H

@@ -31,7 +31,7 @@ void SimpleList<T>::add(T valor) {
         tail = nuevo;
     }
 }
-
+/*
 template<class T>
 void SimpleList<T>::remove(T val) {
     if (head == 0){
@@ -61,7 +61,7 @@ void SimpleList<T>::remove(T val) {
             //std::cout << "Selected item was deleted.\n";
         }
     }
-}
+}*/
 
 
 template<class T>

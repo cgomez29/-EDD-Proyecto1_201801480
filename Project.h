@@ -1,8 +1,10 @@
 #ifndef PROJECT_H
 #define PROJECT_H
 
-#include <iostream>
 #include "Matrix.h"
+#include "NosoSL.h"
+#include "SimpleList.h"
+#include <iostream>
 
 using namespace std;
 
@@ -10,11 +12,12 @@ class Project
 {
 private:
 	string name;
-	//SimpleList<Matrix> listNivel;
+	SimpleList<Matrix>* listNivel = new SimpleList<Matrix>();
 
 public:
 	void setName(string name);
 	void addNivel(Matrix nivel);
+	SimpleList<Matrix>* getListNivel();
 	string getName();
 };
 

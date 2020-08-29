@@ -1,0 +1,7 @@
+digraph G{
+
+node[shape="record"]
+node01227120[label= "<f0>|<f1>Proyecto 1factor:0|<f2>"]
+node01226898[label="<f0>|<f1>Proyectofactor:0|<f2>"]
+node01227120:f0->node01226898:f1
+}

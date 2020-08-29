@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArbolAVL.cpp" />
     <ClCompile Include="Cabecera.cpp" />
     <ClCompile Include="ControllerProject.cpp" />
     <ClCompile Include="MainMenu.cpp" />
@@ -161,6 +162,7 @@
     <ClCompile Include="SimpleList.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArbolAVL.h" />
     <ClInclude Include="Cabecera.h" />
     <ClInclude Include="ControllerProject.h" />
     <ClInclude Include="MainMenu.h" />

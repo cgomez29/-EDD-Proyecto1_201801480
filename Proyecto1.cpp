@@ -3,16 +3,38 @@
 
 #include <string>
 
-#include "Objeto.h"
-#include "Matrix.h"
+#include "ArbolAVL.h"
+#include "Project.h"
 
 using namespace std;
 
 int main()
 {
-    Matrix* matrix= new Matrix();
+    ArbolAVL* arbol = new ArbolAVL();
+    Project* p = new  Project();
+    Project* p1 = new  Project();
+    Project* p2 = new  Project();
+    Project* p3 = new  Project();
+    Project* p4 = new  Project();
+    p->setName("Proyecto 15");
+    p1->setName("Proyecto 1");
+    p2->setName("Proyecto 120");
+    p3->setName("Proyecto");
+    p4->setName("Proyecto 5000");
+
+    arbol->insertar(*p);
+    arbol->insertar(*p1);
+    arbol->insertar(*p2);
+    arbol->insertar(*p3);
+    arbol->insertar(*p4);
+
+    arbol->graficar();
+
+    delete arbol;
+
+   /* Matrix* matrix= new Matrix();
     //// parametros: nombre, posX 1, posY 1
-    Objeto* o = new Objeto("0");
+    Objeto* o = new Objeto("0");  
     o->insertPos("0", "0");
     o->insertPos("1", "1");
 
@@ -20,30 +42,9 @@ int main()
     matrix->add(o);
 
     matrix->graficar();
-    delete matrix;
-
-    
-
-    /*Matrix* matrix= new Matrix();
-    //// parametros: nombre, posX 1, posY 1
-    Objeto* o = new Objeto("0", "0","0");
-    Objeto* o1 = new Objeto("2", "1", "0");
-    Objeto* o2 = new Objeto("3", "2", "1");
-    Objeto* o3 = new Objeto("4", "2", "2");
-    Objeto* o4 = new Objeto("5", "1", "3");
-    Objeto* o5 = new Objeto("5", "50", "50");
-    Objeto* o6 = new Objeto("5", "50", "3");
-                   //H -> X , V -> Y
-    matrix->add(o, "0", "0");
-    matrix->add(o1, "1", "0");
-    matrix->add(o2, "2", "1");
-    matrix->add(o3, "2", "2");
-    matrix->add(o4, "1", "3");
-    matrix->add(o5, "50", "50");
-    matrix->add(o6, "50", "3");
-    
-    matrix->graficar();
     delete matrix;*/
+
+   
 
 
     /*SimpleList<Point>* list = new SimpleList<Point>();
