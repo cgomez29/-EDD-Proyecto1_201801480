@@ -7,6 +7,7 @@
 #include <ostream>
 #include <sstream>
 #include <fstream>
+#include <stdbool.h>
 
 using namespace std;
 

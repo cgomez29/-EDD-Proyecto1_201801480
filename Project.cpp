@@ -1,5 +1,11 @@
 #include "Project.h"
 
+
+Project::Project()
+{
+	this->name = "";
+}
+
 void Project::setName(string name)
 {
 	this->name = name;

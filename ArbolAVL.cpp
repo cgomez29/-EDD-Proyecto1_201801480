@@ -22,6 +22,7 @@ NodoAVL* ArbolAVL::insertar(NodoAVL* raiz, Project project, bool& scape)
 	{
 		NodoAVL* izq = insertar(raiz->getLeft(), project, scape);
 		raiz->setLeft(izq);
+
 		if (scape)
 		{
 			switch (raiz->getFactor())
@@ -44,39 +45,41 @@ NodoAVL* ArbolAVL::insertar(NodoAVL* raiz, Project project, bool& scape)
 				{
 					raiz = rotacionID(raiz, n1);
 				}
-			}
-		}
-		else if (valorAscii(project.getName()) > valorAscii(raiz->getProject().getName()))
-		{
-			NodoAVL* der = insertar(raiz->getRigth(), project, scape);
-			raiz->setRigth(der);
-			if (scape)
-			{
-				switch (raiz->getFactor())
-				{
-				case 1:
-					n1 = raiz->getRigth();
-					if (n1->getFactor() == 1)
-					{
-						raiz = rotacionDD(raiz, n1);
-					}
-					else
-					{
-						raiz = rotacionDI(raiz, n1);
-					}
-					scape = false;
-					break;
-				case 0:
-					raiz->setFactor(1);
-					break;
-				case -1:
-					raiz->setFactor(0);
-					scape = false;
-				}
+				scape = false;
+				//break;
 			}
 		}
 	}
-
+	else if (valorAscii(project.getName()) > valorAscii(raiz->getProject().getName()))
+	{
+		NodoAVL* der = insertar(raiz->getRigth(), project, scape);
+		raiz->setRigth(der);
+		if (scape)
+		{
+			switch (raiz->getFactor())
+			{
+			case 1:
+				n1 = raiz->getRigth();
+				if (n1->getFactor() == 1)
+				{
+					raiz = rotacionDD(raiz, n1);
+				}
+				else
+				{
+					raiz = rotacionDI(raiz, n1);
+				}
+				scape = false;
+				break;
+			case 0:
+				raiz->setFactor(1);
+				break;
+			case -1:
+				raiz->setFactor(0);
+				scape = false;
+			}
+		
+		}
+	}
 	return raiz;
 }
 
@@ -104,8 +107,8 @@ void ArbolAVL::insertar(Project project)
 
 NodoAVL* ArbolAVL::rotacionII(NodoAVL* n, NodoAVL* n1)
 {
-	n->setLeft(raiz->getRigth());
-	n->setRigth(n);
+	n->setLeft(n1->getRigth());
+	n1->setRigth(n);
 
 	if (n1->getFactor() == -1)
 	{
@@ -169,8 +172,8 @@ NodoAVL* ArbolAVL::getRaiz()
 
 NodoAVL* ArbolAVL::rotacionDD(NodoAVL* n, NodoAVL* n1)
 {
-	n->setRigth(raiz->getLeft());
-	n->setLeft(n);
+	n->setRigth(n1->getLeft());
+	n1->setLeft(n);
 
 	if (n1->getFactor() == 1)
 	{

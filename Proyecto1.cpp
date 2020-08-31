@@ -16,11 +16,11 @@ int main()
     Project* p2 = new  Project();
     Project* p3 = new  Project();
     Project* p4 = new  Project();
-    p->setName("Proyecto 15");
-    p1->setName("Proyecto 1");
-    p2->setName("Proyecto 120");
-    p3->setName("Proyecto");
-    p4->setName("Proyecto 5000");
+    p->setName("Proyecto 5 ");
+    p1->setName("Proyecto 1 ");
+    p2->setName("Proyecto 7 ");
+    p3->setName("Proyecto 2 ");
+    p4->setName("Proyecto 8 ");
 
     arbol->insertar(*p);
     arbol->insertar(*p1);
