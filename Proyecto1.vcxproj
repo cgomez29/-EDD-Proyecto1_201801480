@@ -148,12 +148,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ArbolAVL.cpp" />
+    <ClCompile Include="ArbolB.cpp" />
     <ClCompile Include="Cabecera.cpp" />
     <ClCompile Include="ControllerProject.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Nodo.cpp" />
     <ClCompile Include="NodoAVL.cpp" />
+    <ClCompile Include="NodoB.cpp" />
     <ClCompile Include="NosoSL.cpp" />
     <ClCompile Include="Objeto.cpp" />
     <ClCompile Include="Point.cpp" />
@@ -163,12 +165,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArbolAVL.h" />
+    <ClInclude Include="ArbolB.h" />
     <ClInclude Include="Cabecera.h" />
     <ClInclude Include="ControllerProject.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Nodo.h" />
     <ClInclude Include="NodoAVL.h" />
+    <ClInclude Include="NodoB.h" />
     <ClInclude Include="NosoSL.h" />
     <ClInclude Include="Objeto.h" />
     <ClInclude Include="Point.h" />

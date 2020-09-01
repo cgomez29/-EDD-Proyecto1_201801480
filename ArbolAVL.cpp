@@ -94,7 +94,7 @@ int ArbolAVL::valorAscii(string cadena)
 		valor = valor + caracter;
 	}
 
-	cout << "valor ascii: " << valor << endl;
+	//cout << "valor ascii: " << valor << endl;
 	return valor;
 }
 

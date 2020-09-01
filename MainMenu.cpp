@@ -39,7 +39,19 @@ void MainMenu::menu()
             case 1:
                 this->controller->viewProjects();
                 break;
+            case 2:
+                break;
+            case 3:
+                //cargar proyectos
 
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                //cargar librerias
+                break;
             }
 
 
