@@ -43,7 +43,7 @@ void MainMenu::menu()
                 break;
             case 3:
                 //cargar proyectos
-
+                readJson->leerProyectos();
                 break;
             case 4:
                 break;
@@ -51,6 +51,7 @@ void MainMenu::menu()
                 break;
             case 6:
                 //cargar librerias
+                readJson->leerLibrerias();
                 break;
             }
 

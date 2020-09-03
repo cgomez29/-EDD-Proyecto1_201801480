@@ -5,12 +5,20 @@
 
 #include "ArbolAVL.h"
 #include "Project.h"
+#include "ReadJSON.h"
+
 
 using namespace std;
 
 int main()
 {
-    ArbolAVL* arbol = new ArbolAVL();
+    /*ReadJSON* r = new ReadJSON();
+
+    r->leerLibrerias();
+
+    delete r;*/
+
+    /*ArbolAVL* arbol = new ArbolAVL();
     Project* p = new  Project();
     Project* p1 = new  Project();
     Project* p2 = new  Project();
@@ -30,7 +38,7 @@ int main()
 
     arbol->graficar();
 
-    delete arbol;
+    delete arbol;*/
 
    /* Matrix* matrix= new Matrix();
     //// parametros: nombre, posX 1, posY 1

@@ -1,5 +1,15 @@
 #include "Objeto.h"
 
+Objeto::Objeto()
+{
+	this->id = 0;
+	this->name = "";
+	this->letter = "";
+	this->color = "";
+	this->x = "";
+	this->y = "";
+}
+
 Objeto::Objeto(string name)
 {
 	this->id = 0;
@@ -64,7 +74,7 @@ string Objeto::getX() { return this->x; }
 void Objeto::setY(string y) { this->y = y; }
 string Objeto::getY() { return this->y; }
 
-/*void Objeto::setSimpleList(SimpleList<Point>* list)
+void Objeto::setSimpleList(SimpleList<Point>* list)
 {
 	this->list = list;
-}*/
+}

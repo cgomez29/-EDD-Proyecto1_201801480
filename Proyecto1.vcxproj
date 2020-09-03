@@ -161,6 +161,7 @@
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="Proyecto1.cpp" />
+    <ClCompile Include="ReadJSON.cpp" />
     <ClCompile Include="SimpleList.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -177,9 +178,21 @@
     <ClInclude Include="Objeto.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Project.h" />
+    <ClInclude Include="ReadJSON.h" />
     <ClInclude Include="SimpleList.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Users\crisg\Desktop\Librerias.json" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets" Condition="Exists('packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets'))" />
+  </Target>
 </Project>

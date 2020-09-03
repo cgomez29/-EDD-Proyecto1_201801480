@@ -23,6 +23,7 @@ private:
 	SimpleList<Point>* list = new SimpleList<Point>();
 
 public:
+	Objeto();
 	Objeto(string name);
 	int getId();
 	string getName();
@@ -34,7 +35,7 @@ public:
 	void setLetter(string letter);
 	void setColor(string color);
 	void insertPos(string x, string y);
-	//void setSimpleList(SimpleList<Point>* list);
+	void setSimpleList(SimpleList<Point>* list);
 
 	void setX(string x);
 	string getX();

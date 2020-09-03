@@ -2,6 +2,9 @@
 #define NODOB_H
 
 #include "Objeto.h"
+#include <iostream>
+
+using namespace std;
 
 class NodoB
 {

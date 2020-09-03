@@ -23,8 +23,14 @@ void ArbolB::Delete(NodoB* raiz)
 	delete this->raiz;
 }
 
-void ArbolB::insert(Objeto objeto)
+void ArbolB::insert(int id, string name, string letter, string color, SimpleList<Point>* list)
 {
+	Objeto objeto;
+	objeto.setId(id);
+	objeto.setName(name);
+	objeto.setLetter(letter);
+	objeto.setColor(color);
+	objeto.setSimpleList(list);
 	this->raiz = insert(this->raiz, objeto);
 }
 
@@ -108,3 +114,49 @@ Objeto ArbolB::findNodo(NodoB* raiz)
 	}
 }
 
+void ArbolB::graficar()
+{
+	stringstream cadena;
+	cadena << "digraph G{\n" << endl;
+	cadena << "node[shape=\"record\"]" << endl;
+	if (raiz != nullptr)
+	{
+		cadena << "node" << &(*this->raiz) << "[color=\"" << raiz->getObjeto().getColor() << "\",label= \"<f0>|<f1>" << this->raiz->getObjeto().getName()<< "|<f2>\"]" << endl;
+		this->graficar(&cadena, this->raiz, this->getRaiz()->getLeft(), true);
+		this->graficar(&cadena, this->raiz, this->getRaiz()->getRigth(), false);
+	}
+
+	cadena << "}" << endl;
+
+	cout << cadena.str() << endl;
+
+	ofstream file("salidaB.dot");
+	file << cadena.str();
+	file.close();
+	system("dot -Tpng salidaB.dot -o arbolB.png");
+}
+
+void ArbolB::graficar(stringstream* cadena, NodoB* padre, NodoB* actual, bool left)
+{
+	if (actual != nullptr)
+	{
+		*cadena << "node" << &(*actual) << "[color=\"" << actual->getObjeto().getColor() <<"\",label=\"<f0>|<f1>" << actual->getObjeto().getName() << "|<f2>\"]" << endl;
+		if (left)
+		{
+			*cadena << "node" << &(*padre) << ":f0->node" << &(*actual) << ":f1" << endl;
+		}
+		else
+		{
+			*cadena << "node" << &(*padre) << ":f2->node" << &(*actual) << ":f1" << endl;
+		}
+
+		graficar(cadena, actual, actual->getLeft(), true);
+		graficar(cadena, actual, actual->getRigth(), false);
+	}
+}
+
+
+NodoB* ArbolB::getRaiz()
+{
+	return this->raiz;
+}

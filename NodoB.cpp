@@ -1,8 +1,8 @@
 #include "NodoB.h"
 
-NodoB::NodoB(Objeto dato)
+NodoB::NodoB(Objeto objeto)
 {
-	this->objeto = dato;
+	this->objeto = objeto;
 	this->left = nullptr;
 	this->rigth = nullptr;
 }
