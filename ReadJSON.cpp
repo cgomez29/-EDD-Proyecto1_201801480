@@ -79,6 +79,17 @@ void ReadJSON::leerLibrerias()
 
 void ReadJSON::leerProyectos()
 {
+	string path = "C:\\Users\\crisg\\Desktop\\Proyectos.json";
+
+	ifstream file(path);
+	json j;
+
+	file >> j;
+	file.close();
+
+	int length = j["Niveles"].size();
+
+	int id = 0;
 }
 
 string ReadJSON::nameFile()
