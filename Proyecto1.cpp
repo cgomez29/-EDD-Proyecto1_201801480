@@ -40,17 +40,23 @@ int main()
 
     delete arbol;*/
 
-   /* Matrix* matrix= new Matrix();
+    Matrix* matrix= new Matrix();
     //// parametros: nombre, posX 1, posY 1
     Objeto* o = new Objeto("0");  
-    o->insertPos("0", "0");
+    //o->insertPos("0", "0");
+    o->insertPos("1", "0");
+    o->insertPos("0", "1");
     o->insertPos("1", "1");
+    //o->insertPos("0", "2");
+    o->insertPos("2", "0");
+    //o->insertPos("2", "2");
+    //o->insertPos("4", "4");
 
                    //H -> X , V -> Y
     matrix->add(o);
 
     matrix->graficar();
-    delete matrix;*/
+    delete matrix;
 
    
 

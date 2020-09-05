@@ -8,7 +8,7 @@ Matrix::Matrix()
 
 Matrix::~Matrix()
 {
-	Nodo* aux, * aux2, * tmp, * tmp2, *extra, *extra2;
+	Nodo* aux, * aux2, * tmp, * tmp2, * extra, * extra2;
 	aux = this->vertical;
 	tmp = this->horizontal;
 	while (aux != nullptr)
@@ -20,7 +20,7 @@ Matrix::~Matrix()
 			extra2 = aux2->getNext();
 			delete aux2;
 			aux2 = extra2;
-		} 
+		}
 		delete aux;
 		aux = extra;
 	}
@@ -53,7 +53,7 @@ Cabecera* Matrix::crearHorizontal(string x)
 	}
 	while (aux->getNext() != nullptr)
 	{
-		if (x.compare(aux->getNombre()) > 0 && x.compare(((Cabecera*)aux->getNext())->getNombre()) <=0)
+		if (x.compare(aux->getNombre()) > 0 && x.compare(((Cabecera*)aux->getNext())->getNombre()) <= 0)
 		{
 			Cabecera* nuevo = new Cabecera(x);
 			Cabecera* tmp = (Cabecera*)aux->getNext();
@@ -200,7 +200,7 @@ void Matrix::add(Objeto* obj)
 	string x = "";
 	string y = "";
 	Objeto* obj2;
-	
+
 	while (aux != nullptr)
 	{
 		obj2 = new Objeto(obj->getName());
@@ -218,7 +218,7 @@ void Matrix::add(Objeto* obj)
 	}
 }
 
-void Matrix::add(Objeto* obj,string x , string y )
+void Matrix::add(Objeto* obj, string x, string y)
 {
 	Cabecera* vertical = this->getVertical(y);
 	Cabecera* horizontal = this->getHorizontal(x);
@@ -232,8 +232,8 @@ void Matrix::add(Objeto* obj,string x , string y )
 		horizontal = crearHorizontal(x);
 	}
 
-	Nodo* left = getUltimoH(vertical, obj->getName());
-	Nodo* up = getUltimoV(horizontal, obj->getName());
+	Nodo* left = getUltimoH(vertical, x);
+	Nodo* up = getUltimoV(horizontal, y);
 
 	if (left->getNext() == nullptr) //->getNext()
 	{
@@ -276,7 +276,7 @@ void Matrix::graficar()
 	vertical = this->vertical;
 	while (vertical != nullptr)
 	{
-		cadena << "node" << &(*vertical) << "[label=\"" << ((Cabecera*)vertical)->getNombre() << "\", group=" << grupos<< "];\n"; // << 
+		cadena << "node" << &(*vertical) << "[label=\"" << ((Cabecera*)vertical)->getNombre() << "\", group=" << grupos << "];\n"; // << 
 		vertical = vertical->getDown();
 	}
 

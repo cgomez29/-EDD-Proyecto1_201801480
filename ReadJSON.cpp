@@ -15,16 +15,16 @@ void ReadJSON::leerLibrerias()
 		if (findFile[i] == '\\')
 		{
 			cadena << '\\';
-	
 		}
-		else
+		else if (findFile[i] != '\n')
 		{
 			cadena << findFile[i];
 		}
-
+	
 	}
-	cadena << "";
-	//string path = cadena.str(); */
+	
+	string path = cadena.str(); 
+	cout << path << "verificador" << endl;*/
 
 	string path = "C:\\Users\\crisg\\Desktop\\Librerias.json";
 

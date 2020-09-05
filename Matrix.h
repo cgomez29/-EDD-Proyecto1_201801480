@@ -22,6 +22,7 @@ private:
 	Nodo* getUltimoV(Cabecera* cabecera, string y);
 	Nodo* getUltimoH(Cabecera* cabecera, string x);
 	void add(Objeto* obj, string x, string y);
+	int valorAscii(string cadena);
 public:
 	Matrix();
 	~Matrix();

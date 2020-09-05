@@ -1,11 +1,11 @@
 digraph G{
 
 node[shape="record"]
-node0074B7B0[color="#FDB546",label= "<f0>|<f1>Sofa|<f2>"]
-node0074A880[color="#E6E6E6",label="<f0>|<f1>Television|<f2>"]
-node0074B7B0:f2->node0074A880:f1
-node0074A6D0[color="#50CB0A",label="<f0>|<f1>planta|<f2>"]
-node0074A880:f2->node0074A6D0:f1
-node0074B2A0[color="#0A18CB",label="<f0>|<f1>mesa|<f2>"]
-node0074A6D0:f2->node0074B2A0:f1
+node0103AF40[color="#FDB546",label= "<f0>|<f1>Sofa|<f2>"]
+node0103A5F8[color="#E6E6E6",label="<f0>|<f1>Television|<f2>"]
+node0103AF40:f2->node0103A5F8:f1
+node0103A6D0[color="#50CB0A",label="<f0>|<f1>planta|<f2>"]
+node0103A5F8:f2->node0103A6D0:f1
+node0103B0F0[color="#0A18CB",label="<f0>|<f1>mesa|<f2>"]
+node0103A6D0:f2->node0103B0F0:f1
 }
