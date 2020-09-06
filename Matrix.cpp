@@ -114,44 +114,50 @@ Cabecera* Matrix::crearVertical(string y)
 //cabecera, nombre del objeto
 Nodo* Matrix::getUltimoH(Cabecera* cabecera, string x)
 {
+	int xAscii = stoi(x);
 	if (cabecera->getNext() == nullptr)
 	{
 		return cabecera;
 	}
 	Nodo* aux = cabecera->getNext();
+
+	if (xAscii <= stoi(((Objeto*)aux)->getX()))
+	{
+		return cabecera;
+	}
+
 	while (aux->getNext() != nullptr)
 	{
-		if (x.compare(((Objeto*)aux)->getX()) <= 0)
+		if (xAscii > stoi(((Objeto*)aux)->getX()) && xAscii <= stoi(((Objeto*)aux->getNext())->getX()))
 		{
 			return aux;
 		}
 		aux = aux->getNext();
-	}
-	if (x.compare(((Objeto*)aux)->getX()) <= 0)
-	{
-		return aux->getPrevious();
 	}
 	return aux;
 }
 
 Nodo* Matrix::getUltimoV(Cabecera* cabecera, string y)
 {
+	int yAscii = stoi(y);
 	if (cabecera->getDown() == nullptr)
 	{
 		return cabecera;
 	}
 	Nodo* aux = cabecera->getDown();
+
+	if (yAscii <= stoi(((Objeto*)aux)->getY()))
+	{
+		return cabecera;
+	}
+
 	while (aux->getDown() != nullptr)
 	{
-		if (y.compare(((Objeto*)aux)->getY()) <= 0)
+		if (yAscii > stoi(((Objeto*)aux)->getY()) && yAscii <= stoi(((Objeto*)aux->getDown())->getY()))
 		{
 			return aux;
 		}
 		aux = aux->getDown();
-	}
-	if (y.compare(((Objeto*)aux)->getY()) <= 0)
-	{
-		return aux->getUp();
 	}
 	return aux;
 }
@@ -385,3 +391,14 @@ void Matrix::graficar()
 	cout << cadena.str() << endl;
 
 }
+
+void Matrix::setName(string name)
+{
+	this->name = name;
+}
+
+string Matrix::getName()
+{
+	return this->name;
+}
+

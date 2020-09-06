@@ -22,12 +22,14 @@ private:
 	Nodo* getUltimoV(Cabecera* cabecera, string y);
 	Nodo* getUltimoH(Cabecera* cabecera, string x);
 	void add(Objeto* obj, string x, string y);
-	int valorAscii(string cadena);
+	string name;
 public:
 	Matrix();
 	~Matrix();
 	void add(Objeto* obj);
 	void graficar();
+	void setName(string name);
+	string getName();
 };
 
 #endif //MATRIX_H

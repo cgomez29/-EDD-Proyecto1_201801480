@@ -87,9 +87,79 @@ void ReadJSON::leerProyectos()
 	file >> j;
 	file.close();
 
-	int length = j["Niveles"].size();
+	string nombreProyecto = "";
+	string nameNivel = "";
+	int inicioX = 0;
+	int inicioY = 0;
+	int finalX = 0;
+	int finalY = 0;
+	string colorParedes = "";
 
+	// Ventanas
+
+	//Objetos
 	int id = 0;
+	string nombre = "";
+	string letra = "";
+	string color = "";
+	int x = 0;
+	int y = 0;
+	int lengthNiveles = 0;
+
+	int length = j["proyectos"].size();
+
+	for (int i = 0; i < length; i++)
+	{
+		json proyecto = j["proyectos"][i];
+		nombreProyecto = proyecto["nombre"];
+		json niveles = proyecto["niveles"];
+
+		if (niveles != NULL)
+		{
+			for (int x = 0; x < niveles.size(); x++)
+			{
+				json nivel = niveles[x];
+				if (nivel["paredes"] != NULL) {
+					for (int y = 0; y < nivel["paredes"].size(); y++)
+					{
+						json paredes = nivel["paredes"][y];
+						inicioX = paredes["inicio"][0];
+						inicioY = paredes["inicio"][1];
+						finalX = paredes["final"][0];
+						finalY = paredes["final"][1];
+						colorParedes = paredes["color"];
+					}
+				}
+
+				if (nivel["ventanas"] != NULL)
+				{
+				}
+
+				if (nivel["objetos"] != NULL)
+				{
+					for (int o = 0; o < nivel["objetos"].size() ; o++)
+					{
+						json objetos = nivel["objetos"];
+
+						id = objetos[o]["identificador"];
+						nombre = objetos[o]["nombre"];
+						letra = objetos[o]["letra"];
+						color = objetos[o]["color"];
+						json puntos = objetos[o]["puntos"];
+
+						for (int p = 0; p < puntos.size(); p++)
+						{
+							x = puntos[p]["x"];
+							y = puntos[p]["y"];
+						}
+					}
+
+				}
+
+			}
+		}
+	}
+
 }
 
 string ReadJSON::nameFile()
