@@ -10,6 +10,16 @@ Objeto::Objeto()
 	this->y = "";
 }
 
+Objeto::Objeto(int id, string nombre, string letter, string color, SimpleList<Point>* list)
+{
+	this->id = id;
+	this->name = nombre;
+	this->letter = letter;
+	this->color = color;
+	this->list = list;
+
+}
+
 Objeto::Objeto(string name)
 {
 	this->id = 0;

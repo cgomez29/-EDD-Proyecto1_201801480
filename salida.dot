@@ -1,13 +1,5 @@
 digraph G{
 
 node[shape="record"]
-node00FC68A0[label= "<f0>|<f1>Proyecto 5 factor:0|<f2>"]
-node00FC69E0[label="<f0>|<f1>Proyecto 1 factor:1|<f2>"]
-node00FC68A0:f0->node00FC69E0:f1
-node00FD19A8[label="<f0>|<f1>Proyecto 2 factor:0|<f2>"]
-node00FC69E0:f2->node00FD19A8:f1
-node00FD1950[label="<f0>|<f1>Proyecto 7 factor:1|<f2>"]
-node00FC68A0:f2->node00FD1950:f1
-node00FD1A00[label="<f0>|<f1>Proyecto 8 factor:0|<f2>"]
-node00FD1950:f2->node00FD1A00:f1
+node016C6A20[label= "<f0>|<f1>Proyecto1|<f2>"]
 }

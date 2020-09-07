@@ -12,14 +12,16 @@ class Project
 {
 private:
 	string name;
-	SimpleList<Matrix>* listNivel = new SimpleList<Matrix>();
+	SimpleList<Matrix>* listNivel;
 
 public:
 	Project();
-	void setName(string name);
-	void addNivel(Matrix nivel);
+	Project(string name, SimpleList<Matrix>* list);
 	SimpleList<Matrix>* getListNivel();
 	string getName();
+	void setName(string name);
+
+	void setList(SimpleList<Matrix>* list);
 };
 
 #endif // PROJECT_H

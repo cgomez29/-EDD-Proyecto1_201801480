@@ -20,10 +20,11 @@ private:
 	string color;
 	string x;
 	string y;
-	SimpleList<Point>* list = new SimpleList<Point>();
+	SimpleList<Point>* list;
 
 public:
 	Objeto();
+	Objeto(int id, string nombre, string letter, string color, SimpleList<Point>* list);
 	Objeto(string name);
 	int getId();
 	string getName();

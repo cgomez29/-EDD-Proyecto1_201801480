@@ -10,6 +10,7 @@
 #include <sstream>
 #include <filesystem>
 #include "ArbolB.h"
+#include "ArbolAVL.h"
 
 using json = nlohmann::json;
 using namespace std;
@@ -17,6 +18,10 @@ using namespace std;
 class ReadJSON
 {
 private:
+	ArbolB* treeB = new ArbolB();
+	ArbolAVL* treeAVL = new ArbolAVL();
+
+
 public:
 	void leerLibrerias();
 	void leerProyectos();

@@ -8,7 +8,7 @@ Matrix::Matrix()
 
 Matrix::~Matrix()
 {
-	Nodo* aux, * aux2, * tmp, * tmp2, * extra, * extra2;
+	/*Nodo* aux, * aux2, * tmp, * tmp2, * extra, * extra2;
 	aux = this->vertical;
 	tmp = this->horizontal;
 	while (aux != nullptr)
@@ -30,11 +30,12 @@ Matrix::~Matrix()
 		tmp2 = tmp->getNext();
 		delete tmp;
 		tmp = tmp2;
-	}
+	}*/
 }
 
 Cabecera* Matrix::crearHorizontal(string x)
 {
+	int xAscii = stoi(x);
 	if (this->horizontal == nullptr)
 	{
 		Cabecera* nueva = new Cabecera(x);
@@ -43,7 +44,7 @@ Cabecera* Matrix::crearHorizontal(string x)
 	}
 
 	Cabecera* aux = this->horizontal;
-	if (x.compare(aux->getNombre()) < 0)
+	if (xAscii <= stoi(aux->getNombre()))
 	{
 		Cabecera* nueva = new Cabecera(x);
 		nueva->setNext(aux);
@@ -53,7 +54,7 @@ Cabecera* Matrix::crearHorizontal(string x)
 	}
 	while (aux->getNext() != nullptr)
 	{
-		if (x.compare(aux->getNombre()) > 0 && x.compare(((Cabecera*)aux->getNext())->getNombre()) <= 0)
+		if (xAscii > stoi(aux->getNombre()) && xAscii  <= stoi(((Cabecera*)aux->getNext())->getNombre()))
 		{
 			Cabecera* nuevo = new Cabecera(x);
 			Cabecera* tmp = (Cabecera*)aux->getNext();
@@ -74,6 +75,7 @@ Cabecera* Matrix::crearHorizontal(string x)
 
 Cabecera* Matrix::crearVertical(string y)
 {
+	int yAscii = stoi(y);
 	if (this->vertical == nullptr)
 	{
 		Cabecera* nueva = new Cabecera(y);
@@ -82,7 +84,7 @@ Cabecera* Matrix::crearVertical(string y)
 	}
 
 	Cabecera* aux = this->vertical;
-	if (y.compare(aux->getNombre()) < 0)
+	if ( yAscii <= stoi(aux->getNombre()))
 	{
 		Cabecera* nueva = new Cabecera(y);
 		nueva->setDown(aux);
@@ -92,7 +94,7 @@ Cabecera* Matrix::crearVertical(string y)
 	}
 	while (aux->getDown() != nullptr)
 	{
-		if (y.compare(aux->getNombre()) > 0 && y.compare(((Cabecera*)aux->getDown())->getNombre()) <= 0)
+		if (yAscii > stoi(aux->getNombre()) && yAscii <= stoi(((Cabecera*)aux->getDown())->getNombre()))
 		{
 			Cabecera* nuevo = new Cabecera(y);
 			Cabecera* tmp = (Cabecera*)aux->getDown();
@@ -134,6 +136,7 @@ Nodo* Matrix::getUltimoH(Cabecera* cabecera, string x)
 		}
 		aux = aux->getNext();
 	}
+
 	return aux;
 }
 
@@ -159,6 +162,7 @@ Nodo* Matrix::getUltimoV(Cabecera* cabecera, string y)
 		}
 		aux = aux->getDown();
 	}
+
 	return aux;
 }
 
@@ -200,9 +204,12 @@ Cabecera* Matrix::getVertical(string y)
 	return nullptr;
 }
 
-void Matrix::add(Objeto* obj)
+void Matrix::add(int id, string nombre, string letter, string color, SimpleList<Point>* list)
 {
-	NodoSL<Point>* aux = obj->getList()->getHead();
+
+	Objeto* obj = new Objeto(id, nombre, letter, color, list);
+
+	NodoSL<Point>* aux = list->getHead();
 	string x = "";
 	string y = "";
 	Objeto* obj2;
@@ -222,6 +229,15 @@ void Matrix::add(Objeto* obj)
 
 		aux = aux->getSiguiente();
 	}
+
+	/*cout << "-----------------" << endl;
+	while (aux != nullptr)
+	{
+		
+		cout << "X: " << aux->getValue().getX() << " Y: " << aux->getValue().getY() << endl;
+		aux = aux->getSiguiente();
+	}
+	cout << "-----------------" << endl;*/
 }
 
 void Matrix::add(Objeto* obj, string x, string y)
@@ -271,7 +287,7 @@ void Matrix::add(Objeto* obj, string x, string y)
 }
 
 
-void Matrix::graficar()
+/*void Matrix::graficar()
 {
 	int grupos = 0;
 	Nodo* vertical;
@@ -282,7 +298,7 @@ void Matrix::graficar()
 	vertical = this->vertical;
 	while (vertical != nullptr)
 	{
-		cadena << "node" << &(*vertical) << "[label=\"" << ((Cabecera*)vertical)->getNombre() << "\", group=" << grupos << "];\n"; // << 
+		cadena << "node" << &(*vertical) << "[label=\"" << ((Cabecera*)vertical)->getNombre() << "\", group=" << grupos << "];\n";
 		vertical = vertical->getDown();
 	}
 
@@ -291,7 +307,7 @@ void Matrix::graficar()
 	int temp = grupos;
 	while (horizontal != nullptr)
 	{
-		cadena << "node" << &(*horizontal) << "[label=\"" << ((Cabecera*)horizontal)->getNombre() << "\", group=" << grupos << "];\n"; //<<
+		cadena << "node" << &(*horizontal) << "[label=\"" << ((Cabecera*)horizontal)->getNombre() << "\", group=" << grupos << "];\n"; 
 		horizontal = horizontal->getNext();
 		grupos++;
 	}
@@ -313,7 +329,7 @@ void Matrix::graficar()
 		horizontal = horizontal->getNext();
 	}
 
-	vertical = this->vertical;
+	//vertical = this->vertical;
 	horizontal = this->horizontal;
 	while (horizontal != nullptr)
 	{
@@ -321,7 +337,7 @@ void Matrix::graficar()
 
 		while (aux != nullptr)
 		{
-			cadena << "node" << &(*aux) << "[shape=\"circle\", color=\"green\", label=\"" << ((Objeto*)aux)->getName() << "\"" << ", group = " << grupos << "];\n";
+			cadena << "node" << &(*aux) << "[shape=\"circle\", fontcolor=\"white\", color=\"" << ((Objeto*)aux)->getColor() << "\", style=\"filled\", label=\"" << ((Objeto*)aux)->getName() << "\"" << ", group = " << grupos << "];\n";
 			aux = aux->getDown();
 		}
 		grupos++;
@@ -360,7 +376,6 @@ void Matrix::graficar()
 		//nodoo
 		cadena << "nodo->node" << &(*this->vertical) << "\n";
 		cadena << "nodo->node" << &(*this->horizontal) << "\n";
-		//frank
 		cadena << "{rank=\"same\";nodo;node" << &(*this->horizontal);
 		horizontal = this->horizontal;
 		while (horizontal != nullptr)
@@ -391,6 +406,127 @@ void Matrix::graficar()
 	cout << cadena.str() << endl;
 
 }
+*/
+void Matrix::graficar()
+{
+	int grupos = 0;
+	Nodo* vertical;
+	Nodo* horizontal;
+	ostringstream cadena;
+	cadena << "digraph G{" << endl << "node[shape=\"box\"];\n graph[splines=\"ortho\"];" << endl;
+	cadena << "nodo[label=\"Nivel " << getName() <<"\"; group=0];\n";
+	vertical = this->vertical;
+	while (vertical != nullptr)
+	{
+		cadena << "node" << &(*vertical) << "[label=\"" << ((Cabecera*)vertical)->getNombre() << "\", group=" << grupos << "];\n";
+		vertical = vertical->getDown();
+	}
+
+	grupos++;
+	horizontal = this->horizontal;
+	int temp = grupos;
+	while (horizontal != nullptr)
+	{
+		cadena << "node" << &(*horizontal) << "[label=\"" << ((Cabecera*)horizontal)->getNombre() << "\", group=" << grupos << "];\n";
+		horizontal = horizontal->getNext();
+		grupos++;
+	}
+	grupos = temp;
+
+	vertical = this->vertical;
+	while (vertical->getDown() != nullptr)
+	{
+		cadena << "node" << &(*vertical) << "->node" << &(*vertical->getDown()) << ";\n";
+		cadena << "node" << &(*vertical->getDown()) << "->node" << &(*vertical) << ";\n";
+		vertical = vertical->getDown();
+	}
+
+	horizontal = this->horizontal;
+	while (horizontal->getNext() != nullptr)
+	{
+		cadena << "node" << &(*horizontal) << "->node" << &(*horizontal->getNext()) << ";\n";
+		cadena << "node" << &(*horizontal->getNext()) << "->node" << &(*horizontal) << ";\n";
+		horizontal = horizontal->getNext();
+	}
+
+	//vertical = this->vertical;
+	horizontal = this->horizontal;
+	while (horizontal != nullptr)
+	{
+		Nodo* aux = horizontal->getDown();
+
+		while (aux != nullptr)
+		{
+			cadena << "node" << &(*aux) << "[shape=\"circle\", fontcolor=\"white\", color=\"" << ((Objeto*)aux)->getColor() << "\", style=\"filled\", label=\"" << ((Objeto*)aux)->getName() << "\"" << ", group = " << grupos << "];\n";
+			aux = aux->getDown();
+		}
+		grupos++;
+		horizontal = horizontal->getNext();
+	}
+
+	horizontal = this->horizontal;
+	while (horizontal != nullptr)
+	{
+		Nodo* aux = horizontal;
+
+		while (aux->getDown() != nullptr)
+		{
+			cadena << "node" << &(*aux) << "->node" << &(*aux->getDown()) << ";\n";
+			cadena << "node" << &(*aux->getDown()) << "->node" << &(*aux) << ";\n";
+			aux = aux->getDown();
+		}
+		horizontal = horizontal->getNext();
+	}
+
+	vertical = this->vertical;
+	while (vertical != nullptr)
+	{
+		Nodo* aux = vertical;
+		while (aux->getNext() != nullptr)
+		{
+			cadena << "node" << &(*aux) << "->node" << &(*aux->getNext()) << ";\n";
+			cadena << "node" << &(*aux->getNext()) << "->node" << &(*aux) << ";\n";
+			aux = aux->getNext();
+		}
+		vertical = vertical->getDown();
+	}
+
+	if (this->vertical != nullptr)
+	{
+		//nodoo
+		cadena << "nodo->node" << &(*this->vertical) << "\n";
+		cadena << "nodo->node" << &(*this->horizontal) << "\n";
+		cadena << "{rank=\"same\";nodo;node" << &(*this->horizontal);
+		horizontal = this->horizontal;
+		while (horizontal != nullptr)
+		{
+			//nodo
+			cadena << ";node" << &(*horizontal);
+			horizontal = horizontal->getNext();
+		}
+		cadena << "};" << endl;
+	}
+
+	vertical = this->vertical;
+	while (vertical != nullptr)
+	{
+		Nodo* aux = vertical->getNext();
+
+		cadena << "{rank=\"same\";node" << &(*vertical);
+		while (aux != nullptr)
+		{
+			cadena << ";node" << &(*aux);
+			aux = aux->getNext();
+		}
+		cadena << "};" << endl;
+		vertical = vertical->getDown();
+	}
+
+	cadena << "}" << endl;
+	cout << cadena.str() << endl;
+
+}
+
 
 void Matrix::setName(string name)
 {

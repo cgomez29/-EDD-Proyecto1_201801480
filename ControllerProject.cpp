@@ -52,9 +52,6 @@ void ControllerProject::agregarNivel(Project project)
 {
 
     Matrix matriz = Matrix();
-
-    project.addNivel(matriz);
-
 }
 
 void  ControllerProject::editarNivel(Project project)

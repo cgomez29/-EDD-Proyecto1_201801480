@@ -131,7 +131,7 @@ void ArbolAVL::graficar()
 	cadena << "node[shape=\"record\"]" << endl;
 	if (raiz != nullptr)
 	{
-		cadena << "node" << &(*this->raiz) << "[label= \"<f0>|<f1>"<< this->raiz->getProject().getName()<< "factor:" << this->raiz->getFactor()<< "|<f2>\"]" << endl;
+		cadena << "node" << &(*this->raiz) << "[label= \"<f0>|<f1>"<< this->raiz->getProject().getName()<</* "factor:" << this->raiz->getFactor()<<*/ "|<f2>\"]" << endl;
 		this->graficar(&cadena, this->raiz, this->getRaiz()->getLeft(), true);
 		this->graficar(&cadena, this->raiz, this->getRaiz()->getRigth(), false);
 	}

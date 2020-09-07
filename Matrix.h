@@ -4,6 +4,8 @@
 #include "Nodo.h"
 #include "Cabecera.h"
 #include "Objeto.h"
+#include "SimpleList.h"
+#include "Point.h"
 #include <ostream>
 #include <sstream>
 #include <fstream>
@@ -26,7 +28,7 @@ private:
 public:
 	Matrix();
 	~Matrix();
-	void add(Objeto* obj);
+	void add(int id, string nombre, string letter, string color, SimpleList<Point>* list);
 	void graficar();
 	void setName(string name);
 	string getName();

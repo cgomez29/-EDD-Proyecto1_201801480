@@ -4,6 +4,13 @@
 Project::Project()
 {
 	this->name = "";
+
+}
+
+Project::Project(string name, SimpleList<Matrix>* list)
+{
+	this->name = name;
+	this->listNivel = list;
 }
 
 void Project::setName(string name)
@@ -11,14 +18,14 @@ void Project::setName(string name)
 	this->name = name;
 }
 
-void Project::addNivel(Matrix nivel)
-{
-	this->listNivel->add(nivel);
-}
-
 SimpleList<Matrix>* Project::getListNivel()
 {
 	return this->listNivel;
+}
+
+void Project::setList(SimpleList<Matrix>* list)
+{
+	this->listNivel = list;
 }
 
 
