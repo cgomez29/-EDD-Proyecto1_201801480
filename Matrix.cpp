@@ -8,7 +8,7 @@ Matrix::Matrix()
 
 Matrix::~Matrix()
 {
-	/*Nodo* aux, * aux2, * tmp, * tmp2, * extra, * extra2;
+	Nodo* aux, * aux2, * tmp, * tmp2, * extra, * extra2;
 	aux = this->vertical;
 	tmp = this->horizontal;
 	while (aux != nullptr)
@@ -30,7 +30,7 @@ Matrix::~Matrix()
 		tmp2 = tmp->getNext();
 		delete tmp;
 		tmp = tmp2;
-	}*/
+	}
 }
 
 Cabecera* Matrix::crearHorizontal(string x)
@@ -204,31 +204,13 @@ Cabecera* Matrix::getVertical(string y)
 	return nullptr;
 }
 
-void Matrix::add(int id, string nombre, string letter, string color, SimpleList<Point>* list)
+void Matrix::add(int id, string nombre, string letter, string color, string x, string y)
 {
 
-	Objeto* obj = new Objeto(id, nombre, letter, color, list);
+	Objeto* obj = new Objeto(id, nombre, letter, color, x, y);
 
-	NodoSL<Point>* aux = list->getHead();
-	string x = "";
-	string y = "";
-	Objeto* obj2;
-
-	while (aux != nullptr)
-	{
-		obj2 = new Objeto(obj->getName());
-		x = aux->getValue().getX();
-		y = aux->getValue().getY();
-		obj2->setColor(obj->getColor());
-		obj2->setLetter(obj->getLetter());
-
-		obj2->setX(x);
-		obj2->setY(y);
-
-		add(obj2, x, y);
-
-		aux = aux->getSiguiente();
-	}
+	
+	add(obj, x, y);
 
 	/*cout << "-----------------" << endl;
 	while (aux != nullptr)

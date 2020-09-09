@@ -11,6 +11,7 @@
 #include <filesystem>
 #include "ArbolB.h"
 #include "ArbolAVL.h"
+#include "SimpleListP.h"
 
 using json = nlohmann::json;
 using namespace std;

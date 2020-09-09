@@ -10,14 +10,23 @@ Objeto::Objeto()
 	this->y = "";
 }
 
-Objeto::Objeto(int id, string nombre, string letter, string color, SimpleList<Point>* list)
+Objeto::Objeto(int id, string nombre, string letter, string color, SimpleListP* list)
 {
 	this->id = id;
 	this->name = nombre;
 	this->letter = letter;
 	this->color = color;
 	this->list = list;
+}
 
+Objeto::Objeto(int id, string nombre, string letter, string color, string x, string y)
+{
+	this->id = id;
+	this->name = nombre;
+	this->letter = letter;
+	this->color = color;
+	this->x = x;
+	this->y = y;
 }
 
 Objeto::Objeto(string name)
@@ -57,7 +66,7 @@ string Objeto::getColor()
 	return this->color;
 }
 
-SimpleList<Point>* Objeto::getList()
+SimpleListP* Objeto::getList()
 {
 	return this->list;
 }
@@ -79,12 +88,26 @@ void Objeto::setColor(string color)
 	this->color = color;
 }
 
-void Objeto::setX(string x) { this->x = x; }
-string Objeto::getX() { return this->x; }
-void Objeto::setY(string y) { this->y = y; }
-string Objeto::getY() { return this->y; }
+void Objeto::setX(string x) {
+	this->x = x; 
+}
 
-void Objeto::setSimpleList(SimpleList<Point>* list)
+string Objeto::getX() 
+{ 
+	return this->x; 
+}
+
+void Objeto::setY(string y) 
+{ 
+	this->y = y; 
+}
+
+string Objeto::getY() 
+{ 
+	return this->y; 
+}
+
+void Objeto::setSimpleList(SimpleListP* list)
 {
 	this->list = list;
 }

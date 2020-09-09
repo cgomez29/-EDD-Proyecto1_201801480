@@ -2,9 +2,8 @@
 #define PROJECT_H
 
 #include "Matrix.h" 
-#include "NosoSL.h"
-#include "SimpleList.h"
 #include <iostream>
+#include "SimpleListM.h"
 
 using namespace std;
 
@@ -12,16 +11,16 @@ class Project
 {
 private:
 	string name;
-	SimpleList<Matrix>* listNivel;
+	SimpleListM* listNivel;
 
 public:
 	Project();
-	Project(string name, SimpleList<Matrix>* list);
-	SimpleList<Matrix>* getListNivel();
+	Project(string name, SimpleListM* list);
+	SimpleListM* getListNivel();
 	string getName();
 	void setName(string name);
 
-	void setList(SimpleList<Matrix>* list);
+	void setList(SimpleListM* list);
 };
 
 #endif // PROJECT_H

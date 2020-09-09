@@ -23,7 +23,7 @@ void ArbolB::Delete(NodoB* raiz)
 	delete this->raiz;
 }
 
-void ArbolB::insert(int id, string name, string letter, string color, SimpleList<Point>* list)
+void ArbolB::insert(int id, string name, string letter, string color, SimpleListP* list)
 {
 	Objeto objeto;
 	objeto.setId(id);

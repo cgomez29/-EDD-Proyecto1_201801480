@@ -3,10 +3,7 @@
 
 #include "Nodo.h"
 #include "Point.h"
-#include "NosoSL.h"
-#include "NosoSL.cpp"
-#include "SimpleList.h"
-#include "SimpleList.cpp"
+#include "SimpleListP.h"
 #include <iostream>
 
 using namespace std;
@@ -20,23 +17,24 @@ private:
 	string color;
 	string x;
 	string y;
-	SimpleList<Point>* list;
+	SimpleListP* list;
 
 public:
 	Objeto();
-	Objeto(int id, string nombre, string letter, string color, SimpleList<Point>* list);
+	Objeto(int id, string nombre, string letter, string color, SimpleListP* list);
+	Objeto(int id, string nombre, string letter, string color, string x, string y);
 	Objeto(string name);
 	int getId();
 	string getName();
 	string getLetter();
 	string getColor();
-	SimpleList<Point>* getList();
+	SimpleListP* getList();
 	void setId(int id);
 	void setName(string name);
 	void setLetter(string letter);
 	void setColor(string color);
 	void insertPos(string x, string y);
-	void setSimpleList(SimpleList<Point>* list);
+	void setSimpleList(SimpleListP* list);
 
 	void setX(string x);
 	string getX();

@@ -54,7 +54,7 @@ void ReadJSON::leerLibrerias()
 		color = j["Libreria"][i]["color"];
 
 		size = j["Libreria"][i]["puntos"].size();
-		SimpleList<Point>* list = new SimpleList<Point>();
+		SimpleListP* list = new SimpleListP();
 
 		for (int k = 0; k < size; k++)
 		{
@@ -69,7 +69,7 @@ void ReadJSON::leerLibrerias()
 
 		
 		treeB->insert(id, nombre, letra, color, list);
-		delete list;
+		///delete list;
 	}
 	treeB->graficar();
 
@@ -113,7 +113,7 @@ void ReadJSON::leerProyectos()
 		nombreProyecto = proyecto["nombre"];
 		json niveles = proyecto["niveles"];
 
-		SimpleList<Matrix>* listNivel = new SimpleList<Matrix>();
+		SimpleListM* listNivel = new SimpleListM();
 
 		if (niveles != NULL)
 		{
@@ -134,7 +134,7 @@ void ReadJSON::leerProyectos()
 
 					for (int y = 0; y < nivel["paredes"].size(); y++)
 					{
-						SimpleList<Point>* listPoiters = new SimpleList<Point>();
+						SimpleListP* listPoiters = new SimpleListP();
 						json paredes = nivel["paredes"][y];
 						inicioX = paredes["inicio"][0];
 						inicioY = paredes["inicio"][1];
@@ -150,8 +150,9 @@ void ReadJSON::leerProyectos()
 							int contador = inicioX;
 							while (contador <= finalX)
 							{
-								Point point = Point(to_string(contador), to_string(inicioY));
-								listPoiters->add(point);
+								//Point point = Point(to_string(contador), to_string(inicioY));
+								//listPoiters->add(point);
+								matrix->add(0, "Pared", "P", colorParedes, to_string(contador), to_string(inicioY));
 								contador = contador + 1;
 							}
 						}
@@ -160,13 +161,13 @@ void ReadJSON::leerProyectos()
 							int contador = inicioY;
 							while (contador <= finalY)
 							{
-								Point point = Point(to_string(inicioX), to_string((contador)));
-								listPoiters->add(point);
+								//Point point = Point(to_string(inicioX), to_string(contador));
+								//listPoiters->add(point);
+								matrix->add(0, "Pared", "P", colorParedes, to_string(inicioX), to_string(contador));
 								contador = contador + 1;
 							}
 						}
 						
-						matrix->add(0, "Pared", "P", colorParedes, listPoiters);
 
 					}
 				}
@@ -186,18 +187,18 @@ void ReadJSON::leerProyectos()
 						letra = objetos[o]["letra"];
 						color = objetos[o]["color"];
 						json puntos = objetos[o]["puntos"];
-						SimpleList<Point>* listPoiters = new SimpleList<Point>();
+						//SimpleListP* listPoiters = new SimpleListP();
 
 						for (int p = 0; p < puntos.size(); p++)
 						{
 							x = puntos[p]["x"];
 							y = puntos[p]["y"];
-							Point point = Point(to_string(x), to_string(y));
-							listPoiters->add(point);
+							matrix->add(id, nombre, letra, color, to_string(x), to_string(y));
+							//Point point = Point(to_string(x), to_string(y));
+							//listPoiters->add(point);
 						}
 
 
-						matrix->add(id, nombre, letra, color, listPoiters);
 					}
 
 				}
@@ -205,7 +206,7 @@ void ReadJSON::leerProyectos()
 			}
 			matrix->setName(nameNivel);
 			//matrix->graficar();
-			listNivel->add(*matrix);
+			listNivel->add(matrix);
 		}
 		Project project = Project(nombreProyecto, listNivel);
 		this->treeAVL->insertar(project);

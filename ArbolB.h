@@ -5,7 +5,7 @@
 #include <iostream>
 #include "Objeto.h"
 #include "Point.h"
-#include "SimpleList.h"
+#include "SimpleListP.h"
 #include <ostream>
 #include <sstream>
 #include <fstream>
@@ -25,7 +25,7 @@ private:
 public:
 	ArbolB();
 	~ArbolB();
-	void insert(int id, string name, string letter, string color, SimpleList<Point>* list);
+	void insert(int id, string name, string letter, string color, SimpleListP* list);
 	void delete_nodo(Objeto objeto);
 	void Delete();
 	void graficar();
