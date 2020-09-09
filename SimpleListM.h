@@ -18,6 +18,7 @@ public:
     void add(Matrix* matrix);
     void delete_item(int i);
     void imprimir();
+    NodoM* getHead();
 };
 
 #endif // SIMPLELISTP_H

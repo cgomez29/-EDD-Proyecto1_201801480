@@ -157,14 +157,18 @@
     <ClCompile Include="NodoAVL.cpp" />
     <ClCompile Include="NodoB.cpp" />
     <ClCompile Include="NodoM.cpp" />
+    <ClCompile Include="NodoO.cpp" />
     <ClCompile Include="NodoP.cpp" />
+    <ClCompile Include="NodoProject.cpp" />
     <ClCompile Include="Objeto.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="Proyecto1.cpp" />
     <ClCompile Include="ReadJSON.cpp" />
+    <ClCompile Include="SimpleListLibreria.cpp" />
     <ClCompile Include="SimpleListM.cpp" />
     <ClCompile Include="SimpleListP.cpp" />
+    <ClCompile Include="SimpleListProject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArbolAVL.h" />
@@ -177,13 +181,17 @@
     <ClInclude Include="NodoAVL.h" />
     <ClInclude Include="NodoB.h" />
     <ClInclude Include="NodoM.h" />
+    <ClInclude Include="NodoO.h" />
     <ClInclude Include="NodoP.h" />
+    <ClInclude Include="NodoProject.h" />
     <ClInclude Include="Objeto.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Project.h" />
     <ClInclude Include="ReadJSON.h" />
+    <ClInclude Include="SimpleListLibreria.h" />
     <ClInclude Include="SimpleListM.h" />
     <ClInclude Include="SimpleListP.h" />
+    <ClInclude Include="SimpleListProject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\Users\crisg\Desktop\Librerias.json" />

@@ -25,17 +25,16 @@ void ArbolB::Delete(NodoB* raiz)
 
 void ArbolB::insert(int id, string name, string letter, string color, SimpleListP* list)
 {
-	Objeto objeto;
-	objeto.setId(id);
-	objeto.setName(name);
-	objeto.setLetter(letter);
-	objeto.setColor(color);
-	objeto.setSimpleList(list);
+	Objeto* objeto = new Objeto(id, name, letter, color, list);
 	this->raiz = insert(this->raiz, objeto);
 }
 
+void ArbolB::insert(Objeto* objeto)
+{
+	this->raiz = insert(this->raiz, objeto);
+}
 
-NodoB* ArbolB::insert(NodoB* raiz, Objeto dato)
+NodoB* ArbolB::insert(NodoB* raiz, Objeto* dato)
 {
 	if (raiz == nullptr)
 	{
@@ -43,12 +42,12 @@ NodoB* ArbolB::insert(NodoB* raiz, Objeto dato)
 	}
 	else
 	{
-		if (dato.getId() < raiz->getObjeto().getId())
+		if (dato->getId() < raiz->getObjeto()->getId())
 		{
 			NodoB* izq = insert(raiz->getLeft(), dato);
 			raiz->setLeft(izq);
 		}
-		else if (dato.getId() > raiz->getObjeto().getId())
+		else if (dato->getId() > raiz->getObjeto()->getId())
 		{
 			NodoB* der = insert(raiz->getRigth(), dato);
 			raiz->setRigth(der);
@@ -58,18 +57,18 @@ NodoB* ArbolB::insert(NodoB* raiz, Objeto dato)
 	return raiz;
 }
 
-void ArbolB::delete_nodo(Objeto valor)
+void ArbolB::delete_nodo(Objeto* valor)
 {
 	this->raiz = delete_nodo(this->raiz, valor);
 }
 
-NodoB* ArbolB::delete_nodo(NodoB* raiz, Objeto valor)
+NodoB* ArbolB::delete_nodo(NodoB* raiz, Objeto* valor)
 {
 	if (raiz == nullptr)
 	{
 		return nullptr;
 	}
-	if (valor.getId() == raiz->getObjeto().getId())
+	if (valor->getId() == raiz->getObjeto()->getId())
 	{
 		//cuando no tiene ningun hijo
 		if (raiz->getLeft() == nullptr && raiz->getRigth() == nullptr)
@@ -86,13 +85,13 @@ NodoB* ArbolB::delete_nodo(NodoB* raiz, Objeto valor)
 			return raiz->getRigth();
 		}
 		//cuando tiene dos hijos
-		Objeto smallValue = findNodo(raiz->getRigth());
+		Objeto* smallValue = findNodo(raiz->getRigth());
 		raiz->setObjeto(smallValue);
 		raiz->setRigth(delete_nodo(raiz->getRigth(), smallValue));
 		return raiz;
 	}
 
-	if (valor.getId() < raiz->getObjeto().getId())
+	if (valor->getId() < raiz->getObjeto()->getId())
 	{
 		raiz->setLeft(delete_nodo(raiz->getLeft(), valor));
 		return raiz;
@@ -101,7 +100,7 @@ NodoB* ArbolB::delete_nodo(NodoB* raiz, Objeto valor)
 	return raiz;
 }
 
-Objeto ArbolB::findNodo(NodoB* raiz)
+Objeto* ArbolB::findNodo(NodoB* raiz)
 {
 	// buscando el valor mas pequeño
 	if (raiz->getLeft() == nullptr)
@@ -121,7 +120,7 @@ void ArbolB::graficar()
 	cadena << "node[shape=\"record\"]" << endl;
 	if (raiz != nullptr)
 	{
-		cadena << "node" << &(*this->raiz) << "[color=\"" << raiz->getObjeto().getColor() << "\",label= \"<f0>|<f1>" << this->raiz->getObjeto().getName()<< "|<f2>\"]" << endl;
+		cadena << "node" << &(*this->raiz) << "[color=\"" << raiz->getObjeto()->getColor() << "\",label= \"<f0>|<f1>" << this->raiz->getObjeto()->getName()<< "|<f2>\"]" << endl;
 		this->graficar(&cadena, this->raiz, this->getRaiz()->getLeft(), true);
 		this->graficar(&cadena, this->raiz, this->getRaiz()->getRigth(), false);
 	}
@@ -140,7 +139,7 @@ void ArbolB::graficar(stringstream* cadena, NodoB* padre, NodoB* actual, bool le
 {
 	if (actual != nullptr)
 	{
-		*cadena << "node" << &(*actual) << "[color=\"" << actual->getObjeto().getColor() <<"\",label=\"<f0>|<f1>" << actual->getObjeto().getName() << "|<f2>\"]" << endl;
+		*cadena << "node" << &(*actual) << "[color=\"" << actual->getObjeto()->getColor() <<"\",label=\"<f0>|<f1>" << actual->getObjeto()->getName() << "|<f2>\"]" << endl;
 		if (left)
 		{
 			*cadena << "node" << &(*padre) << ":f0->node" << &(*actual) << ":f1" << endl;

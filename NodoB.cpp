@@ -1,13 +1,13 @@
 #include "NodoB.h"
 
-NodoB::NodoB(Objeto objeto)
+NodoB::NodoB(Objeto* objeto)
 {
 	this->objeto = objeto;
 	this->left = nullptr;
 	this->rigth = nullptr;
 }
 
-void NodoB::setObjeto(Objeto dato)
+void NodoB::setObjeto(Objeto* dato)
 {
 	this->objeto = dato;
 }
@@ -32,7 +32,7 @@ NodoB* NodoB::getRigth()
 	return this->rigth;
 }
 
-Objeto NodoB::getObjeto()
+Objeto* NodoB::getObjeto()
 {
 	return this->objeto;
 }

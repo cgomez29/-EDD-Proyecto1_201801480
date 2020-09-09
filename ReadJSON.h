@@ -9,9 +9,11 @@
 #include <fstream>
 #include <sstream>
 #include <filesystem>
-#include "ArbolB.h"
+#include "Objeto.h"
 #include "ArbolAVL.h"
 #include "SimpleListP.h"
+#include "SimpleListLibreria.h"
+#include "SimpleListProject.h"
 
 using json = nlohmann::json;
 using namespace std;
@@ -19,13 +21,10 @@ using namespace std;
 class ReadJSON
 {
 private:
-	ArbolB* treeB = new ArbolB();
-	ArbolAVL* treeAVL = new ArbolAVL();
-
-
+	
 public:
-	void leerLibrerias();
-	void leerProyectos();
+	SimpleListLibreria* leerLibrerias(string nameFile);
+	SimpleListProject* leerProyectos(string nameFile);
 
 	string nameFile();
 };

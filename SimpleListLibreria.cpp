@@ -1,46 +1,28 @@
-#include "SimpleListM.h"
-SimpleListM::SimpleListM()
+#include "SimpleListLibreria.h"
+
+SimpleListLibreria::SimpleListLibreria()
 {
     this->head = NULL;
     this->tail = NULL;
-    this->tam = 0;
 }
 
-void SimpleListM::add(Matrix* matrix) {
-    NodoM* nuevo = new NodoM(matrix);
+void SimpleListLibreria::add(Objeto* objeto) {
+    NodoO* nuevo = new NodoO(objeto);
     if (head == NULL) {
         this->head = nuevo;
         this->tail = nuevo;
-        tam++;
     }
     else {
         this->tail->setSiguiente(nuevo);
         this->tail = nuevo;
-        tam++;
     }
 }
 
-void SimpleListM::imprimir() {
-    NodoM* aux = this->head;
-    while (aux != NULL) {
-        cout << "Nombre nivel: " << aux->getMatrix()->getName() << endl;
-        aux = aux->getSiguiente();
-    }
-}
-
-NodoM* SimpleListM::getHead()
-{
-    return this->head;
-}
-
-int SimpleListM::size() {
-    return this->tam;
-}
 
 
-SimpleListM::~SimpleListM() {
-    NodoM* aux = this->head;
-    NodoM* temporal;
+SimpleListLibreria::~SimpleListLibreria() {
+    NodoO* aux = this->head;
+    NodoO* temporal;
     while (aux != NULL) {
         temporal = aux->getSiguiente();
         delete aux;
@@ -48,7 +30,12 @@ SimpleListM::~SimpleListM() {
     }
 }
 
-void SimpleListM::delete_item(int i) {
+NodoO* SimpleListLibreria::getHead()
+{
+    return this->head;
+}
+
+/*void SimpleListM::delete_item(int i) {
     NodoM* aux = this->head;
     NodoM* ant = aux;
     if (i < 0) { return; }
@@ -69,9 +56,4 @@ void SimpleListM::delete_item(int i) {
         ant = aux;
         aux = aux->getSiguiente();
     }
-}
-
-
-
-
-
+}*/

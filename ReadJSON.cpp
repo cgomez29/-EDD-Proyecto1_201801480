@@ -1,7 +1,7 @@
 #include "ReadJSON.h"
 
 
-void ReadJSON::leerLibrerias()
+SimpleListLibreria* ReadJSON::leerLibrerias(string nameFile)
 {
 	/*string findFile = nameFile();
 
@@ -45,6 +45,8 @@ void ReadJSON::leerLibrerias()
 	int y = 0;
 
 	int size = 0;
+	
+	SimpleListLibreria* listaObjeto = new SimpleListLibreria();
 
 	for (int i = 0; i < length; i++)
 	{
@@ -66,17 +68,16 @@ void ReadJSON::leerLibrerias()
 			p.setY(y + "");
 			list->add(p);
 		}
-
-		
-		treeB->insert(id, nombre, letra, color, list);
-		///delete list;
+		Objeto* obj = new Objeto(id, nombre, letra, color, list);
+		listaObjeto->add(obj);
 	}
-	treeB->graficar();
+
+	return listaObjeto;
 
 }
 
 
-void ReadJSON::leerProyectos()
+SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 {
 	string path = "C:\\Users\\crisg\\Desktop\\Proyectos.json";
  
@@ -106,6 +107,7 @@ void ReadJSON::leerProyectos()
 	int lengthNiveles = 0;
 
 	int length = j["proyectos"].size();
+	SimpleListProject* listProject = new SimpleListProject();
 
 	for (int i = 0; i < length; i++)
 	{
@@ -207,12 +209,13 @@ void ReadJSON::leerProyectos()
 			matrix->setName(nameNivel);
 			//matrix->graficar();
 			listNivel->add(matrix);
+		
 		}
-		Project project = Project(nombreProyecto, listNivel);
-		this->treeAVL->insertar(project);
-		this->treeAVL->graficar();
+		
+		Project* project = new Project(nombreProyecto, listNivel);
+		listProject->add(project);
 	}
-
+	return listProject;
 }
 
 string ReadJSON::nameFile()

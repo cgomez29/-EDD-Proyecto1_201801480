@@ -10,7 +10,7 @@ ArbolAVL::~ArbolAVL()
 	Delete(this->raiz);
 }
 
-NodoAVL* ArbolAVL::insertar(NodoAVL* raiz, Project project, bool& scape)
+NodoAVL* ArbolAVL::insertar(NodoAVL* raiz, Project* project, bool& scape)
 {
 	NodoAVL* n1;
 	if (raiz == nullptr)
@@ -18,7 +18,7 @@ NodoAVL* ArbolAVL::insertar(NodoAVL* raiz, Project project, bool& scape)
 		raiz = new NodoAVL(project);
 		scape = true;
 	}
-	else if (valorAscii(project.getName()) < valorAscii(raiz->getProject().getName()))
+	else if (valorAscii(project->getName()) < valorAscii(raiz->getProject()->getName()))
 	{
 		NodoAVL* izq = insertar(raiz->getLeft(), project, scape);
 		raiz->setLeft(izq);
@@ -50,7 +50,7 @@ NodoAVL* ArbolAVL::insertar(NodoAVL* raiz, Project project, bool& scape)
 			}
 		}
 	}
-	else if (valorAscii(project.getName()) > valorAscii(raiz->getProject().getName()))
+	else if (valorAscii(project->getName()) > valorAscii(raiz->getProject()->getName()))
 	{
 		NodoAVL* der = insertar(raiz->getRigth(), project, scape);
 		raiz->setRigth(der);
@@ -90,7 +90,6 @@ int ArbolAVL::valorAscii(string cadena)
 	for (int i = 0; i <= cadena.length(); i++)
 	{
 		caracter = cadena[i];
-
 		valor = valor + caracter;
 	}
 
@@ -98,7 +97,7 @@ int ArbolAVL::valorAscii(string cadena)
 	return valor;
 }
 
-void ArbolAVL::insertar(Project project)
+void ArbolAVL::insertar(Project* project)
 {
 	bool b = false;
 	bool* a = &b;
@@ -131,7 +130,7 @@ void ArbolAVL::graficar()
 	cadena << "node[shape=\"record\"]" << endl;
 	if (raiz != nullptr)
 	{
-		cadena << "node" << &(*this->raiz) << "[label= \"<f0>|<f1>"<< this->raiz->getProject().getName()<</* "factor:" << this->raiz->getFactor()<<*/ "|<f2>\"]" << endl;
+		cadena << "node" << &(*this->raiz) << "[label= \"<f0>|<f1>"<< this->raiz->getProject()->getName()<</* "factor:" << this->raiz->getFactor()<<*/ "|<f2>\"]" << endl;
 		this->graficar(&cadena, this->raiz, this->getRaiz()->getLeft(), true);
 		this->graficar(&cadena, this->raiz, this->getRaiz()->getRigth(), false);
 	}
@@ -150,7 +149,7 @@ void ArbolAVL::graficar(stringstream* cadena, NodoAVL* padre, NodoAVL* actual, b
 {
 	if (actual != nullptr)
 	{
-		*cadena << "node" << &(*actual) << "[label=\"<f0>|<f1>" << actual->getProject().getName() << "factor:" << actual->getFactor() << "|<f2>\"]"<< endl; 
+		*cadena << "node" << &(*actual) << "[label=\"<f0>|<f1>" << actual->getProject()->getName() << "factor:" << actual->getFactor() << "|<f2>\"]"<< endl; 
 		if (left)
 		{
 			*cadena << "node" << &(*padre) << ":f0->node" << &(*actual) << ":f1" << endl;
@@ -255,4 +254,38 @@ void ArbolAVL::Delete(NodoAVL* raiz)
 	Delete(raiz->getLeft());
 	Delete(raiz->getRigth());
 	delete raiz;
+}
+
+void ArbolAVL::inOrden(NodoAVL* nodo)
+{
+	//izquierdo, raiz, derecha
+	if (nodo != nullptr)
+	{
+		inOrden(nodo->getLeft());
+		cout << nodo->getProject()->getId() <<  ". " << nodo->getProject()->getName() << endl;
+		inOrden(nodo->getRigth());
+	}
+}
+
+void ArbolAVL::inOrden()
+{
+	inOrden(this->raiz);
+}
+
+NodoAVL* ArbolAVL::buscarNodo(int id)
+{
+	NodoAVL* aux = this->raiz;
+
+	if (aux != nullptr)
+	{
+		inOrden(aux->getLeft());
+		if (id = aux->getProject()->getId())
+		{
+			return aux;
+		}
+		inOrden(aux->getRigth());
+	}
+	else {
+		return nullptr;
+	}
 }

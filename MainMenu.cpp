@@ -4,6 +4,7 @@
 MainMenu::MainMenu()
 {
     this->controller = new ControllerProject();
+    this->contadorProyecto = 1;
 }
 
 
@@ -37,21 +38,19 @@ void MainMenu::menu()
             switch (entrada)
             {
             case 1:
-                this->controller->viewProjects();
+                verProjectos();
                 break;
             case 2:
                 break;
             case 3:
-                //cargar proyectos
-                readJson->leerProyectos();
+                llenarArbolAVL(readJson->leerProyectos("prueba"));
                 break;
             case 4:
                 break;
             case 5:
                 break;
             case 6:
-                //cargar librerias
-                readJson->leerLibrerias();
+                llenarArbolB(readJson->leerLibrerias("preuba"));
                 break;
             }
 
@@ -60,4 +59,67 @@ void MainMenu::menu()
         } while (entrada != 7);
     }
 
+}
+
+
+void MainMenu::llenarArbolB(SimpleListLibreria* list)
+{
+    NodoO* aux = list->getHead();
+    while (aux != NULL)
+    {
+        treeB->insert(aux->getObjeto());
+        aux = aux->getSiguiente();
+    }
+}
+
+void MainMenu::llenarArbolAVL(SimpleListProject* list)
+{
+    NodoProject* aux = list->getHead();
+
+    while (aux != NULL)
+    {
+        aux->getProject()->setId(contadorProyecto);
+        treeAVL->insertar(aux->getProject());
+        aux = aux->getSiguiente();
+        contadorProyecto++;
+    }
+}
+
+void MainMenu::verProjectos()
+{
+    int contador = 0;
+
+    do
+    {
+        system("cls");
+        cout << "Lista de proyectos" << endl;
+        treeAVL->inOrden();
+        cout << endl;
+        cout << "Ingrese el numero del proyecto a graficar" << endl;
+        cout << ">> ";
+        int id;
+        cin >> id;
+
+        NodoAVL* aux = treeAVL->buscarNodo(id);
+
+        if (aux != nullptr)
+        {
+            NodoM* headList = aux->getProject()->getListNivel()->getHead();
+        
+            while (headList != NULL)
+            {
+                headList->getMatrix()->graficar();
+                cin >> id;
+                headList = headList->getSiguiente();
+            }
+        
+        }
+        else
+        {
+            cout << "Numero no valido" << endl;
+            cin >> id;
+            contador = 1;
+        }
+    } while (contador != 0);
+    
 }

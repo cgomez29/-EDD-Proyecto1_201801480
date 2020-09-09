@@ -2,6 +2,7 @@
 SimpleListP::SimpleListP()
 {
     this->head = NULL;
+    this->tail = NULL;
     this->tam = 0;
 }
 

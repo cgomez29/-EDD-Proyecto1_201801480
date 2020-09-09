@@ -1,6 +1,6 @@
 #include "NodoAVL.h"
 
-NodoAVL::NodoAVL(Project project)
+NodoAVL::NodoAVL(Project* project)
 {
 	this->project = project;
 	this->left = nullptr;
@@ -38,12 +38,12 @@ int NodoAVL::getFactor()
 	return this->factorE;
 }
 
-void NodoAVL::setProject(Project project)
+void NodoAVL::setProject(Project* project)
 {
 	this->project = project;
 }
 
-Project NodoAVL::getProject()
+Project* NodoAVL::getProject()
 {
 	return this->project;
 }

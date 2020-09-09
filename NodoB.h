@@ -9,18 +9,18 @@ using namespace std;
 class NodoB
 {
 private:
-	Objeto objeto;
+	Objeto* objeto;
 	NodoB* left;
 	NodoB* rigth;
 
 public:
-	NodoB(Objeto objeto);
-	void setObjeto(Objeto objeto);
+	NodoB(Objeto* objeto);
+	void setObjeto(Objeto* objeto);
 	void setLeft(NodoB* left);
 	void setRigth(NodoB* rigth);
 	NodoB* getLeft();
 	NodoB* getRigth();
-	Objeto getObjeto();
+	Objeto* getObjeto();
 };
 
 #endif // NODOB_H

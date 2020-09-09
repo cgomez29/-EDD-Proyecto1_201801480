@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include "ArbolAVL.h"
+#include "ArbolB.h"
 #include "Project.h"
 #include "Matrix.h"
 
@@ -10,7 +11,7 @@ class ControllerProject
 {
 
 private: 
-    ArbolAVL* arbol = new ArbolAVL();
+    
     void selectedProject(Project project);
     void agregarNivel(Project project);
     void editarNivel(Project project);
