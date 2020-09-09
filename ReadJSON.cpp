@@ -119,11 +119,11 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 
 		if (niveles != NULL)
 		{
-			// creando nivel
-			Matrix* matrix = new Matrix();
 
 			for (int x = 0; x < niveles.size(); x++)
 			{
+				// creando nivel
+				Matrix* matrix = new Matrix();
 				json nivel = niveles[x];
 
 				nameNivel = to_string(nivel["nivel"]);
@@ -205,10 +205,10 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 
 				}
 
+				matrix->setName(nameNivel);
+				listNivel->add(matrix);
 			}
-			matrix->setName(nameNivel);
 			//matrix->graficar();
-			listNivel->add(matrix);
 		
 		}
 		
@@ -216,6 +216,130 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 		listProject->add(project);
 	}
 	return listProject;
+}
+
+SimpleListM* ReadJSON::leerNivel(string nameFile)
+{
+	
+	//string path = "C:\\Users\\crisg\\Desktop\\" + nameFile;
+	string path = "C:\\Users\\crisg\\Desktop\\Niveles.json";
+
+	ifstream file(path);
+	json j;
+
+	file >> j;
+	file.close();
+
+	string nameNivel = "";
+	int inicioX = 0;
+	int inicioY = 0;
+	int finalX = 0;
+	int finalY = 0;
+	string colorParedes = "";
+
+	// Ventanas
+
+	//Objetos
+	int id = 0;
+	string nombre = "";
+	string letra = "";
+	string color = "";
+	int x = 0;
+	int y = 0;
+	int lengthNiveles = 0;
+
+	
+	json niveles = j["niveles"];
+
+	SimpleListM* listNivel = new SimpleListM();
+
+	if (niveles != NULL)
+	{
+
+		for (int x = 0; x < niveles.size(); x++)
+		{
+			// creando nivel
+			Matrix* matrix = new Matrix();
+			json nivel = niveles[x];
+
+			nameNivel = to_string(nivel["nivel"]);
+			//Seteando nombre de nivel
+			matrix->setName(nameNivel);
+
+			if (nivel["paredes"] != NULL) {
+
+
+
+				for (int y = 0; y < nivel["paredes"].size(); y++)
+				{
+					SimpleListP* listPoiters = new SimpleListP();
+					json paredes = nivel["paredes"][y];
+					inicioX = paredes["inicio"][0];
+					inicioY = paredes["inicio"][1];
+					finalX = paredes["final"][0];
+					finalY = paredes["final"][1];
+					colorParedes = paredes["color"];
+
+					cout << paredes << endl;
+					//agregando paredes a la matrix 
+					//creando puntos
+					if (inicioY == finalY)
+					{
+						int contador = inicioX;
+						while (contador <= finalX)
+						{
+							matrix->add(0, "Pared", "P", colorParedes, to_string(contador), to_string(inicioY));
+							contador = contador + 1;
+						}
+					}
+					else
+					{
+						int contador = inicioY;
+						while (contador <= finalY)
+						{
+							matrix->add(0, "Pared", "P", colorParedes, to_string(inicioX), to_string(contador));
+							contador = contador + 1;
+						}
+					}
+
+
+				}
+			}
+
+			if (nivel["ventanas"] != NULL)
+			{
+			}
+
+			if (nivel["objetos"] != NULL)
+			{
+				for (int o = 0; o < nivel["objetos"].size(); o++)
+				{
+					json objetos = nivel["objetos"];
+
+					id = objetos[o]["identificador"];
+					nombre = objetos[o]["nombre"];
+					letra = objetos[o]["letra"];
+					color = objetos[o]["color"];
+					json puntos = objetos[o]["puntos"];
+
+					for (int p = 0; p < puntos.size(); p++)
+					{
+						x = puntos[p]["x"];
+						y = puntos[p]["y"];
+						matrix->add(id, nombre, letra, color, to_string(x), to_string(y));
+					}
+
+
+				}
+
+			}
+
+			listNivel->add(matrix);
+		}
+		return listNivel;
+	}
+
+	return nullptr;
 }
 
 string ReadJSON::nameFile()

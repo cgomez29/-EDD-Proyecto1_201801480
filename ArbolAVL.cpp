@@ -139,10 +139,11 @@ void ArbolAVL::graficar()
 
 	cout << cadena.str() << endl;
 
-	ofstream file("salida.dot");
+	ofstream file("TreeAVL.dot");
 	file << cadena.str();
 	file.close();
-	system("dot -Tpng salida.dot -o imagen.png");
+	system("dot -Tpng TreeAVL.dot -o TreeAVL.png");
+	system("TreeAVL.png");
 }
 
 void ArbolAVL::graficar(stringstream* cadena, NodoAVL* padre, NodoAVL* actual, bool left)

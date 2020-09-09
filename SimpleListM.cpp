@@ -9,14 +9,16 @@ SimpleListM::SimpleListM()
 void SimpleListM::add(Matrix* matrix) {
     NodoM* nuevo = new NodoM(matrix);
     if (head == NULL) {
+        nuevo->getMatrix()->setId(1);
         this->head = nuevo;
         this->tail = nuevo;
         tam++;
     }
     else {
+        tam++;
+        nuevo->getMatrix()->setId(tam);
         this->tail->setSiguiente(nuevo);
         this->tail = nuevo;
-        tam++;
     }
 }
 
@@ -48,13 +50,12 @@ SimpleListM::~SimpleListM() {
     }
 }
 
-void SimpleListM::delete_item(int i) {
+bool SimpleListM::delete_item(int i) {
     NodoM* aux = this->head;
     NodoM* ant = aux;
-    if (i < 0) { return; }
     while (aux != NULL) {
-        if (i == 0) {
-            this->tam--;
+        if (aux->getMatrix()->getId() == i) {
+            //this->tam--;
             ant->setSiguiente(aux->getSiguiente());
             if (aux == this->head) {
                 this->head = aux->getSiguiente();
@@ -63,12 +64,12 @@ void SimpleListM::delete_item(int i) {
                 this->tail = ant;
             }
             delete aux;
-            return;
+            return true;
         }
-        i--;
         ant = aux;
         aux = aux->getSiguiente();
     }
+    return false;
 }
 
 

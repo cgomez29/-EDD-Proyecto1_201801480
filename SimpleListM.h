@@ -16,7 +16,7 @@ public:
     ~SimpleListM();
     int size();
     void add(Matrix* matrix);
-    void delete_item(int i);
+    bool delete_item(int i);
     void imprimir();
     NodoM* getHead();
 };

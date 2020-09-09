@@ -24,6 +24,7 @@ private:
 	Nodo* getUltimoH(Cabecera* cabecera, string x);
 	void add(Objeto* obj, string x, string y);
 	string name;
+	int id;
 public:
 	Matrix();
 	~Matrix();
@@ -31,6 +32,8 @@ public:
 	void graficar();
 	void setName(string name);
 	string getName();
+	void setId(int id);
+	int getId();
 };
 
 #endif //MATRIX_H

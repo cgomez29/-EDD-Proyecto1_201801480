@@ -129,10 +129,11 @@ void ArbolB::graficar()
 
 	cout << cadena.str() << endl;
 
-	ofstream file("salidaB.dot");
+	ofstream file("treeB.dot");
 	file << cadena.str();
 	file.close();
-	system("dot -Tpng salidaB.dot -o arbolB.png");
+	system("dot -Tpng treeB.dot -o treeB.png");
+	system("treeB.png");
 }
 
 void ArbolB::graficar(stringstream* cadena, NodoB* padre, NodoB* actual, bool left)

@@ -505,8 +505,17 @@ void Matrix::graficar()
 	}
 
 	cadena << "}" << endl;
+	
 	cout << cadena.str() << endl;
 
+	string nameFile = getName() + ".dot";
+	string comando = "dot -Tpng " + getName() + ".dot -o " + "Nivel" + getName() + ".png";
+	string path = "Nivel" + getName() + ".png";
+	ofstream file(nameFile);
+	file << cadena.str();
+	file.close();
+	system(comando.c_str());
+	system(path.c_str());
 }
 
 
@@ -518,5 +527,15 @@ void Matrix::setName(string name)
 string Matrix::getName()
 {
 	return this->name;
+}
+
+void Matrix::setId(int id)
+{
+	this->id = id;
+}
+
+int Matrix::getId()
+{
+	return this->id;
 }
 
