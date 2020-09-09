@@ -41,6 +41,7 @@ void MainMenu::menu()
                 verProjectos();
                 break;
             case 2:
+                editarProyecto();
                 break;
             case 3:
                 llenarArbolAVL(readJson->leerProyectos("prueba"));
@@ -89,6 +90,7 @@ void MainMenu::llenarArbolAVL(SimpleListProject* list)
 
 void MainMenu::verProjectos()
 {
+    treeAVL->graficar();
     int contador = 0;
     NodoAVL* nodoFound = nullptr;
     Project* project = NULL;
@@ -113,12 +115,12 @@ void MainMenu::verProjectos()
 
         if (nodoFound != nullptr)
         {
-            NodoM* headList = nodoFound->getProject()->getListNivel()->getHead();
+            NodoSLB* headList = nodoFound->getProject()->getListNivel()->getHead();
             project = nodoFound->getProject();
 
             while (headList != NULL)
             {
-                headList->getMatrix()->graficar();
+                headList->getArbolB(); // sacar todos los nodas para graficar la matrix
                 //cin >> id;
                 headList = headList->getSiguiente();
             }
@@ -133,7 +135,7 @@ void MainMenu::verProjectos()
     } while (contador != 0);
     
 
-    if (project != NULL)
+    /*if (project != NULL)
     {
         int entrada = 0;
         do
@@ -153,6 +155,7 @@ void MainMenu::verProjectos()
                 agregarNiveles(project, readJson->leerNivel("prueba"));
                 break;
             case 2:
+                editarNivel(project);
                 break;
             case 3:
                 eliminarNivel(project);
@@ -166,18 +169,18 @@ void MainMenu::verProjectos()
 
         } while (entrada != 5);
     
-    }
+    }*/
 
 }
 
-void MainMenu::agregarNiveles(Project* project, SimpleListM* list)
+void MainMenu::agregarNiveles(Project* project, SimpleListArbolB* list)
 {
-    NodoM* aux = list->getHead();
+    NodoSLB* aux = list->getHead();
 
     while (aux != NULL)
     {
-        project->getListNivel()->add(aux->getMatrix());
-        aux->getMatrix()->graficar();
+        project->getListNivel()->add(aux->getArbolB());
+        aux->getArbolB();// graficar nivel obtenido
         aux = aux->getSiguiente();
     }
 
@@ -185,7 +188,7 @@ void MainMenu::agregarNiveles(Project* project, SimpleListM* list)
 
 void MainMenu::eliminarNivel(Project* project)
 {
-    NodoM* aux = project->getListNivel()->getHead();
+    NodoSLB* aux = project->getListNivel()->getHead();
     int id;
     do
     {
@@ -193,7 +196,7 @@ void MainMenu::eliminarNivel(Project* project)
         cout << "Lista de niveles en el proyecto: " << project->getName() << endl;
         while (aux != NULL)
         {
-            cout << aux->getMatrix()->getId() << ". " << aux->getMatrix()->getName() << endl;
+            cout << aux->getArbolB()->getId() << ". " << aux->getArbolB()->getNombre() << endl;
             aux = aux->getSiguiente();
         }
         cout << endl;
@@ -217,4 +220,145 @@ void MainMenu::eliminarNivel(Project* project)
 
 
     } while (id != 0);
+}
+
+void MainMenu::editarNivel(Project* project)
+{
+    
+    ArbolB* nivel = NULL;
+    int id;
+    do
+    {
+        NodoSLB* aux = project->getListNivel()->getHead();
+        system("cls");
+        cout << "Lista de niveles en el proyecto: " << project->getName() << endl;
+        while (aux != NULL)
+        {
+            cout << aux->getArbolB()->getId() << ". " << aux->getArbolB()->getNombre() << endl;
+            aux = aux->getSiguiente();
+        }
+        cout << endl;
+        cout << "Ingrese el numero del nivel a editar" << endl;
+        cout << "Ingrese 0 si desea salir" << endl;
+        cout << ">> ";
+        cin >> id;
+        if (id == 0) { break; }
+
+        aux = project->getListNivel()->getHead();
+        while (aux != NULL)
+        {
+            if (aux->getArbolB()->getId() == id) {
+                nivel = aux->getArbolB();
+                id = 0;
+                break;
+            }
+            aux = aux->getSiguiente();
+        }
+    } while (id != 0);
+
+    if (nivel != NULL)
+    {
+        do
+        {
+            system("cls");
+            cout << "Nivel editando: " << nivel->getNombre() << endl;
+            cout << "Objetos en el nivel:"<< endl;
+            nivel->inOrden();
+            cout << endl;
+            cout << "1. Agregar objeto" << endl;
+            cout << "1. Eliminar objeto" << endl;
+            cout << "1. Eliminar pared" << endl;
+            cout << "0. Salir" << endl;
+            cout << ">> ";
+            cin >> id;
+          
+
+
+        } while (id != 0);
+    }
+}
+
+
+void MainMenu::editarProyecto()
+{
+    int contador = 0;
+    NodoAVL* nodoFound = nullptr;
+    Project* project = NULL;
+    do
+    {
+        system("cls");
+        cout << "Lista de proyectos" << endl;
+        treeAVL->inOrden();
+        cout << endl;
+        cout << "Ingrese el numero del proyecto a graficar" << endl;
+        cout << "Ingrese 0 si desea salir" << endl;
+        cout << ">> ";
+        int id;
+        cin >> id;
+
+        if (id == 0)
+        {
+            break;
+        }
+
+        NodoAVL* nodoFound = treeAVL->buscarNodo(id);
+
+        if (nodoFound != nullptr)
+        {
+            NodoSLB* headList = nodoFound->getProject()->getListNivel()->getHead();
+            project = nodoFound->getProject();
+
+            while (headList != NULL)
+            {
+                headList->getArbolB(); // sacar todos los nodas para graficar la matrix
+                //cin >> id;
+                headList = headList->getSiguiente();
+            }
+            contador = 0;
+        }
+        else
+        {
+            cout << "Numero no valido" << endl;
+            cin >> id;
+            contador = 1;
+        }
+    } while (contador != 0);
+
+
+    if (project != NULL)
+    {
+        int entrada = 0;
+        do
+        {
+            system("cls");
+            cout << "1. Agregar nivel" << endl;
+            cout << "2. Editar nivel" << endl;
+            cout << "3. Eliminar nivel" << endl;
+            cout << "4. Eliminar proyecto" << endl;
+            cout << "5. Salir" << endl;
+            cout << ">> ";
+            cin >> entrada;
+
+            switch (entrada)
+            {
+            case 1:
+                agregarNiveles(project, readJson->leerNivel("prueba"));
+                break;
+            case 2:
+                editarNivel(project);
+                break;
+            case 3:
+                eliminarNivel(project);
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            }
+
+
+        } while (entrada != 5);
+
+    }
+
 }

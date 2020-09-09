@@ -16,12 +16,16 @@ class ArbolB
 {
 private:
 	NodoB* raiz;
+	string nombre;
+	int id;
 	NodoB* insert(NodoB* raiz, Objeto* objeto);
 	NodoB* delete_nodo(NodoB* raiz, Objeto* objeto);
 	Objeto* findNodo(NodoB* raiz);
 	void Delete(NodoB* raiz);
 	void graficar(stringstream* cadena, NodoB* padre, NodoB* actual, bool left);
 	NodoB* getRaiz();
+	NodoB* buscarNodo(NodoB* root, int id);
+	void inOrden(NodoB* nodo);
 public:
 	ArbolB();
 	~ArbolB();
@@ -30,5 +34,11 @@ public:
 	void delete_nodo(Objeto* objeto);
 	void Delete();
 	void graficar();
+	int getId();
+	void setId(int id);
+	NodoB* buscarNodo(int id);
+	string getNombre();
+	void setNombre(string nombre);
+	void inOrden();
 };
 #endif // ARBOLB_H

@@ -273,20 +273,24 @@ void ArbolAVL::inOrden()
 	inOrden(this->raiz);
 }
 
+NodoAVL* ArbolAVL::buscarNodo(NodoAVL* root, int id)
+{
+	if (root == nullptr || root->getProject()->getId() == id)
+	{
+		return root;
+	}
+
+	if (root->getProject()->getId() > id)
+	{
+		return buscarNodo(root->getLeft(), id);
+	}
+
+	return buscarNodo(root->getRigth(), id);
+
+}
+
+
 NodoAVL* ArbolAVL::buscarNodo(int id)
 {
-	NodoAVL* aux = this->raiz;
-
-	if (aux != nullptr)
-	{
-		inOrden(aux->getLeft());
-		if (id = aux->getProject()->getId())
-		{
-			return aux;
-		}
-		inOrden(aux->getRigth());
-	}
-	else {
-		return nullptr;
-	}
+	return buscarNodo(this->raiz, id);
 }

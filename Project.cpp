@@ -7,7 +7,7 @@ Project::Project()
 
 }
 
-Project::Project(string name, SimpleListM* list)
+Project::Project(string name, SimpleListArbolB* list)
 {
 	this->id = 0;
 	this->name = name;
@@ -19,12 +19,12 @@ void Project::setName(string name)
 	this->name = name;
 }
 
-SimpleListM* Project::getListNivel()
+SimpleListArbolB* Project::getListNivel()
 {
 	return this->listNivel;
 }
 
-void Project::setList(SimpleListM* list)
+void Project::setList(SimpleListArbolB* list)
 {
 	this->listNivel = list;
 }

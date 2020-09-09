@@ -136,6 +136,26 @@ void ArbolB::graficar()
 	system("treeB.png");
 }
 
+int ArbolB::getId()
+{
+	return this->id;
+}
+
+void ArbolB::setId(int id)
+{
+	this->id = id;
+}
+
+string ArbolB::getNombre()
+{
+	return this->nombre;
+}
+
+void ArbolB::setNombre(string nombre)
+{
+	this->nombre = nombre;
+}
+
 void ArbolB::graficar(stringstream* cadena, NodoB* padre, NodoB* actual, bool left)
 {
 	if (actual != nullptr)
@@ -159,4 +179,47 @@ void ArbolB::graficar(stringstream* cadena, NodoB* padre, NodoB* actual, bool le
 NodoB* ArbolB::getRaiz()
 {
 	return this->raiz;
+}
+
+NodoB* ArbolB::buscarNodo(NodoB* root, int id)
+{
+	if (root == nullptr)
+	{
+		return nullptr;
+	}
+	if (root->getObjeto()->getId() == id)
+	{
+		return root;
+	}
+
+	if (root->getObjeto()->getId() > id)
+	{
+		return buscarNodo(root->getLeft(), id);
+	}
+	
+	return buscarNodo(root->getRigth(), id);
+
+}
+
+
+NodoB* ArbolB::buscarNodo(int id)
+{
+	return buscarNodo(this->raiz, id);
+}
+
+
+void ArbolB::inOrden(NodoB* nodo)
+{
+	//izquierdo, raiz, derecha
+	if (nodo != nullptr)
+	{
+		inOrden(nodo->getLeft());
+		cout << nodo->getObjeto()->getId() << ". " << nodo->getObjeto()->getName() << endl;
+		inOrden(nodo->getRigth());
+	}
+}
+
+void ArbolB::inOrden()
+{
+	inOrden(this->raiz);
 }

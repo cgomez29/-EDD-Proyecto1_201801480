@@ -160,11 +160,13 @@
     <ClCompile Include="NodoO.cpp" />
     <ClCompile Include="NodoP.cpp" />
     <ClCompile Include="NodoProject.cpp" />
+    <ClCompile Include="NodoSLB.cpp" />
     <ClCompile Include="Objeto.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="Proyecto1.cpp" />
     <ClCompile Include="ReadJSON.cpp" />
+    <ClCompile Include="SimpleListArbolB.cpp" />
     <ClCompile Include="SimpleListLibreria.cpp" />
     <ClCompile Include="SimpleListM.cpp" />
     <ClCompile Include="SimpleListP.cpp" />
@@ -184,10 +186,12 @@
     <ClInclude Include="NodoO.h" />
     <ClInclude Include="NodoP.h" />
     <ClInclude Include="NodoProject.h" />
+    <ClInclude Include="NodoSLB.h" />
     <ClInclude Include="Objeto.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Project.h" />
     <ClInclude Include="ReadJSON.h" />
+    <ClInclude Include="SimpleListArbolB.h" />
     <ClInclude Include="SimpleListLibreria.h" />
     <ClInclude Include="SimpleListM.h" />
     <ClInclude Include="SimpleListP.h" />

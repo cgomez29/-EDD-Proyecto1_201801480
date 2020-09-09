@@ -7,8 +7,8 @@
 #include "NodoO.h"
 #include "SimpleListProject.h"
 #include "NodoProject.h"
-#include "SimpleListM.h"
-#include "NodoM.h"
+#include "SimpleListArbolB.h"
+#include "NodoSLB.h"
 using namespace std;
 
 class MainMenu
@@ -23,8 +23,10 @@ private:
     void llenarArbolAVL(SimpleListProject* list);
     void verProjectos();
     int contadorProyecto;
-    void agregarNiveles(Project* project, SimpleListM* list);
+    void agregarNiveles(Project* project, SimpleListArbolB* list);
     void eliminarNivel(Project* project);
+    void editarNivel(Project* project);
+    void editarProyecto();
 public:
     MainMenu();
     ~MainMenu();

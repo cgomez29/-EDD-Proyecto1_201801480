@@ -3,7 +3,8 @@
 
 #include "Matrix.h" 
 #include <iostream>
-#include "SimpleListM.h"
+#include "SimpleListArbolB.h"
+#include "ArbolB.h"
 
 using namespace std;
 
@@ -12,17 +13,17 @@ class Project
 private:
 	int id;
 	string name;
-	SimpleListM* listNivel;
+	SimpleListArbolB* listNivel;
 
 public:
 	Project();
-	Project(string name, SimpleListM* list);
-	SimpleListM* getListNivel();
+	Project(string name, SimpleListArbolB* list);
+	SimpleListArbolB* getListNivel();
 	int getId();
 	string getName();
 	void setName(string name);
 	void setId(int id);
-	void setList(SimpleListM* list);
+	void setList(SimpleListArbolB* list);
 };
 
 #endif // PROJECT_H

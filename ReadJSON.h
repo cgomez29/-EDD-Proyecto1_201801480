@@ -27,7 +27,7 @@ private:
 public:
 	SimpleListLibreria* leerLibrerias(string nameFile);
 	SimpleListProject* leerProyectos(string nameFile);
-	SimpleListM* leerNivel(string nameFile);
+	SimpleListArbolB* leerNivel(string nameFile);
 };
 
 #endif // READJSON_H

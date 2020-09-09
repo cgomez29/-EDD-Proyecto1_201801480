@@ -26,6 +26,7 @@ private:
 	void graficar(stringstream* cadena, NodoAVL* padre, NodoAVL* actual, bool left);
 	int valorAscii(string cadena);
 	void inOrden(NodoAVL* nodo);
+	NodoAVL* buscarNodo(NodoAVL* root, int id);
 public:
 	ArbolAVL();
 	~ArbolAVL();
