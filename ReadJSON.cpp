@@ -134,9 +134,9 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 					
 					
 
+					SimpleListP* listPoiters = new SimpleListP();
 					for (int y = 0; y < nivel["paredes"].size(); y++)
 					{
-						SimpleListP* listPoiters = new SimpleListP();
 						json paredes = nivel["paredes"][y];
 						inicioX = paredes["inicio"][0];
 						inicioY = paredes["inicio"][1];
@@ -170,10 +170,9 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 							}
 						}
 						
-						Objeto* obj = new Objeto(0, "Pared", "P", colorParedes, listPoiters);
-					
-						arbolB->insert(obj);
 					}
+					Objeto* obj = new Objeto(0, "Pared", "P", colorParedes, listPoiters);
+					arbolB->insert(obj);
 				}
 
 				if (nivel["ventanas"] != NULL)
@@ -273,9 +272,9 @@ SimpleListArbolB* ReadJSON::leerNivel(string nameFile)
 
 
 
+				SimpleListP* listPoiters = new SimpleListP();
 				for (int y = 0; y < nivel["paredes"].size(); y++)
 				{
-					SimpleListP* listPoiters = new SimpleListP();
 					json paredes = nivel["paredes"][y];
 					inicioX = paredes["inicio"][0];
 					inicioY = paredes["inicio"][1];
@@ -309,9 +308,9 @@ SimpleListArbolB* ReadJSON::leerNivel(string nameFile)
 						}
 					}
 
+				}
 					Objeto* obj = new Objeto(0, "Pared", "P", colorParedes, listPoiters);
 					arbolB->insert(obj);
-				}
 
 			}
 
@@ -324,13 +323,13 @@ SimpleListArbolB* ReadJSON::leerNivel(string nameFile)
 				for (int o = 0; o < nivel["objetos"].size(); o++)
 				{
 					json objetos = nivel["objetos"];
-					SimpleListP* listPoiters = new SimpleListP();
 
 					id = objetos[o]["identificador"];
 					nombre = objetos[o]["nombre"];
 					letra = objetos[o]["letra"];
 					color = objetos[o]["color"];
 					json puntos = objetos[o]["puntos"];
+					SimpleListP* listPoiters = new SimpleListP();
 
 					for (int p = 0; p < puntos.size(); p++)
 					{
@@ -340,7 +339,8 @@ SimpleListArbolB* ReadJSON::leerNivel(string nameFile)
 						Point point = Point(to_string(x), to_string(y));
 						listPoiters->add(point);
 					}
-					Objeto* obj = new Objeto(0, "Pared", "P", colorParedes, listPoiters);
+
+					Objeto* obj = new Objeto(id, nombre, letra, color, listPoiters);
 					arbolB->insert(obj);
 				}
 
@@ -348,10 +348,8 @@ SimpleListArbolB* ReadJSON::leerNivel(string nameFile)
 
 			listNivel->add(arbolB);
 		}
-		return listNivel;
 	}
-
-	return nullptr;
+	return listNivel;
 }
 
 string ReadJSON::nameFile()

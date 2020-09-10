@@ -28,6 +28,11 @@ void SimpleListP::imprimir() {
     }
 }
 
+NodoP* SimpleListP::getHead()
+{
+	return this->head;
+}
+
 int SimpleListP::size() {
     return this->tam;
 }

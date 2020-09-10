@@ -47,6 +47,7 @@ void MainMenu::menu()
                 llenarArbolAVL(readJson->leerProyectos("prueba"));
                 break;
             case 4:
+                graficarProyectos();
                 break;
             case 5:
                 break;
@@ -71,7 +72,7 @@ void MainMenu::llenarArbolB(SimpleListLibreria* list)
         treeB->insert(aux->getObjeto());
         aux = aux->getSiguiente();
     }
-    //treeB->graficar();
+    treeB->graficar();
 }
 
 void MainMenu::llenarArbolAVL(SimpleListProject* list)
@@ -90,19 +91,17 @@ void MainMenu::llenarArbolAVL(SimpleListProject* list)
 
 void MainMenu::verProjectos()
 {
-    treeAVL->graficar();
     int contador = 0;
-    NodoAVL* nodoFound = nullptr;
-    Project* project = NULL;
     do
     {
         system("cls");
+        cout << "   VER PROYECTOS  " << endl;
         cout << "Lista de proyectos" << endl;
         treeAVL->inOrden();
         cout << endl;
-        cout << "Ingrese el numero del proyecto a graficar" << endl;
-        cout << "Ingrese 0 si desea salir" << endl;
+        cout << "Ingrese 0 para salir" << endl;
         cout << ">> ";
+        treeAVL->graficar();
         int id;
         cin >> id;
 
@@ -111,27 +110,6 @@ void MainMenu::verProjectos()
             break;
         }
 
-        NodoAVL* nodoFound = treeAVL->buscarNodo(id);
-
-        if (nodoFound != nullptr)
-        {
-            NodoSLB* headList = nodoFound->getProject()->getListNivel()->getHead();
-            project = nodoFound->getProject();
-
-            while (headList != NULL)
-            {
-                headList->getArbolB(); // sacar todos los nodas para graficar la matrix
-                //cin >> id;
-                headList = headList->getSiguiente();
-            }
-            contador = 0;
-        }
-        else
-        {
-            cout << "Numero no valido" << endl;
-            cin >> id;
-            contador = 1;
-        }
     } while (contador != 0);
     
 
@@ -231,15 +209,15 @@ void MainMenu::editarNivel(Project* project)
     {
         NodoSLB* aux = project->getListNivel()->getHead();
         system("cls");
-        cout << "Lista de niveles en el proyecto: " << project->getName() << endl;
+        cout << "   Lista de niveles en el proyecto: " << project->getName() << endl;
         while (aux != NULL)
         {
             cout << aux->getArbolB()->getId() << ". " << aux->getArbolB()->getNombre() << endl;
             aux = aux->getSiguiente();
         }
         cout << endl;
-        cout << "Ingrese el numero del nivel a editar" << endl;
-        cout << "Ingrese 0 si desea salir" << endl;
+        cout << " Ingrese el numero del nivel a editar" << endl;
+        cout << " Ingrese 0 si desea salir" << endl;
         cout << ">> ";
         cin >> id;
         if (id == 0) { break; }
@@ -261,20 +239,36 @@ void MainMenu::editarNivel(Project* project)
         do
         {
             system("cls");
-            cout << "Nivel editando: " << nivel->getNombre() << endl;
-            cout << "Objetos en el nivel:"<< endl;
+            cout << "   Nivel editando: " << nivel->getNombre() << endl;
+            cout << " Objetos en el nivel:"<< endl;
             nivel->inOrden();
             cout << endl;
             cout << "1. Agregar objeto" << endl;
-            cout << "1. Eliminar objeto" << endl;
-            cout << "1. Eliminar pared" << endl;
-            cout << "0. Salir" << endl;
+            cout << "2. Eliminar objeto" << endl;
+            cout << "3. Eliminar pared" << endl;
+            cout << "4. Copiar nivel1" << endl;
+            cout << "5. Salir" << endl;
             cout << ">> ";
             cin >> id;
-          
+            switch (id)
+            {
+            case 1:
+                break;
+            case 2:
+                cout << " Ingrese numero de objeto a eliminar:" << endl;
+                cout << ">> ";
+                cin >> id;
+                nivel->delete_nodo(id);
+                id = -1;
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            }
 
 
-        } while (id != 0);
+        } while (id != 5);
     }
 }
 
@@ -361,4 +355,77 @@ void MainMenu::editarProyecto()
 
     }
 
+}
+
+void MainMenu::graficarProyectos()
+{
+    treeAVL->graficar();
+    int contador = 0;
+    do
+    {
+        system("cls");
+        cout << "   GRAFICAR PROYECTOS  " << endl;
+        cout << "Lista de proyectos" << endl;
+        treeAVL->inOrden();
+        cout << endl;
+        cout << "Ingrese el numero del proyecto a graficar" << endl;
+        cout << "Ingrese 0 si desea salir" << endl;
+        cout << ">> ";
+        int id;
+        cin >> id;
+
+        if (id == 0)
+        {
+            break;
+        }
+
+        NodoAVL* nodoFound = treeAVL->buscarNodo(id);
+
+        if (nodoFound != nullptr)
+        {
+            NodoSLB* listNivel = nodoFound->getProject()->getListNivel()->getHead();
+            //Recorriendo lista de proyectos (ABB)
+            while (listNivel != NULL)
+            {
+                Matrix* matrix = new Matrix();
+                NodoO* listObjetos = listNivel->getArbolB()->getListObjetos()->getHead();
+                //Recorriendo lista de objetos del ABB
+                while (listObjetos != NULL)
+                {
+                    //cout << "EFE " << listObjetos->getObjeto()->getName() << endl;
+                    int id = listObjetos->getObjeto()->getId();
+                    string nombre = listObjetos->getObjeto()->getName();
+                    string letter = listObjetos->getObjeto()->getLetter();
+                    string color = listObjetos->getObjeto()->getColor();
+
+                    //cout << "EFE " << nombre << endl;
+                    NodoP* puntos = listObjetos->getObjeto()->getList()->getHead();
+
+                    while (puntos != NULL)
+                    {
+                        string x = puntos->getPoint().getX();
+                        string y = puntos->getPoint().getY();
+                        //cout << "EFE " <<2 x << endl;
+                        matrix->add(id, nombre, letter, color, x, y);
+                        puntos = puntos->getSiguiente();
+                    }
+
+                    matrix->setName(listNivel->getArbolB()->getNombre());
+                    listObjetos = listObjetos->getSiguiente();
+                }
+                matrix->graficar();
+                delete matrix;
+                listNivel = listNivel->getSiguiente();
+            }
+
+
+            contador = 0;
+        }
+        else
+        {
+            cout << "Numero no valido" << endl;
+            cin >> id;
+            contador = 1;
+        }
+    } while (contador != 0);
 }

@@ -18,6 +18,7 @@ public:
     void add(Point point);
     void delete_item(int i);
     void imprimir();
+    NodoP* getHead();
 };
 
 #endif // SIMPLELISTP_H

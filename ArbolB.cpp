@@ -57,18 +57,19 @@ NodoB* ArbolB::insert(NodoB* raiz, Objeto* dato)
 	return raiz;
 }
 
-void ArbolB::delete_nodo(Objeto* valor)
+void ArbolB::delete_nodo(int id)
 {
-	this->raiz = delete_nodo(this->raiz, valor);
+	this->raiz = delete_nodo(this->raiz, id);
+
 }
 
-NodoB* ArbolB::delete_nodo(NodoB* raiz, Objeto* valor)
+NodoB* ArbolB::delete_nodo(NodoB* raiz, int id)
 {
 	if (raiz == nullptr)
 	{
 		return nullptr;
 	}
-	if (valor->getId() == raiz->getObjeto()->getId())
+	if (id == raiz->getObjeto()->getId())
 	{
 		//cuando no tiene ningun hijo
 		if (raiz->getLeft() == nullptr && raiz->getRigth() == nullptr)
@@ -87,16 +88,16 @@ NodoB* ArbolB::delete_nodo(NodoB* raiz, Objeto* valor)
 		//cuando tiene dos hijos
 		Objeto* smallValue = findNodo(raiz->getRigth());
 		raiz->setObjeto(smallValue);
-		raiz->setRigth(delete_nodo(raiz->getRigth(), smallValue));
+		raiz->setRigth(delete_nodo(raiz->getRigth(), smallValue->getId()));
 		return raiz;
 	}
 
-	if (valor->getId() < raiz->getObjeto()->getId())
+	if (id < raiz->getObjeto()->getId())
 	{
-		raiz->setLeft(delete_nodo(raiz->getLeft(), valor));
+		raiz->setLeft(delete_nodo(raiz->getLeft(), id));
 		return raiz;
 	}
-	raiz->setRigth(delete_nodo(raiz->getRigth(), valor));
+	raiz->setRigth(delete_nodo(raiz->getRigth(), id));
 	return raiz;
 }
 
@@ -219,7 +220,31 @@ void ArbolB::inOrden(NodoB* nodo)
 	}
 }
 
+
 void ArbolB::inOrden()
 {
 	inOrden(this->raiz);
+}
+
+
+SimpleListLibreria* ArbolB::getListObjetos()
+{
+	SimpleListLibreria* list = new SimpleListLibreria();
+	list = llenarLista(this->raiz, list);
+	return list;
+}
+
+SimpleListLibreria* ArbolB::llenarLista(NodoB* root, SimpleListLibreria* list)
+{
+	if (root != nullptr)
+	{
+		llenarLista(root->getLeft(), list);
+		list->add(root->getObjeto());
+		llenarLista(root->getRigth(), list);
+	}
+	else if (root == nullptr)
+	{
+		return list;
+	}
+
 }

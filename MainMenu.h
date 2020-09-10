@@ -27,6 +27,8 @@ private:
     void eliminarNivel(Project* project);
     void editarNivel(Project* project);
     void editarProyecto();
+    void graficarProyectos();
+
 public:
     MainMenu();
     ~MainMenu();
