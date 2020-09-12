@@ -262,6 +262,7 @@ void MainMenu::editarNivel(Project* project)
                 id = -1;
                 break;
             case 3:
+                eliminarPared();
                 break;
             case 4:
                 break;
@@ -428,4 +429,125 @@ void MainMenu::graficarProyectos()
             contador = 1;
         }
     } while (contador != 0);
+}
+
+void MainMenu::eliminarPared()
+{
+    int id;
+    SimpleListP* listTemp = new SimpleListP();;
+    do
+    {
+        system("cls");
+        cout << "   Eliminar Pared" << endl;
+        cout << endl;
+        cout << "1. Eliminar" << endl;
+        cout << "2. Confirmar" << endl;
+        cout << "3. Cancelar" << endl;
+        cout << "4. Salir" << endl;
+        cout << ">> ";
+        cin >> id;
+        switch (id)
+        {
+        case 1:
+            bool bandera;
+            bool regrosoAX;
+            do
+            {
+                regrosoAX = true;
+                string x = "";
+                string y = ""; 
+                cout << "   Ingrese coordenadas" << endl;
+                cout << " Ingrese X:" << endl;
+                cout << ">> ";
+                cin >> x;
+                if (isNum(x))
+                {
+                    bandera = false;
+                }
+                else
+                {
+                    cout << " Continuar y/n" << endl;
+                    cout << ">> ";
+                    string x;
+                    cin >> x;
+                    if (x == "y")
+                    {
+                        bandera = false;
+                        regrosoAX = false;
+                    }
+                    else 
+                    {
+                        bandera = true;
+                    }
+                }
+
+                if (bandera == false && regrosoAX == true)
+                {
+                    cout << " Ingrese Y:" << endl;
+                    cout << ">> ";
+                    cin >> y;
+                    if (isNum(y))
+                    {
+                        Point puntos = Point(x, y);
+                        listTemp->add(puntos);
+                        cout << " ---Coordenada agregada!---" << endl;
+                    }
+                    else
+                    {
+                        cout << " Continuar y/n" << endl;
+                        cout << ">> ";
+                        string x;
+                        cin >> x;
+                        if (x == "y")
+                        {
+                            bandera = false;
+                        }
+                        else
+                        {
+                            bandera = true;
+                        }
+                    }
+                
+                }
+
+
+            } while (bandera != true);
+           
+            break;
+        case 2:
+            // si el usurario le da confirmar eliminar todos los puntos de las paredes que pertenezcan 
+
+            break;
+        case 3:
+            //cancela, no pasa nada 
+            break;
+        case 4:
+            break;
+        }
+
+
+    } while (id != 4);
+    delete listTemp;
+}
+
+bool MainMenu::isNum(string valor)
+{
+    char caracter;
+    int value;
+    for (int i = 0; i < valor.length(); i++)
+    {
+        caracter = valor[i];
+        value = caracter;
+        if (value >= 48 && value <= 57)
+        {
+            continue;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+    //cout << "valor ascii: " << valor << endl;
+    return true;
 }

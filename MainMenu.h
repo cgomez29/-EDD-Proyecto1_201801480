@@ -28,6 +28,9 @@ private:
     void editarNivel(Project* project);
     void editarProyecto();
     void graficarProyectos();
+    //Editar nivel
+    void eliminarPared();
+    bool isNum(string valor);
 
 public:
     MainMenu();
