@@ -171,7 +171,7 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 						}
 						
 					}
-					Objeto* obj = new Objeto(0, "Pared", "P", colorParedes, listPoiters);
+					Objeto* obj = new Objeto(-1, "Pared", "P", colorParedes, listPoiters);
 					arbolB->insert(obj);
 				}
 
@@ -309,7 +309,7 @@ SimpleListArbolB* ReadJSON::leerNivel(string nameFile)
 					}
 
 				}
-					Objeto* obj = new Objeto(0, "Pared", "P", colorParedes, listPoiters);
+					Objeto* obj = new Objeto(-1, "Pared", "P", colorParedes, listPoiters);
 					arbolB->insert(obj);
 
 			}

@@ -57,12 +57,14 @@ NodoB* ArbolB::insert(NodoB* raiz, Objeto* dato)
 	return raiz;
 }
 
+//Metodo publico para la eliminacion de un nodo por id
 void ArbolB::delete_nodo(int id)
 {
 	this->raiz = delete_nodo(this->raiz, id);
 
 }
 
+//Metodo privado para la eliminacion de un nodo por id
 NodoB* ArbolB::delete_nodo(NodoB* raiz, int id)
 {
 	if (raiz == nullptr)
@@ -182,6 +184,7 @@ NodoB* ArbolB::getRaiz()
 	return this->raiz;
 }
 
+//metodo privado para buscar un nodo
 NodoB* ArbolB::buscarNodo(NodoB* root, int id)
 {
 	if (root == nullptr)
@@ -202,7 +205,7 @@ NodoB* ArbolB::buscarNodo(NodoB* root, int id)
 
 }
 
-
+//metodo publico para buscar un nodo
 NodoB* ArbolB::buscarNodo(int id)
 {
 	return buscarNodo(this->raiz, id);
@@ -215,7 +218,10 @@ void ArbolB::inOrden(NodoB* nodo)
 	if (nodo != nullptr)
 	{
 		inOrden(nodo->getLeft());
-		cout << nodo->getObjeto()->getId() << ". " << nodo->getObjeto()->getName() << endl;
+		if (nodo->getObjeto()->getId() != -1) 
+		{
+			cout << nodo->getObjeto()->getId() << ". " << nodo->getObjeto()->getName() << endl;
+		}
 		inOrden(nodo->getRigth());
 	}
 }
@@ -227,6 +233,7 @@ void ArbolB::inOrden()
 }
 
 
+//Metodo public que devuelve en una lista todos los objetos cargados en el arbol binario
 SimpleListLibreria* ArbolB::getListObjetos()
 {
 	SimpleListLibreria* list = new SimpleListLibreria();
@@ -234,6 +241,7 @@ SimpleListLibreria* ArbolB::getListObjetos()
 	return list;
 }
 
+//Metodo privado que llena una lista de todos los objetos que tiene un arbol
 SimpleListLibreria* ArbolB::llenarLista(NodoB* root, SimpleListLibreria* list)
 {
 	if (root != nullptr)
@@ -248,3 +256,4 @@ SimpleListLibreria* ArbolB::llenarLista(NodoB* root, SimpleListLibreria* list)
 	}
 
 }
+

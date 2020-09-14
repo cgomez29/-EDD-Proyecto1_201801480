@@ -16,7 +16,7 @@ public:
     ~SimpleListP();
     int size();
     void add(Point point);
-    void delete_item(int i);
+    bool delete_item(string x, string y);
     void imprimir();
     NodoP* getHead();
 };

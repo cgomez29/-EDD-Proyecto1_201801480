@@ -29,7 +29,7 @@ private:
     void editarProyecto();
     void graficarProyectos();
     //Editar nivel
-    void eliminarPared();
+    void eliminarPared(ArbolB* nivel);
     bool isNum(string valor);
 
 public:

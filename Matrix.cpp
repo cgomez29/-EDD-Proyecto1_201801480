@@ -389,6 +389,127 @@ void Matrix::add(Objeto* obj, string x, string y)
 
 }
 */
+
+/*
+void Matrix::graficar()
+{
+	graph->addln(graph->start_graph());
+	graph->addln("rankdir = TB;");
+	graph->addln("node [shape=rectangle, color=blue, height=0.5, width=0.5];");
+	graph->addln("edge [color= red];");
+	graph->addln("graph[ nodesep = 0.5];");
+	graph->addln("nodeXY [label=\"Emp\\\\Dep\"];");
+	NodeM* tempY = root->getDown();
+	NodeM* tempX = root->getRight();
+	NodeM* aux, * aux2;
+	if (!isEmpty())
+	{
+		//recorrer encabezado X para porder agregarlos al dot
+		string rankSameX = "{rank=same; nodeXY; ";
+		string nodesY = "", nodesYp = "", nodesX = "", nodesXp = "", nodeV = "", nodeVp = "";
+		nodesXp = nodesXp + "nodeXY -> nodeX" + tempX->getX() + " [dir=both];\n";
+		while (tempX != nullptr)
+		{
+			//enlace hacia los nodos directos desde la columna
+			nodeVp = nodeVp + "nodeX" + (tempX->getX()) + " -> nodev" + (tempX->getDown()->getX()) + (tempX->getDown()->getY()) + " [dir=both];\n";
+			//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+			nodesX = nodesX + "nodeX" + (tempX->getX()) + " [label=\"" + (tempX->getX()) + "\"];\n";
+			rankSameX = rankSameX + "nodeX" + (tempX->getX()) + "; ";
+			aux2 = tempX->getDown();
+			if (tempX->getRight() != nullptr)
+			{
+				nodesXp = nodesXp + "nodeX" + (tempX->getX()) + " -> nodeX" + (tempX->getRight()->getX()) + " [dir=both];\n";
+				//codigo para enlazar nodos mas internos
+				while (aux2 != nullptr)
+				{
+					if (aux2->getDown() != nullptr)
+					{
+						nodeVp = nodeVp + "nodev" + (aux2->getX()) + (aux2->getY()) + " -> nodev" + (aux2->getDown()->getX()) + (aux2->getDown()->getY()) + " [dir=both];\n";
+					}
+					aux2 = aux2->getDown();
+				}
+			}
+			else
+			{
+				//ultima columna
+				while (aux2 != nullptr)
+				{
+					if (aux2->getDown() != nullptr)
+					{
+						nodeVp = nodeVp + "nodev" + (aux2->getX()) + (aux2->getY()) + " -> nodev" + (aux2->getDown()->getX()) + (aux2->getDown()->getY()) + " [dir=both];\n";
+					}
+					aux2 = aux2->getDown();
+				}
+			}
+			tempX = tempX->getRight();
+		}
+		rankSameX = rankSameX + "}\n";
+		//recorrer encabezado Y para poder agregarlos al dot
+		nodesYp = nodesYp + "nodeXY -> nodeY" + (tempY->getY()) + " [dir=both];\n";
+		while (tempY != nullptr)
+		{
+			nodesY = nodesY + "nodeY" + (tempY->getY()) + " [label=\"" + (tempY->getY()) + "\"];\n";
+			aux = tempY->getRight(); //auxiliar para producir nodos
+			if (tempY->getDown() != nullptr)
+			{
+				//genera los nodos dot de la columna (y)
+				nodesYp = nodesYp + "nodeY" + (tempY->getY()) + " -> nodeY" + (tempY->getDown()->getY()) + " [dir=both];\n";
+				nodeVp = nodeVp + "nodeY" + (tempY->getY()) + " -> nodev" + (aux->getX()) + (aux->getY()) + " [constraint=false, dir=both];\n";
+				if (aux->getRight() != nullptr)
+				{
+					//genera todos los nodos
+					nodeV = nodeV + "nodev" + (aux->getX()) + (aux->getY()) + " [label=\"" + aux->getData()->getNombre() + "\"];\n";
+					while (aux != nullptr)
+					{
+						if (aux->getRight() != nullptr)
+						{
+							nodeV = nodeV + "nodev" + (aux->getRight()->getX()) + (aux->getRight()->getY()) + " [label=\"" + aux->getRight()->getData()->getNombre() + "\"];\n";
+							nodeVp = nodeVp + "nodev" + (aux->getX()) + (aux->getY()) + " -> nodev" + (aux->getRight()->getX()) + (aux->getRight()->getY()) + " [constraint=false, dir=both];\n";
+						}
+						aux = aux->getRight();
+					}
+				}
+				else
+				{
+					nodeV = nodeV + "nodev" + (aux->getX()) + (aux->getY()) + " [label=\"" + aux->getData()->getNombre() + "\"];\n";
+				}
+			}
+			else
+			{ //para no saltarse el ultimo nodo
+				if (aux != nullptr)
+				{
+					//genera todos los nodos que estan de ultimo y se los salta por la condicional
+					nodeVp = nodeVp + "nodeY" + (tempY->getY()) + " -> nodev" + (aux->getX()) + (aux->getY()) + " [constraint=false, dir=both];\n";
+					nodeV = nodeV + "nodev" + (aux->getX()) + (aux->getY()) + " [label=\"" + aux->getData()->getNombre() + "\"];\n";
+					while (aux != nullptr)
+					{
+						if (aux->getRight() != nullptr)
+						{
+							nodeV = nodeV + "nodev" + (aux->getRight()->getX()) + (aux->getRight()->getY()) + " [label=\"" + aux->getRight()->getData()->getNombre() + "\"];\n";
+							nodeVp = nodeVp + "nodev" + (aux->getX()) + (aux->getY()) + " -> nodev" + (aux->getRight()->getX()) + (aux->getRight()->getY()) + " [constraint=false, dir=both];\n";
+						}
+						aux = aux->getRight();
+					}
+				}
+			}
+			tempY = tempY->getDown();
+		}
+		graph->addln(nodesX);
+		graph->addln(nodesY);
+		graph->addln(nodeV);
+		graph->addln(nodesXp);
+		graph->addln(nodesYp);
+		graph->addln(nodeVp);
+		graph->add(rankSameX);
+		graph->add(sameX());
+	}
+	graph->addln(graph->end());
+	graph->dotGraphGenerator("matriz", graph->getDotSource());
+	graph->setDotSource();
+
+}
+*/
+
 void Matrix::graficar()
 {
 	int grupos = 0;

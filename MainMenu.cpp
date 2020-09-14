@@ -164,6 +164,7 @@ void MainMenu::agregarNiveles(Project* project, SimpleListArbolB* list)
 
 }
 
+
 void MainMenu::eliminarNivel(Project* project)
 {
     NodoSLB* aux = project->getListNivel()->getHead();
@@ -262,7 +263,7 @@ void MainMenu::editarNivel(Project* project)
                 id = -1;
                 break;
             case 3:
-                eliminarPared();
+                eliminarPared(nivel);
                 break;
             case 4:
                 break;
@@ -305,7 +306,7 @@ void MainMenu::editarProyecto()
 
             while (headList != NULL)
             {
-                headList->getArbolB(); // sacar todos los nodas para graficar la matrix
+                headList->getArbolB(); // sacar todos los nodos para graficar la matrix
                 //cin >> id;
                 headList = headList->getSiguiente();
             }
@@ -431,7 +432,8 @@ void MainMenu::graficarProyectos()
     } while (contador != 0);
 }
 
-void MainMenu::eliminarPared()
+//metodo privado para eliminar una pared recibe un nivel tipo ArbolB 
+void MainMenu::eliminarPared(ArbolB* nivel)
 {
     int id;
     SimpleListP* listTemp = new SimpleListP();;
@@ -455,7 +457,7 @@ void MainMenu::eliminarPared()
             {
                 regrosoAX = true;
                 string x = "";
-                string y = ""; 
+                string y = "";
                 cout << "   Ingrese coordenadas" << endl;
                 cout << " Ingrese X:" << endl;
                 cout << ">> ";
@@ -475,7 +477,7 @@ void MainMenu::eliminarPared()
                         bandera = false;
                         regrosoAX = false;
                     }
-                    else 
+                    else
                     {
                         bandera = true;
                     }
@@ -507,16 +509,46 @@ void MainMenu::eliminarPared()
                             bandera = true;
                         }
                     }
-                
+
                 }
 
 
             } while (bandera != true);
-           
+
             break;
         case 2:
-            // si el usurario le da confirmar eliminar todos los puntos de las paredes que pertenezcan 
+            //Nodos de numeros ingresados
+             NodoP* nodoPTemp;
 
+            //Nodo de objetos de paredes, id por defecto de paredes -1
+             NodoB* nodoNivel;
+             if (listTemp != NULL)
+             {
+                 nodoPTemp = listTemp->getHead();
+                 nodoNivel = nivel->buscarNodo(-1);
+                 if (nodoNivel != nullptr)
+                 {
+                     //Lista de posiciones del objeto pared
+                     SimpleListP* listOtemp = nodoNivel->getObjeto()->getList();
+
+                     while (nodoPTemp != NULL)
+                     {
+
+                         if (listOtemp->delete_item(nodoPTemp->getPoint().getX(), nodoPTemp->getPoint().getY()))
+                         {
+                             cout << "Pared eliminada " << "X: " << nodoPTemp->getPoint().getX() << " Y: " << nodoPTemp->getPoint().getY() << endl;
+                         }
+                         else
+                         {
+                             cout << "Posición de pared no existe " << "X: " << nodoPTemp->getPoint().getX() << " Y: " << nodoPTemp->getPoint().getY() << endl;
+                         }
+                         nodoPTemp = nodoPTemp->getSiguiente();
+                     }
+                     string xx;
+                     cin >> xx;
+                 }
+             }
+            
             break;
         case 3:
             //cancela, no pasa nada 

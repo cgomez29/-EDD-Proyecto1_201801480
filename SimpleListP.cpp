@@ -48,13 +48,12 @@ SimpleListP::~SimpleListP() {
     }
 }
 
-void SimpleListP::delete_item(int i) {
+bool SimpleListP::delete_item(string x, string y) {
     NodoP* aux = this->head;
     NodoP* ant = aux;
-    if (i < 0) { return; }
     while (aux != NULL) {
-        if (i == 0) {
-            this->tam--;
+        if (aux->getPoint().getX() == x && aux->getPoint().getY() == y) {
+            //this->tam--;
             ant->setSiguiente(aux->getSiguiente());
             if (aux == this->head) {
                 this->head = aux->getSiguiente();
@@ -63,12 +62,12 @@ void SimpleListP::delete_item(int i) {
                 this->tail = ant;
             }
             delete aux;
-            return;
+            return true;
         }
-        i--;
         ant = aux;
         aux = aux->getSiguiente();
     }
+    return false;
 }
 
 
