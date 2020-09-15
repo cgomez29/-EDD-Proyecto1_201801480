@@ -410,15 +410,25 @@ void Matrix::graficar()
 
 		while (aux->getDown() != nullptr)
 		{
-			if (((Objeto*)aux->getDown())->getId() == -1000000)
+			if (((Objeto*)aux)->getId() != -1000000 && ((Objeto*)aux->getDown())->getId() == -1000000)
 			{
-				//cadena << "node" << &(*aux) << "->node" << &(*aux->getDown()) << ";\n";
-				cadena << "node" << &(*aux->getDown()) << "->node" << &(*aux) << "[ dir = both ];\n";
+				//cadena << "node" << &(*aux) << "->node" << &(*aux->getDown()) << "[ dir = none ];\n";
+				cadena << "node" << &(*aux->getDown()) << "->node" << &(*aux) << ";\n";
+			}
+			else if (((Objeto*)aux)->getId() == -1000000 && ((Objeto*)aux->getDown())->getId() != -1000000)
+			{
+				cadena << "node" << &(*aux) << "->node" << &(*aux->getDown()) << ";\n";
+				//cadena << "node" << &(*aux->getDown()) << "->node" << &(*aux) << "[ dir = none ];\n";
+			}
+			else if (((Objeto*)aux)->getId() == -1000000 && ((Objeto*)aux->getDown())->getId() == -1000000)
+			{
+				cadena << "node" << &(*aux) << "->node" << &(*aux->getDown()) << "[ dir = none ];\n";
+				//cadena << "node" << &(*aux->getDown()) << "->node" << &(*aux) << "[ dir = none ];\n";
 			}
 			else
 			{
-				cadena << "node" << &(*aux) << "->node" << &(*aux->getDown()) << "[ dir = both ];\n";
-				//cadena << "node" << &(*aux->getDown()) << "->node" << &(*aux) << ";\n";
+				cadena << "node" << &(*aux) << "->node" << &(*aux->getDown()) << ";\n";
+				cadena << "node" << &(*aux->getDown()) << "->node" << &(*aux) << ";\n";
 			}
 			
 			
@@ -433,15 +443,25 @@ void Matrix::graficar()
 		Nodo* aux = vertical;
 		while (aux->getNext() != nullptr)
 		{
-			if (((Objeto*)aux->getNext())->getId() == -1000000)
+			if (((Objeto*)aux)->getId() != -1000000 &&((Objeto*)aux->getNext())->getId() == -1000000)
 			{
-				//cadena << "node" << &(*aux) << "->node" << &(*aux->getNext()) << ";\n";
-				cadena << "node" << &(*aux->getNext()) << "->node" << &(*aux) << "[ dir = both ];\n";
+				//cadena << "node" << &(*aux) << "->node" << &(*aux->getNext()) << "[ dir = none ];\n";
+				cadena << "node" << &(*aux->getNext()) << "->node" << &(*aux) << ";\n";
+			}
+			else if (((Objeto*)aux)->getId() == -1000000 && ((Objeto*)aux->getNext())->getId() != -1000000)
+			{
+				cadena << "node" << &(*aux) << "->node" << &(*aux->getNext()) << ";\n";
+				//cadena << "node" << &(*aux->getNext()) << "->node" << &(*aux) << "[ dir = none ];\n";
+			}
+			else if (((Objeto*)aux)->getId() == -1000000 && ((Objeto*)aux->getNext())->getId() == -1000000)
+			{
+				cadena << "node" << &(*aux) << "->node" << &(*aux->getNext()) << "[ dir = none ];\n";
+				//cadena << "node" << &(*aux->getNext()) << "->node" << &(*aux) << "[ dir = none ];\n";
 			}
 			else
 			{
-				cadena << "node" << &(*aux) << "->node" << &(*aux->getNext()) << "[ dir = both ];\n";
-				//cadena << "node" << &(*aux->getNext()) << "->node" << &(*aux) << ";\n";
+				cadena << "node" << &(*aux) << "->node" << &(*aux->getNext()) << ";\n";
+				cadena << "node" << &(*aux->getNext()) << "->node" << &(*aux) << ";\n";
 			}
 
 			aux = aux->getNext();
