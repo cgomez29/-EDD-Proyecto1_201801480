@@ -119,96 +119,131 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 
 		if (niveles != NULL)
 		{
-
-			for (int x = 0; x < niveles.size(); x++)
+			for (int k = 0; k < niveles.size(); k++)
 			{
-				// creando nivel
-				ArbolB* arbolB = new ArbolB();
-				json nivel = niveles[x];
-
-				nameNivel = to_string(nivel["nivel"]);
-				//Seteando nombre de nivel
-				//matrix->setName(nameNivel);
-
-				if (nivel["paredes"] != NULL) {
-					
-					
-
-					SimpleListP* listPoiters = new SimpleListP();
-					for (int y = 0; y < nivel["paredes"].size(); y++)
-					{
-						json paredes = nivel["paredes"][y];
-						inicioX = paredes["inicio"][0];
-						inicioY = paredes["inicio"][1];
-						finalX = paredes["final"][0];
-						finalY = paredes["final"][1];
-						colorParedes = paredes["color"];
-
-						cout << paredes << endl;
-						//agregando paredes a la matrix 
-						//creando puntos
-						if (inicioY == finalY)
-						{
-							int contador = inicioX;
-							while (contador <= finalX)
-							{
-								Point point = Point(to_string(contador), to_string(inicioY));
-								listPoiters->add(point);
-								//matrix->add(0, "Pared", "P", colorParedes, to_string(contador), to_string(inicioY));
-								contador = contador + 1;
-							}
-						}
-						else 
-						{
-							int contador = inicioY;
-							while (contador <= finalY)
-							{
-								Point point = Point(to_string(inicioX), to_string(contador));
-								listPoiters->add(point);
-								//matrix->add(0, "Pared", "P", colorParedes, to_string(inicioX), to_string(contador));
-								contador = contador + 1;
-							}
-						}
-						
-					}
-					Objeto* obj = new Objeto(-1, "Pared", "P", colorParedes, listPoiters);
-					arbolB->insert(obj);
-				}
-
-				if (nivel["ventanas"] != NULL)
+				json nivel = niveles[k];
+				if (nivel.size() != 0)
 				{
-				}
+					// creando nivel
+					ArbolB* arbolB = new ArbolB();
+					nameNivel = to_string(nivel["nivel"]);
 
-				if (nivel["objetos"] != NULL)
-				{
-					for (int o = 0; o < nivel["objetos"].size() ; o++)
-					{
-						json objetos = nivel["objetos"];
+					if (nivel["paredes"] != NULL) {
 
-						id = objetos[o]["identificador"];
-						nombre = objetos[o]["nombre"];
-						letra = objetos[o]["letra"];
-						color = objetos[o]["color"];
-						json puntos = objetos[o]["puntos"];
 						SimpleListP* listPoiters = new SimpleListP();
-
-						for (int p = 0; p < puntos.size(); p++)
+						for (int y = 0; y < nivel["paredes"].size(); y++)
 						{
-							x = puntos[p]["x"];
-							y = puntos[p]["y"];
-							//matrix->add(id, nombre, letra, color, to_string(x), to_string(y));
-							Point point = Point(to_string(x), to_string(y));
-							listPoiters->add(point);
-						}
+							json paredes = nivel["paredes"][y];
+							inicioX = paredes["inicio"][0];
+							inicioY = paredes["inicio"][1];
+							finalX = paredes["final"][0];
+							finalY = paredes["final"][1];
+							colorParedes = paredes["color"];
 
-						Objeto* obj = new Objeto(id, nombre, letra, color, listPoiters);
+							//cout << paredes << endl;
+							//agregando paredes a la matrix 
+							//creando puntos
+							if (inicioY == finalY)
+							{
+								int contador = inicioX;
+								while (contador <= finalX)
+								{
+									Point point = Point(to_string(contador), to_string(inicioY));
+									listPoiters->add(point);
+									//matrix->add(0, "Pared", "P", colorParedes, to_string(contador), to_string(inicioY));
+									contador = contador + 1;
+								}
+							}
+							else
+							{
+								int contador = inicioY;
+								while (contador <= finalY)
+								{
+									Point point = Point(to_string(inicioX), to_string(contador));
+									listPoiters->add(point);
+									//matrix->add(0, "Pared", "P", colorParedes, to_string(inicioX), to_string(contador));
+									contador = contador + 1;
+								}
+							}
+
+						}
+						Objeto* obj = new Objeto(-1, "Pared", "P", colorParedes, listPoiters);
 						arbolB->insert(obj);
 					}
 
-				}
+					if (nivel["ventanas"] != NULL)
+					{
+						//Lista de paredes
+						SimpleListP* listPoiters = new SimpleListP();
+						for (int y = 0; y < nivel["ventanas"].size(); y++)
+						{
+							json paredes = nivel["ventanas"][y];
+							inicioX = paredes["inicio"][0];
+							inicioY = paredes["inicio"][1];
+							finalX = paredes["final"][0];
+							finalY = paredes["final"][1];
+							//colorParedes = paredes["color"];
 
-				arbolB->setNombre(nameNivel);
-				listNivel->add(arbolB);
+							//cout << paredes << endl;
+							//agregando paredes a la matrix 
+							//creando puntos
+							if (inicioY == finalY)
+							{
+								int contador = inicioX;
+								while (contador <= finalX)
+								{
+									Point point = Point(to_string(contador), to_string(inicioY));
+									listPoiters->add(point);
+									contador = contador + 1;
+								}
+							}
+							else
+							{
+								int contador = inicioY;
+								while (contador <= finalY)
+								{
+									Point point = Point(to_string(inicioX), to_string(contador));
+									listPoiters->add(point);
+									contador = contador + 1;
+								}
+							}
+
+						}
+						Objeto* obj = new Objeto(-2, "Ventanas", "V", "#85e0e0", listPoiters);
+						arbolB->insert(obj);
+					}
+
+					if (nivel["objetos"] != NULL)
+					{
+						for (int o = 0; o < nivel["objetos"].size(); o++)
+						{
+							json objetos = nivel["objetos"];
+
+							id = objetos[o]["identificador"];
+							nombre = objetos[o]["nombre"];
+							letra = objetos[o]["letra"];
+							color = objetos[o]["color"];
+							json puntos = objetos[o]["puntos"];
+							SimpleListP* listPoiters = new SimpleListP();
+
+							for (int p = 0; p < puntos.size(); p++)
+							{
+								x = puntos[p]["x"];
+								y = puntos[p]["y"];
+								//matrix->add(id, nombre, letra, color, to_string(x), to_string(y));
+								Point point = Point(to_string(x), to_string(y));
+								listPoiters->add(point);
+							}
+
+							Objeto* obj = new Objeto(id, nombre, letra, color, listPoiters);
+							arbolB->insert(obj);
+						}
+
+					}
+					//Seteando nombre de nivel
+					arbolB->setNombre(nameNivel);
+					listNivel->add(arbolB);
+				}
 			}
 			//matrix->graficar();
 		
@@ -217,12 +252,14 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 		Project* project = new Project(nombreProyecto, listNivel);
 		listProject->add(project);
 	}
+	cout << "Archivo cargado exitosamente!" << endl;
+	string xss;
+	cin >> xss;
 	return listProject;
 }
 
 SimpleListArbolB* ReadJSON::leerNivel(string nameFile)
 {
-	
 	//string path = "C:\\Users\\crisg\\Desktop\\" + nameFile;
 	string path = "C:\\Users\\crisg\\Desktop\\Niveles.json";
 
@@ -257,96 +294,94 @@ SimpleListArbolB* ReadJSON::leerNivel(string nameFile)
 
 	if (niveles != NULL)
 	{
-
-		for (int x = 0; x < niveles.size(); x++)
+		for (int k = 0; k < niveles.size(); k++)
 		{
-			// creando nivel
-			ArbolB* arbolB = new ArbolB();
-			json nivel = niveles[x];
+			json nivel = niveles[k];
+			
+			if (nivel.size() != 0)
+			{
+				// creando nivel
+				ArbolB* arbolB = new ArbolB();
 
-			nameNivel = to_string(nivel["nivel"]);
-			//Seteando nombre de nivel
-			arbolB->setNombre(nameNivel);
+				nameNivel = to_string(nivel["nivel"]);
+				//Seteando nombre de nivel
+				arbolB->setNombre(nameNivel);
 
-			if (nivel["paredes"] != NULL) {
-
-
-
-				SimpleListP* listPoiters = new SimpleListP();
-				for (int y = 0; y < nivel["paredes"].size(); y++)
-				{
-					json paredes = nivel["paredes"][y];
-					inicioX = paredes["inicio"][0];
-					inicioY = paredes["inicio"][1];
-					finalX = paredes["final"][0];
-					finalY = paredes["final"][1];
-					colorParedes = paredes["color"];
-
-					cout << paredes << endl;
-					//agregando paredes a la matrix 
-					//creando puntos
-					if (inicioY == finalY)
+				if (nivel["paredes"] != NULL) {
+					SimpleListP* listPoiters = new SimpleListP();
+					for (int y = 0; y < nivel["paredes"].size(); y++)
 					{
-						int contador = inicioX;
-						while (contador <= finalX)
-						{
-							Point point = Point(to_string(contador), to_string(inicioY));
-							listPoiters->add(point);
-							//matrix->add(0, "Pared", "P", colorParedes, to_string(contador), to_string(inicioY));
-							contador = contador + 1;
-						}
-					}
-					else
-					{
-						int contador = inicioY;
-						while (contador <= finalY)
-						{
-							Point point = Point(to_string(inicioX), to_string(contador));
-							listPoiters->add(point);
-							//matrix->add(0, "Pared", "P", colorParedes, to_string(inicioX), to_string(contador));
-							contador = contador + 1;
-						}
-					}
+						json paredes = nivel["paredes"][y];
+						inicioX = paredes["inicio"][0];
+						inicioY = paredes["inicio"][1];
+						finalX = paredes["final"][0];
+						finalY = paredes["final"][1];
+						colorParedes = paredes["color"];
 
-				}
+						cout << paredes << endl;
+						//agregando paredes a la matrix 
+						//creando puntos
+						if (inicioY == finalY)
+						{
+							int contador = inicioX;
+							while (contador <= finalX)
+							{
+								Point point = Point(to_string(contador), to_string(inicioY));
+								listPoiters->add(point);
+								//matrix->add(0, "Pared", "P", colorParedes, to_string(contador), to_string(inicioY));
+								contador = contador + 1;
+							}
+						}
+						else
+						{
+							int contador = inicioY;
+							while (contador <= finalY)
+							{
+								Point point = Point(to_string(inicioX), to_string(contador));
+								listPoiters->add(point);
+								//matrix->add(0, "Pared", "P", colorParedes, to_string(inicioX), to_string(contador));
+								contador = contador + 1;
+							}
+						}
+
+					}
 					Objeto* obj = new Objeto(-1, "Pared", "P", colorParedes, listPoiters);
 					arbolB->insert(obj);
 
-			}
-
-			if (nivel["ventanas"] != NULL)
-			{
-			}
-
-			if (nivel["objetos"] != NULL)
-			{
-				for (int o = 0; o < nivel["objetos"].size(); o++)
-				{
-					json objetos = nivel["objetos"];
-
-					id = objetos[o]["identificador"];
-					nombre = objetos[o]["nombre"];
-					letra = objetos[o]["letra"];
-					color = objetos[o]["color"];
-					json puntos = objetos[o]["puntos"];
-					SimpleListP* listPoiters = new SimpleListP();
-
-					for (int p = 0; p < puntos.size(); p++)
-					{
-						x = puntos[p]["x"];
-						y = puntos[p]["y"];
-						//matrix->add(id, nombre, letra, color, to_string(x), to_string(y));
-						Point point = Point(to_string(x), to_string(y));
-						listPoiters->add(point);
-					}
-
-					Objeto* obj = new Objeto(id, nombre, letra, color, listPoiters);
-					arbolB->insert(obj);
 				}
 
-			}
+				if (nivel["ventanas"] != NULL)
+				{
+				}
 
-			listNivel->add(arbolB);
+				if (nivel["objetos"] != NULL)
+				{
+					for (int o = 0; o < nivel["objetos"].size(); o++)
+					{
+						json objetos = nivel["objetos"];
+
+						id = objetos[o]["identificador"];
+						nombre = objetos[o]["nombre"];
+						letra = objetos[o]["letra"];
+						color = objetos[o]["color"];
+						json puntos = objetos[o]["puntos"];
+						SimpleListP* listPoiters = new SimpleListP();
+
+						for (int p = 0; p < puntos.size(); p++)
+						{
+							x = puntos[p]["x"];
+							y = puntos[p]["y"];
+							//matrix->add(id, nombre, letra, color, to_string(x), to_string(y));
+							Point point = Point(to_string(x), to_string(y));
+							listPoiters->add(point);
+						}
+
+						Objeto* obj = new Objeto(id, nombre, letra, color, listPoiters);
+						arbolB->insert(obj);
+					}
+				}
+				listNivel->add(arbolB);
+			}
 		}
 	}
 	return listNivel;

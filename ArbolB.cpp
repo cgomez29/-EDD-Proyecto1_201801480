@@ -139,26 +139,6 @@ void ArbolB::graficar()
 	system("treeB.png");
 }
 
-int ArbolB::getId()
-{
-	return this->id;
-}
-
-void ArbolB::setId(int id)
-{
-	this->id = id;
-}
-
-string ArbolB::getNombre()
-{
-	return this->nombre;
-}
-
-void ArbolB::setNombre(string nombre)
-{
-	this->nombre = nombre;
-}
-
 void ArbolB::graficar(stringstream* cadena, NodoB* padre, NodoB* actual, bool left)
 {
 	if (actual != nullptr)
@@ -218,7 +198,7 @@ void ArbolB::inOrden(NodoB* nodo)
 	if (nodo != nullptr)
 	{
 		inOrden(nodo->getLeft());
-		if (nodo->getObjeto()->getId() != -1) 
+		if (nodo->getObjeto()->getId() != -1 && nodo->getObjeto()->getId() != -2)
 		{
 			cout << nodo->getObjeto()->getId() << ". " << nodo->getObjeto()->getName() << endl;
 		}
@@ -257,3 +237,22 @@ SimpleListLibreria* ArbolB::llenarLista(NodoB* root, SimpleListLibreria* list)
 
 }
 
+int ArbolB::getId()
+{
+	return this->id;
+}
+
+void ArbolB::setId(int id)
+{
+	this->id = id;
+}
+
+string ArbolB::getNombre()
+{
+	return this->nombre;
+}
+
+void ArbolB::setNombre(string nombre)
+{
+	this->nombre = nombre;
+}

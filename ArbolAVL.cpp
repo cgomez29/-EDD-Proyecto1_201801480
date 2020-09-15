@@ -150,7 +150,7 @@ void ArbolAVL::graficar(stringstream* cadena, NodoAVL* padre, NodoAVL* actual, b
 {
 	if (actual != nullptr)
 	{
-		*cadena << "node" << &(*actual) << "[label=\"<f0>|<f1>" << actual->getProject()->getName() << "factor:" << actual->getFactor() << "|<f2>\"]"<< endl; 
+		*cadena << "node" << &(*actual) << "[label=\"<f0>|<f1>" << actual->getProject()->getName() << " factor:" << actual->getFactor() << "|<f2>\"]"<< endl; 
 		if (left)
 		{
 			*cadena << "node" << &(*padre) << ":f0->node" << &(*actual) << ":f1" << endl;

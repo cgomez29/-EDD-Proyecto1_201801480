@@ -14,6 +14,9 @@ using namespace std;
 class Matrix
 {
 private:
+	string name;
+	int id;
+	SimpleListP* listTemp = new SimpleListP();
 	Cabecera* horizontal;
 	Cabecera* vertical;
 	Cabecera* crearHorizontal(string x);
@@ -23,8 +26,9 @@ private:
 	Nodo* getUltimoV(Cabecera* cabecera, string y);
 	Nodo* getUltimoH(Cabecera* cabecera, string x);
 	void add(Objeto* obj, string x, string y);
-	string name;
-	int id;
+	void setPointEmpty();
+	bool existePosicion(string x, string y);
+
 public:
 	Matrix();
 	~Matrix();

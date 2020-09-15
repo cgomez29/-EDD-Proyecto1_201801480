@@ -416,6 +416,7 @@ void MainMenu::graficarProyectos()
                     listObjetos = listObjetos->getSiguiente();
                 }
                 matrix->graficar();
+                cin >> id;
                 delete matrix;
                 listNivel = listNivel->getSiguiente();
             }
