@@ -430,3 +430,108 @@ string ReadJSON::nameFile()
 
 	return NULL;
 }
+
+//void ReadJSON::guardarProyecto(/*Project* project*/)
+void ReadJSON::guardarProyecto()
+{	
+	//Arreglo de proyectos
+	json j;
+	json proyectos = {};
+
+	for (int i = 0; i < 2; i++)
+	{
+		// array de proyectos
+		json proyecto;
+		proyecto["nombre"] = "pryecto1";
+		
+		json niveles = {};
+		for (int j = 0; j < 2; j++)
+		{
+			json nivel;
+			nivel["nivel"] = 1;
+			
+			//array paredes
+			json paredes = {};
+			for (int k = 0; k < 2; k++)
+			{
+				json pared;
+				pared["inicio"] = {0,0};
+				pared["final"] = {0,0};
+				pared["color"] = "colorsito";
+				paredes[k] = pared;
+			}
+			nivel["paredes"] = paredes;
+			//array ventanas
+			json ventanas = {};
+			for (int m = 0; m < 2; m++)
+			{
+				json ventana;
+				ventana["inicio"] = { 0,0 };
+				ventana["final"] = { 0,0 };
+				ventanas[m] = ventana;
+			}
+			nivel["ventanas"] = ventanas;
+			//array objetos
+			json objetos = {};
+			for (int n = 0; n < 2; n++)
+			{
+				json objeto;
+				objeto["identificador"] = 1;
+				objeto["nombre"] = "sofa";
+				objeto["letra"] = "s";
+				objeto["color"] ="colorsito";
+				
+				// array puntos
+				json puntos = {};
+
+				for (int o = 0; o < 2; o++)
+				{
+					json punto;
+					punto["x"] = 1;
+					punto["y"] = 2;
+					puntos[o] = punto;
+				}
+				objeto["puntos"] = puntos;
+
+				objetos[n] = objeto;
+			}
+			nivel["objetos"] = objetos;
+			
+			
+			niveles[j] = nivel;
+		}
+		proyecto["niveles"] = niveles;
+		proyectos[i] = proyecto;
+	}
+	j["proyectos"] = proyectos;
+
+	cout << j << endl;;
+
+
+}
+
+/*
+
+for (int i = 0; i < 1; i++)
+	{
+		//arreglo proyecto
+		json proyecto;
+		proyecto["nombre"] = "Proyecto1";
+		// agreglo de niveles
+		json niveles = {};
+
+		for (int j = 0; j < 2; j++)
+		{
+			json nivel;
+			nivel["nivel"] = 1;
+			nivel["paredes"] = {};
+			nivel["ventanas"] = {};
+			niveles[j] = nivel;
+		}
+
+		proyecto["niveles"] = niveles;
+
+		proyectos[i] = proyecto;
+
+	}
+*/

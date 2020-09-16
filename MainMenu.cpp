@@ -50,6 +50,7 @@ void MainMenu::menu()
                 graficarProyectos();
                 break;
             case 5:
+                guardarProyectos();
                 break;
             case 6:
                 llenarArbolB(readJson->leerLibrerias("preuba"));
@@ -422,7 +423,7 @@ void MainMenu::graficarProyectos()
             }
 
 
-            contador = 0;
+            contador = 1;
         }
         else
         {
@@ -583,4 +584,10 @@ bool MainMenu::isNum(string valor)
     }
     //cout << "valor ascii: " << valor << endl;
     return true;
+}
+
+void MainMenu::guardarProyectos()
+{
+
+
 }

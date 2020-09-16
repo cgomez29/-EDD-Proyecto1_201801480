@@ -305,8 +305,8 @@ void Matrix::setPointEmpty()
 	}
 
 
-
-	cout << "X max: " << x << " Y max: " << y  << endl;
+	//imprime el tamaño maximo de la fila y columna
+	//cout << "X max: " << x << " Y max: " << y  << endl;
 
 	for (int i = 0; i < y; i++)
 	{
@@ -318,10 +318,6 @@ void Matrix::setPointEmpty()
 
 	}
 
-
-
-	int efe;
-	cin >> efe;
 }
 
 bool Matrix::existePosicion(string x, string y)

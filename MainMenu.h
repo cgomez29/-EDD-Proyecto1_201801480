@@ -31,6 +31,7 @@ private:
     //Editar nivel
     void eliminarPared(ArbolB* nivel);
     bool isNum(string valor);
+    void guardarProyectos();
 
 public:
     MainMenu();

@@ -273,9 +273,15 @@ void ArbolAVL::inOrden()
 	inOrden(this->raiz);
 }
 
+//Metodo privado para buscar un nodo por id.
 NodoAVL* ArbolAVL::buscarNodo(NodoAVL* root, int id)
 {
-	if (root == nullptr || root->getProject()->getId() == id)
+	if (root == nullptr)
+	{
+		return nullptr;
+	}
+
+	if (root->getProject()->getId() == id)
 	{
 		return root;
 	}
@@ -289,7 +295,7 @@ NodoAVL* ArbolAVL::buscarNodo(NodoAVL* root, int id)
 
 }
 
-
+//Metodo publico para buscar un nodo por id.
 NodoAVL* ArbolAVL::buscarNodo(int id)
 {
 	return buscarNodo(this->raiz, id);

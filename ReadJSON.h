@@ -15,6 +15,7 @@
 #include "SimpleListLibreria.h"
 #include "SimpleListProject.h"
 #include "SimpleListM.h"
+#include "Project.h"
 
 using json = nlohmann::json;
 using namespace std;
@@ -28,6 +29,8 @@ public:
 	SimpleListLibreria* leerLibrerias(string nameFile);
 	SimpleListProject* leerProyectos(string nameFile);
 	SimpleListArbolB* leerNivel(string nameFile);
+	//void guardarProyecto(/*Project* project*/);
+	void guardarProyecto();
 };
 
 #endif // READJSON_H
