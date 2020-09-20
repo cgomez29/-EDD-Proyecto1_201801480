@@ -295,7 +295,6 @@ void Matrix::setPointEmpty()
 		auxV = (Cabecera*)auxV->getDown();
 	}
 
-
 	Cabecera* auxH = this->horizontal;
 	while (auxH != nullptr)
 	{
@@ -303,7 +302,6 @@ void Matrix::setPointEmpty()
 
 		auxH = (Cabecera*)auxH->getNext();
 	}
-
 
 	//imprime el tamaño maximo de la fila y columna
 	//cout << "X max: " << x << " Y max: " << y  << endl;

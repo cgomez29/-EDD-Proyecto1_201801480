@@ -12,6 +12,7 @@ class Objeto :public Nodo
 {
 private:
 	int id;
+	int id2;
 	string name;
 	string letter;
 	string color;
@@ -40,6 +41,8 @@ public:
 	string getX();
 	void setY(string y);
 	string getY();
+	int getId2();
+	void setId2(int id2);
 };
 
 #endif // OBJETO_H

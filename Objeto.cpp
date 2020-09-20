@@ -3,6 +3,7 @@
 Objeto::Objeto()
 {
 	this->id = 0;
+	this->id2 = 0;
 	this->name = "";
 	this->letter = "";
 	this->color = "";
@@ -110,4 +111,14 @@ string Objeto::getY()
 void Objeto::setSimpleList(SimpleListP* list)
 {
 	this->list = list;
+}
+
+int Objeto::getId2()
+{
+	return this->id2;
+}
+
+void Objeto::setId2(int id2)
+{
+	this->id2 = id2;
 }

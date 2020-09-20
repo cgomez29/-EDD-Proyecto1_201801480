@@ -45,7 +45,9 @@ SimpleListLibreria* ReadJSON::leerLibrerias(string nameFile)
 	int y = 0;
 
 	int size = 0;
-	
+
+	int id2 = 0;
+
 	SimpleListLibreria* listaObjeto = new SimpleListLibreria();
 
 	for (int i = 0; i < length; i++)
@@ -68,7 +70,9 @@ SimpleListLibreria* ReadJSON::leerLibrerias(string nameFile)
 			p.setY(y + "");
 			list->add(p);
 		}
+		id2++;
 		Objeto* obj = new Objeto(id, nombre, letra, color, list);
+		obj->setId2(id2);
 		listaObjeto->add(obj);
 	}
 
@@ -107,6 +111,7 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 	int lengthNiveles = 0;
 
 	int length = j["proyectos"].size();
+	int id2 = 0;
 	SimpleListProject* listProject = new SimpleListProject();
 
 	for (int i = 0; i < length; i++)
@@ -117,7 +122,7 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 
 		SimpleListArbolB* listNivel = new SimpleListArbolB();
 
-		if (niveles != NULL)
+		if (niveles.size() != 0)
 		{
 			for (int k = 0; k < niveles.size(); k++)
 			{
@@ -128,12 +133,12 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 					ArbolB* arbolB = new ArbolB();
 					nameNivel = to_string(nivel["nivel"]);
 
-					if (nivel["paredes"] != NULL) {
+					if (nivel["paredes"].size() != 0) {
 
 						SimpleListP* listPoiters = new SimpleListP();
-						for (int y = 0; y < nivel["paredes"].size(); y++)
+						for (int a = 0; a < nivel["paredes"].size(); a++)
 						{
-							json paredes = nivel["paredes"][y];
+							json paredes = nivel["paredes"][a];
 							inicioX = paredes["inicio"][0];
 							inicioY = paredes["inicio"][1];
 							finalX = paredes["final"][0];
@@ -168,20 +173,21 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 
 						}
 						Objeto* obj = new Objeto(-1, "Pared", "P", colorParedes, listPoiters);
+						obj->setId2(-1);
 						arbolB->insert(obj);
 					}
 
-					if (nivel["ventanas"] != NULL)
+					if (nivel["ventanas"].size() != 0)
 					{
-						//Lista de paredes
+						cout << nivel["ventanas"] << endl;
 						SimpleListP* listPoiters = new SimpleListP();
-						for (int y = 0; y < nivel["ventanas"].size(); y++)
+						for (int b = 0; b < nivel["ventanas"].size(); b++)
 						{
-							json paredes = nivel["ventanas"][y];
-							inicioX = paredes["inicio"][0];
-							inicioY = paredes["inicio"][1];
-							finalX = paredes["final"][0];
-							finalY = paredes["final"][1];
+							json ventanas = nivel["ventanas"][b];
+							inicioX = ventanas["inicio"][0];
+							inicioY = ventanas["inicio"][1];
+							finalX = ventanas["final"][0];
+							finalY = ventanas["final"][1];
 							//colorParedes = paredes["color"];
 
 							//cout << paredes << endl;
@@ -210,7 +216,11 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 
 						}
 						Objeto* obj = new Objeto(-2, "Ventanas", "V", "#85e0e0", listPoiters);
+						obj->setId2(-2);
+						cout << "EFEEEEEEEEEEEEE" << endl;
 						arbolB->insert(obj);
+						int df;
+						cin >> df;
 					}
 
 					if (nivel["objetos"] != NULL)
@@ -234,8 +244,9 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 								Point point = Point(to_string(x), to_string(y));
 								listPoiters->add(point);
 							}
-
+							id2++;
 							Objeto* obj = new Objeto(id, nombre, letra, color, listPoiters);
+							obj->setId2(id2);
 							arbolB->insert(obj);
 						}
 
@@ -290,6 +301,7 @@ SimpleListArbolB* ReadJSON::leerNivel(string nameFile)
 	
 	json niveles = j["niveles"];
 
+	int id2 = 0;
 	SimpleListArbolB* listNivel = new SimpleListArbolB();
 
 	if (niveles != NULL)
@@ -309,9 +321,9 @@ SimpleListArbolB* ReadJSON::leerNivel(string nameFile)
 
 				if (nivel["paredes"] != NULL) {
 					SimpleListP* listPoiters = new SimpleListP();
-					for (int y = 0; y < nivel["paredes"].size(); y++)
+					for (int a = 0; a < nivel["paredes"].size(); a++)
 					{
-						json paredes = nivel["paredes"][y];
+						json paredes = nivel["paredes"][a];
 						inicioX = paredes["inicio"][0];
 						inicioY = paredes["inicio"][1];
 						finalX = paredes["final"][0];
@@ -352,6 +364,40 @@ SimpleListArbolB* ReadJSON::leerNivel(string nameFile)
 
 				if (nivel["ventanas"] != NULL)
 				{
+					//Puntos de ventanas
+					SimpleListP* listPoiters = new SimpleListP();
+					for (int b = 0; b < nivel["ventanas"].size(); b++)
+					{
+						json ventanas = nivel["ventanas"][b];
+						inicioX = ventanas["inicio"][0];
+						inicioY = ventanas["inicio"][1];
+						finalX = ventanas["final"][0];
+						finalY = ventanas["final"][1];
+
+						if (inicioY == finalY)
+						{
+							int contador = inicioX;
+							while (contador <= finalX)
+							{
+								Point point = Point(to_string(contador), to_string(inicioY));
+								listPoiters->add(point);
+								contador = contador + 1;
+							}
+						}
+						else
+						{
+							int contador = inicioY;
+							while (contador <= finalY)
+							{
+								Point point = Point(to_string(inicioX), to_string(contador));
+								listPoiters->add(point);
+								contador = contador + 1;
+							}
+						}
+
+					}
+					Objeto* obj = new Objeto(-2, "Ventanas", "V", "#85e0e0", listPoiters);
+					arbolB->insert(obj);
 				}
 
 				if (nivel["objetos"] != NULL)
@@ -375,8 +421,9 @@ SimpleListArbolB* ReadJSON::leerNivel(string nameFile)
 							Point point = Point(to_string(x), to_string(y));
 							listPoiters->add(point);
 						}
-
+						id2++;
 						Objeto* obj = new Objeto(id, nombre, letra, color, listPoiters);
+						obj->setId2(id2);
 						arbolB->insert(obj);
 					}
 				}
@@ -431,32 +478,40 @@ string ReadJSON::nameFile()
 	return NULL;
 }
 
-//void ReadJSON::guardarProyecto(/*Project* project*/)
-void ReadJSON::guardarProyecto()
+void ReadJSON::guardarProyecto(NodoProject* aux)
 {	
 	//Arreglo de proyectos
 	json j;
 	json proyectos = {};
+	int contadori = 0;
+	int contadorj = 0;
+	int contadorn = 0;
+	int contadorm = 0;
+	int contadork = 0;
+	int contadoro = 0;
 
-	for (int i = 0; i < 2; i++)
+	while (aux != NULL)
 	{
 		// array de proyectos
 		json proyecto;
-		proyecto["nombre"] = "pryecto1";
-		
+		proyecto["nombre"] = aux->getProject()->getName();
+
 		json niveles = {};
-		for (int j = 0; j < 2; j++)
+		NodoSLB* auxNivel = aux->getProject()->getListNivel()->getHead();
+		while (auxNivel != NULL)
 		{
+			NodoO* auxOBJ = auxNivel->getArbolB()->getListObjetos()->getHead();
+
 			json nivel;
-			nivel["nivel"] = 1;
-			
+			nivel["nivel"] = stoi(auxNivel->getArbolB()->getNombre());
+
 			//array paredes
 			json paredes = {};
 			for (int k = 0; k < 2; k++)
 			{
 				json pared;
-				pared["inicio"] = {0,0};
-				pared["final"] = {0,0};
+				pared["inicio"] = { 0,0 };
+				pared["final"] = { 0,0 };
 				pared["color"] = "colorsito";
 				paredes[k] = pared;
 			}
@@ -471,67 +526,56 @@ void ReadJSON::guardarProyecto()
 				ventanas[m] = ventana;
 			}
 			nivel["ventanas"] = ventanas;
+
+			
 			//array objetos
 			json objetos = {};
-			for (int n = 0; n < 2; n++)
+			while (auxOBJ != NULL)
 			{
-				json objeto;
-				objeto["identificador"] = 1;
-				objeto["nombre"] = "sofa";
-				objeto["letra"] = "s";
-				objeto["color"] ="colorsito";
-				
-				// array puntos
-				json puntos = {};
-
-				for (int o = 0; o < 2; o++)
+				if (auxOBJ->getObjeto()->getId2() != -2 && auxOBJ->getObjeto()->getId2() != -1)
 				{
-					json punto;
-					punto["x"] = 1;
-					punto["y"] = 2;
-					puntos[o] = punto;
-				}
-				objeto["puntos"] = puntos;
+					json objeto;
+					objeto["identificador"] = auxOBJ->getObjeto()->getId();
+					objeto["nombre"] = auxOBJ->getObjeto()->getName();
+					objeto["letra"] = auxOBJ->getObjeto()->getLetter();
+					objeto["color"] = auxOBJ->getObjeto()->getColor();
 
-				objetos[n] = objeto;
+					// array puntos
+					json puntos = {};
+
+					NodoP* auxPuntos = auxOBJ->getObjeto()->getList()->getHead();
+
+					while (auxPuntos != NULL)
+					{
+						json punto;
+						punto["x"] = auxPuntos->getPoint().getX();
+						punto["y"] = auxPuntos->getPoint().getY();
+						puntos[contadoro] = punto;
+						auxPuntos = auxPuntos->getSiguiente();
+						contadoro++;
+					}
+					objeto["puntos"] = puntos;
+
+					objetos[contadorn] = objeto;
+
+					contadorn++;
+				}
+				auxOBJ = auxOBJ->getSiguiente();
 			}
 			nivel["objetos"] = objetos;
-			
-			
-			niveles[j] = nivel;
+			niveles[contadorj] = nivel;
+
+			auxNivel = auxNivel->getSiguiente();
+			contadorj++;
 		}
 		proyecto["niveles"] = niveles;
-		proyectos[i] = proyecto;
+		proyectos[contadori] = proyecto;
+
+		aux = aux->getSiguiente();
+		contadori++;
 	}
+
 	j["proyectos"] = proyectos;
-
-	cout << j << endl;;
-
-
+	delete aux;
+	cout << j << endl;
 }
-
-/*
-
-for (int i = 0; i < 1; i++)
-	{
-		//arreglo proyecto
-		json proyecto;
-		proyecto["nombre"] = "Proyecto1";
-		// agreglo de niveles
-		json niveles = {};
-
-		for (int j = 0; j < 2; j++)
-		{
-			json nivel;
-			nivel["nivel"] = 1;
-			nivel["paredes"] = {};
-			nivel["ventanas"] = {};
-			niveles[j] = nivel;
-		}
-
-		proyecto["niveles"] = niveles;
-
-		proyectos[i] = proyecto;
-
-	}
-*/

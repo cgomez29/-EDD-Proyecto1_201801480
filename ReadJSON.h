@@ -29,8 +29,7 @@ public:
 	SimpleListLibreria* leerLibrerias(string nameFile);
 	SimpleListProject* leerProyectos(string nameFile);
 	SimpleListArbolB* leerNivel(string nameFile);
-	//void guardarProyecto(/*Project* project*/);
-	void guardarProyecto();
+	void guardarProyecto(NodoProject* treeAVL);
 };
 
 #endif // READJSON_H

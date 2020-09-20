@@ -12,11 +12,11 @@ using namespace std;
 
 int main()
 {
-    ReadJSON* r = new ReadJSON();
+    /*ReadJSON* r = new ReadJSON();
 
     r->guardarProyecto();
 
-    delete r;
+    delete r;*/
 
     /*ArbolAVL* arbol = new ArbolAVL();
     Project* p = new  Project();
@@ -88,8 +88,8 @@ int main()
     }*/
 
 
-    /*MainMenu* menu = new MainMenu();
-    menu->menu();*/
+    MainMenu* menu = new MainMenu();
+    menu->menu();
     //delete menu;
     return 0;
 }

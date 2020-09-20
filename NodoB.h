@@ -21,6 +21,7 @@ public:
 	NodoB* getLeft();
 	NodoB* getRigth();
 	Objeto* getObjeto();
+
 };
 
 #endif // NODOB_H

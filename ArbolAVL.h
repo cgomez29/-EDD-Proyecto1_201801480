@@ -9,6 +9,7 @@
 #include <fstream>
 #include <stdbool.h>
 #include "NodoM.h"
+#include "SimpleListProject.h"
 
 using namespace std;
 
@@ -26,7 +27,9 @@ private:
 	void graficar(stringstream* cadena, NodoAVL* padre, NodoAVL* actual, bool left);
 	int valorAscii(string cadena);
 	void inOrden(NodoAVL* nodo);
-	NodoAVL* buscarNodo(NodoAVL* root, int id);
+	NodoAVL* buscarNodo(NodoAVL* root, int nombre);
+	SimpleListProject* llenarLista(NodoAVL* root, SimpleListProject* list);
+
 public:
 	ArbolAVL();
 	~ArbolAVL();
@@ -34,7 +37,8 @@ public:
 	NodoAVL* getRaiz();
 	void graficar();
 	void inOrden();
-	NodoAVL* buscarNodo(int id);
+	NodoAVL* buscarNodo(string nombre);
+	SimpleListProject* getListProyectos();
 };
 
 #endif // ARBOLAVL_H

@@ -263,7 +263,7 @@ void ArbolAVL::inOrden(NodoAVL* nodo)
 	if (nodo != nullptr)
 	{
 		inOrden(nodo->getLeft());
-		cout << nodo->getProject()->getId() <<  ". " << nodo->getProject()->getName() << endl;
+		cout << nodo->getProject()->getId() <<". " << nodo->getProject()->getName() << endl;
 		inOrden(nodo->getRigth());
 	}
 }
@@ -274,29 +274,58 @@ void ArbolAVL::inOrden()
 }
 
 //Metodo privado para buscar un nodo por id.
-NodoAVL* ArbolAVL::buscarNodo(NodoAVL* root, int id)
+NodoAVL* ArbolAVL::buscarNodo(NodoAVL* root, int name)
 {
 	if (root == nullptr)
 	{
 		return nullptr;
 	}
+	else {
+		cout << root->getProject()->getName() << endl;;
+		int xd;
+		cin >> xd;
+	}
 
-	if (root->getProject()->getId() == id)
+	if (valorAscii(root->getProject()->getName()) == name)
 	{
 		return root;
 	}
 
-	if (root->getProject()->getId() > id)
+	if (valorAscii(root->getProject()->getName()) > name)
 	{
-		return buscarNodo(root->getLeft(), id);
+		return buscarNodo(root->getLeft(), name);
 	}
 
-	return buscarNodo(root->getRigth(), id);
+	return buscarNodo(root->getRigth(), name);
 
 }
 
 //Metodo publico para buscar un nodo por id.
-NodoAVL* ArbolAVL::buscarNodo(int id)
+NodoAVL* ArbolAVL::buscarNodo(string nombre)
 {
-	return buscarNodo(this->raiz, id);
+	return buscarNodo(this->raiz, valorAscii(nombre));
+}
+
+//Metodo public que devuelve en una lista todos los proyectos cargador en el arbolAVL
+SimpleListProject* ArbolAVL::getListProyectos()
+{
+	SimpleListProject* list = new SimpleListProject();
+	list = llenarLista(this->raiz, list);
+	return list;
+}
+
+//Metodo privado que devuelve en una lista todos los proyectos cargador en el arbolAVL
+SimpleListProject* ArbolAVL::llenarLista(NodoAVL* root, SimpleListProject* list)
+{
+	if (root != nullptr)
+	{
+		llenarLista(root->getLeft(), list);
+		list->add(root->getProject());
+		llenarLista(root->getRigth(), list);
+	}
+	else if (root == nullptr)
+	{
+		return list;
+	}
+
 }

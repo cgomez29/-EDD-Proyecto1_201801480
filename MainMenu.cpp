@@ -76,6 +76,7 @@ void MainMenu::llenarArbolB(SimpleListLibreria* list)
     treeB->graficar();
 }
 
+//Metodo para llenar el arbolAVL de proyectos
 void MainMenu::llenarArbolAVL(SimpleListProject* list)
 {
     NodoProject* aux = list->getHead();
@@ -290,15 +291,35 @@ void MainMenu::editarProyecto()
         cout << "Ingrese el numero del proyecto a graficar" << endl;
         cout << "Ingrese 0 si desea salir" << endl;
         cout << ">> ";
-        int id;
-        cin >> id;
+        int id = -1;
+        try
+        {
+            cin >> id;
 
+        }
+        catch (const std::exception&)
+        {
+            id = -1;
+        }
+        
         if (id == 0)
         {
             break;
         }
 
-        NodoAVL* nodoFound = treeAVL->buscarNodo(id);
+        string nombre = "";
+        // Redundante, pero para lograr solo colocar el numero y buscarlo se necesito de una lista
+        NodoProject* pro = treeAVL->getListProyectos()->getHead();
+        while (pro != NULL)
+        {
+            if (pro->getProject()->getId() == id)
+            {
+                nombre = pro->getProject()->getName();
+            }
+            pro = pro->getSiguiente();
+        }
+
+        NodoAVL* nodoFound = treeAVL->buscarNodo(nombre);
 
         if (nodoFound != nullptr)
         {
@@ -374,24 +395,46 @@ void MainMenu::graficarProyectos()
         cout << "Ingrese el numero del proyecto a graficar" << endl;
         cout << "Ingrese 0 si desea salir" << endl;
         cout << ">> ";
-        int id;
-        cin >> id;
+        int id = -1;
+        try
+        {
+            cin >> id;
+
+        }
+        catch (const std::exception&)
+        {
+            id = -1;
+        }
 
         if (id == 0)
         {
             break;
         }
 
-        NodoAVL* nodoFound = treeAVL->buscarNodo(id);
+        string nombre = "";
+        // Redundante, pero para lograr solo colocar el numero y buscarlo se necesito de una lista
+        NodoProject* pro = treeAVL->getListProyectos()->getHead();
+        while (pro != NULL)
+        {
+            if (pro->getProject()->getId() == id)
+            {
+                nombre = pro->getProject()->getName();
+            }
+            pro = pro->getSiguiente();
+        }
+
+        NodoAVL* nodoFound = treeAVL->buscarNodo(nombre);
 
         if (nodoFound != nullptr)
         {
+            
             NodoSLB* listNivel = nodoFound->getProject()->getListNivel()->getHead();
             //Recorriendo lista de proyectos (ABB)
             while (listNivel != NULL)
             {
                 Matrix* matrix = new Matrix();
                 NodoO* listObjetos = listNivel->getArbolB()->getListObjetos()->getHead();
+                listNivel->getArbolB()->graficar();
                 //Recorriendo lista de objetos del ABB
                 while (listObjetos != NULL)
                 {
@@ -401,14 +444,12 @@ void MainMenu::graficarProyectos()
                     string letter = listObjetos->getObjeto()->getLetter();
                     string color = listObjetos->getObjeto()->getColor();
 
-                    //cout << "EFE " << nombre << endl;
                     NodoP* puntos = listObjetos->getObjeto()->getList()->getHead();
 
                     while (puntos != NULL)
                     {
                         string x = puntos->getPoint().getX();
                         string y = puntos->getPoint().getY();
-                        //cout << "EFE " <<2 x << endl;
                         matrix->add(id, nombre, letter, color, x, y);
                         puntos = puntos->getSiguiente();
                     }
@@ -588,6 +629,6 @@ bool MainMenu::isNum(string valor)
 
 void MainMenu::guardarProyectos()
 {
-
-
+    // se envia la lista de proyectos
+    readJson->guardarProyecto(treeAVL->getListProyectos()->getHead());
 }
