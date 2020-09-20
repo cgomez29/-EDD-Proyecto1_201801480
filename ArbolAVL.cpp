@@ -280,11 +280,6 @@ NodoAVL* ArbolAVL::buscarNodo(NodoAVL* root, int name)
 	{
 		return nullptr;
 	}
-	else {
-		cout << root->getProject()->getName() << endl;;
-		int xd;
-		cin >> xd;
-	}
 
 	if (valorAscii(root->getProject()->getName()) == name)
 	{

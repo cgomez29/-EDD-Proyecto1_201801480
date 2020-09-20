@@ -246,11 +246,12 @@ void MainMenu::editarNivel(Project* project)
             cout << " Objetos en el nivel:"<< endl;
             nivel->inOrden();
             cout << endl;
+            //graficando nivel para saber los puntos a eliminar
+            graficarNivel(nivel);
             cout << "1. Agregar objeto" << endl;
             cout << "2. Eliminar objeto" << endl;
             cout << "3. Eliminar pared" << endl;
-            cout << "4. Copiar nivel1" << endl;
-            cout << "5. Salir" << endl;
+            cout << "4. Salir" << endl;
             cout << ">> ";
             cin >> id;
             switch (id)
@@ -266,15 +267,42 @@ void MainMenu::editarNivel(Project* project)
             case 3:
                 eliminarPared(nivel);
                 break;
-            case 4:
-                break;
             }
 
 
-        } while (id != 5);
+        } while (id != 4);
     }
 }
 
+void MainMenu::graficarNivel(ArbolB* nivel)
+{
+    Matrix* matrix = new Matrix();
+    NodoO* listObjetos = nivel->getListObjetos()->getHead();
+    //Recorriendo lista de objetos del ABB
+    while (listObjetos != NULL)
+    {
+        //cout << "EFE " << listObjetos->getObjeto()->getName() << endl;
+        int id = listObjetos->getObjeto()->getId();
+        string nombre = listObjetos->getObjeto()->getName();
+        string letter = listObjetos->getObjeto()->getLetter();
+        string color = listObjetos->getObjeto()->getColor();
+
+        NodoP* puntos = listObjetos->getObjeto()->getList()->getHead();
+
+        while (puntos != NULL)
+        {
+            string x = puntos->getPoint().getX();
+            string y = puntos->getPoint().getY();
+            matrix->add(id, nombre, letter, color, x, y);
+            puntos = puntos->getSiguiente();
+        }
+
+        matrix->setName(nivel->getNombre());
+        listObjetos = listObjetos->getSiguiente();
+    }
+    matrix->graficar();
+    delete matrix;
+}
 
 void MainMenu::editarProyecto()
 {
@@ -352,7 +380,8 @@ void MainMenu::editarProyecto()
             cout << "2. Editar nivel" << endl;
             cout << "3. Eliminar nivel" << endl;
             cout << "4. Eliminar proyecto" << endl;
-            cout << "5. Salir" << endl;
+            cout << "5. Copiar nivel" << endl;
+            cout << "6. Salir" << endl;
             cout << ">> ";
             cin >> entrada;
 
@@ -370,11 +399,14 @@ void MainMenu::editarProyecto()
             case 4:
                 break;
             case 5:
+                copiarNivel(project);
+                break;
+            case 6:
                 break;
             }
 
 
-        } while (entrada != 5);
+        } while (entrada != 6);
 
     }
 
@@ -492,6 +524,99 @@ void MainMenu::agregarObjeto()
         x = -1;
     }
 
+}
+
+void MainMenu::copiarNivel(Project* project)
+{
+    NodoSLB* aux = project->getListNivel()->getHead();
+    int id;
+    int id2;
+    ArbolB* head1 = NULL;
+    ArbolB* head2 = NULL;
+
+    do
+    {
+        system("cls");
+        cout << "Lista de niveles en el proyecto: " << project->getName() << endl;
+        while (aux != NULL)
+        {
+            cout << aux->getArbolB()->getId() << ". " << aux->getArbolB()->getNombre() << endl;
+            aux = aux->getSiguiente();
+        }
+        cout << endl;
+        cout << "Ingrese el numero del nivel a copiar" << endl;
+        cout << "Ingrese 0 si desea salir" << endl;
+        cout << ">> ";
+        cin >> id;
+        if (id == 0) { break; }
+        
+        bool numExiste = false;
+        bool numExiste2 = false;
+        aux = project->getListNivel()->getHead();
+        while (aux != NULL)
+        {
+            if (aux->getArbolB()->getId() == id)
+            {
+                head1 = aux->getArbolB();
+                numExiste = true;
+                break;
+            }
+            aux = aux->getSiguiente();
+        }
+
+        if (numExiste)
+        { 
+            cout << "Ingrese el numero del nivel destino: " << endl;
+            cout << ">> ";
+            cin >> id2;
+            aux = project->getListNivel()->getHead();
+            while (aux != NULL)
+            {
+                if (aux->getArbolB()->getId() == id2)
+                {
+                    head2 = aux->getArbolB();
+                    numExiste2 = true;
+                    break;
+                }
+                aux = aux->getSiguiente();
+            }
+
+            if (numExiste2)
+            {
+                string nombre2 = head2->getNombre();
+                head1->setNombre(nombre2);
+                ///MOD
+                NodoO* obj = head2->getListObjetos()->getHead();
+
+                while (obj != NULL)
+                {
+                    head2->delete_nodo(obj->getObjeto()->getId());
+                    aux = aux->getSiguiente();
+                }
+
+                // eliminarNivel(head2->getId())
+                                        // solo agregar un nivel 
+                //agregarNiveles(project, head1)
+            }
+            else
+            {
+                cout << "Nivel no existe: " << id << endl;
+                cout << "Presione un numero para continuar.." << endl;
+                int xsd;
+                cin >> xsd;
+                id = 1;
+            }
+
+        }
+        else {
+            cout << "Nivel no existe: " << id << endl;
+            cout << "Presione un numero para continuar.." << endl;
+            int xsd;
+            cin >> xsd;
+            id = 1;
+        }
+
+    } while (id != 0);
 }
 
 //metodo privado para eliminar un objeto de un nivel de tipoArbolB

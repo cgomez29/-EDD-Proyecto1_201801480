@@ -34,6 +34,8 @@ private:
     void guardarProyectos();
     void agregarObjeto();
     void eliminarObjeto(ArbolB* nivel);
+    void copiarNivel(Project* project);
+    void graficarNivel(ArbolB* nivel);
 
 public:
     MainMenu();

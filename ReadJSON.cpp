@@ -181,7 +181,6 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 
 					if (nivel["ventanas"].size() != 0)
 					{
-						cout << nivel["ventanas"] << endl;
 						SimpleListP* listPoiters = new SimpleListP();
 						for (int b = 0; b < nivel["ventanas"].size(); b++)
 						{
@@ -219,10 +218,7 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 						}
 						Objeto* obj = new Objeto(-2, "Ventanas", "V", "#85e0e0", listPoiters);
 						obj->setId2(-2);
-						cout << "EFEEEEEEEEEEEEE" << endl;
 						arbolB->insert(obj);
-						int df;
-						cin >> df;
 					}
 
 					if (nivel["objetos"] != NULL)

@@ -310,7 +310,7 @@ void Matrix::setPointEmpty()
 	{
 		for (int j = 0; j < x; j++)
 		{
-									// j = x ; i = y
+													// j = x ; i = y
 			add(-1000000, "", "", "white", to_string(j), to_string(i));
 		}
 
