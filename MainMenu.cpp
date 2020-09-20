@@ -574,7 +574,7 @@ void MainMenu::copiarNivel(Project* project)
             {
                 if (aux->getArbolB()->getId() == id2)
                 {
-                    head2 = aux->getArbolB();
+                    head2 = aux->getArbolB(); 
                     numExiste2 = true;
                     break;
                 }
@@ -583,20 +583,39 @@ void MainMenu::copiarNivel(Project* project)
 
             if (numExiste2)
             {
-                string nombre2 = head2->getNombre();
-                head1->setNombre(nombre2);
-                ///MOD
-                NodoO* obj = head2->getListObjetos()->getHead();
+                head2->Delete();
+                head2->setRaizNull();
+                //Lista de objeto origen para incertara arbol (nivel) destino
+                NodoO* nodoO = head1->getListObjetos()->getHead();
 
-                while (obj != NULL)
+                while (nodoO != NULL)
                 {
-                    head2->delete_nodo(obj->getObjeto()->getId());
-                    aux = aux->getSiguiente();
+                    Objeto* obj = nodoO->getObjeto();
+                    NodoP* list1 = obj->getList()->getHead();
+                    SimpleListP* newList = new SimpleListP();
+
+                    while (list1 != NULL)
+                    {
+                        Point pnew = Point(list1->getPoint().getX(), list1->getPoint().getY());
+                        newList->add(pnew);
+                        list1 = list1->getSiguiente();
+                    }
+                    Objeto* newObj = new Objeto(obj->getId(), obj->getName(), obj->getLetter(), obj->getColor(), newList);
+                    newObj->setId2(obj->getId2());
+
+                    head2->insert(newObj);
+                    nodoO = nodoO->getSiguiente();
                 }
 
-                // eliminarNivel(head2->getId())
-                                        // solo agregar un nivel 
-                //agregarNiveles(project, head1)
+                int xsd;
+                system("cls");
+                cout << "Copia realizada!!" << endl;
+                cout << "Presione un numero para continuar.." << endl;
+                cout << ">>";
+                cin >> xsd;
+                id = 0;
+               
+
             }
             else
             {
@@ -606,7 +625,6 @@ void MainMenu::copiarNivel(Project* project)
                 cin >> xsd;
                 id = 1;
             }
-
         }
         else {
             cout << "Nivel no existe: " << id << endl;
@@ -622,6 +640,9 @@ void MainMenu::copiarNivel(Project* project)
 //metodo privado para eliminar un objeto de un nivel de tipoArbolB
 void MainMenu::eliminarObjeto(ArbolB* nivel)
 {
+    system("cls");
+    nivel->inOrden();
+    cout << endl;
     cout << " Ingrese numero de objeto a eliminar:" << endl;
     cout << ">> ";
     int id;

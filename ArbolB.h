@@ -44,6 +44,7 @@ public:
 	void setNombre(string nombre);
 	void inOrden();
 	SimpleListLibreria* getListObjetos();
+	void setRaizNull();
 
 };
 #endif // ARBOLB_H

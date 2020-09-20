@@ -23,6 +23,11 @@ void ArbolB::Delete(NodoB* raiz)
 	delete this->raiz;
 }
 
+void ArbolB::setRaizNull()
+{
+	this->raiz = nullptr;
+}
+
 void ArbolB::insert(int id, string name, string letter, string color, SimpleListP* list)
 {
 	Objeto* objeto = new Objeto(id, name, letter, color, list);
