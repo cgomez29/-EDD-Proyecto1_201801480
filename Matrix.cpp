@@ -4,6 +4,7 @@ Matrix::Matrix()
 {
 	this->horizontal = nullptr;
 	this->vertical = nullptr;
+	this->coutEspacio = 0;
 }
 
 Matrix::~Matrix()
@@ -310,7 +311,8 @@ void Matrix::setPointEmpty()
 	{
 		for (int j = 0; j < x; j++)
 		{
-													// j = x ; i = y
+			coutEspacio++;
+										// j = x ; i = y
 			add(-1000000, "", "", "white", to_string(j), to_string(i));
 		}
 
@@ -527,5 +529,15 @@ void Matrix::setId(int id)
 int Matrix::getId()
 {
 	return this->id;
+}
+
+void Matrix::setCoutEspacio(int space)
+{
+	this->coutEspacio = space;
+}
+
+int Matrix::getCoutEspacio()
+{
+	return this->coutEspacio;
 }
 

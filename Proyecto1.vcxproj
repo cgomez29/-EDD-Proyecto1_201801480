@@ -150,7 +150,6 @@
     <ClCompile Include="ArbolAVL.cpp" />
     <ClCompile Include="ArbolB.cpp" />
     <ClCompile Include="Cabecera.cpp" />
-    <ClCompile Include="ControllerProject.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Nodo.cpp" />
@@ -176,7 +175,6 @@
     <ClInclude Include="ArbolAVL.h" />
     <ClInclude Include="ArbolB.h" />
     <ClInclude Include="Cabecera.h" />
-    <ClInclude Include="ControllerProject.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Nodo.h" />

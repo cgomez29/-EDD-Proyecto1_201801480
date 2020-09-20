@@ -29,7 +29,6 @@ private:
 	void inOrden(NodoAVL* nodo);
 	NodoAVL* buscarNodo(NodoAVL* root, int nombre);
 	SimpleListProject* llenarLista(NodoAVL* root, SimpleListProject* list);
-
 public:
 	ArbolAVL();
 	~ArbolAVL();

@@ -3,7 +3,6 @@
 
 MainMenu::MainMenu()
 {
-    this->controller = new ControllerProject();
     this->contadorProyecto = 1;
 }
 
@@ -31,7 +30,8 @@ void MainMenu::menu()
             cout << "4. Graficar proyectos" << endl;
             cout << "5. Guardar proyectos" << endl;
             cout << "6. Cargar librerias" << endl;
-            cout << "7. salir" << endl;
+            cout << "7. Reportes" << endl;
+            cout << "8. salir" << endl;
             cout << ">> ";
             cin >> entrada;
 
@@ -55,11 +55,14 @@ void MainMenu::menu()
             case 6:
                 llenarArbolB(readJson->leerLibrerias("preuba"));
                 break;
+            case 7:
+                reportes();
+                break;
             }
 
 
 
-        } while (entrada != 7);
+        } while (entrada != 8);
     }
 
 }
@@ -823,4 +826,289 @@ void MainMenu::guardarProyectos()
 {
     // se envia la lista de proyectos
     readJson->guardarProyecto(treeAVL->getListProyectos()->getHead());
+}
+
+
+void MainMenu::reportes()
+{
+    string entrada = "";
+    int en = 0;
+    do
+    {
+        system("cls");
+        cout << "     REPORTES" << endl;
+        cout << "1. Proyectos con mayor numero de niveles (descendente)" << endl;
+        cout << "2. Proyectos con mayor numero de niveles (ascendente)" << endl;
+        cout << "3. En un proyecto.." << endl;
+        cout << "4. Salir" << endl;
+        cout << ">> ";
+        cin >> entrada;
+        
+        if (valorAscii(entrada))
+        {
+            en = stoi(entrada);
+            switch (en)
+            {
+            case 1:
+                //nivelDesc();
+                break;
+            case 2:
+                //nivelAsc();
+                break;
+            case 3:
+                reportInPorject();
+                break;
+            }
+        }
+        else
+        {
+            en = -1;
+        }
+    } while (en != 4);
+}
+
+void MainMenu::reportInPorject()
+{
+    int contador = 0;
+    NodoAVL* nodoFound = nullptr;
+    do
+    {
+        system("cls");
+        cout << "Lista de proyectos" << endl;
+        treeAVL->inOrden();
+        cout << endl;
+        cout << "Ingrese el numero del proyecto" << endl;
+        cout << "Ingrese 0 si desea salir" << endl;
+        cout << ">> ";
+        int id = -1;
+        try
+        {
+            cin >> id;
+
+        }
+        catch (const std::exception&)
+        {
+            id = -1;
+        }
+
+        if (id == 0)
+        {
+            break;
+        }
+
+        string nombre = "";
+        // Redundante, pero para lograr solo colocar el numero y buscarlo se necesito de una lista
+        NodoProject* pro = treeAVL->getListProyectos()->getHead();
+        while (pro != NULL)
+        {
+            if (pro->getProject()->getId() == id)
+            {
+                nombre = pro->getProject()->getName();
+            }
+            pro = pro->getSiguiente();
+        }
+
+        NodoAVL* nodoFound = treeAVL->buscarNodo(nombre);
+
+        if (nodoFound != nullptr)
+        {
+            int paredeNew;
+            NodoSLB* listNivel;
+            int paredeOld;
+            ArbolB* treeBGrap;
+            string entrada = "";
+            int en = 0;
+            do
+            {
+                system("cls");
+                cout << "  Proyecto: " << nodoFound->getProject()->getName() << endl;
+                cout << "1. Nivel con mas espacio" << endl;
+                cout << "2. Nivel con menos paredes" << endl;
+                cout << "3. Nivel con mas paredes" << endl;
+                cout << "4. Nivel con mas espacio y mas ventanas" << endl;
+                cout << "5. Nivel con mas espacio y menos ventanas" << endl;
+                cout << "6. Salir" << endl;
+                cout << ">> ";
+                cin >> entrada;
+
+                if (valorAscii(entrada))
+                {
+                    en = stoi(entrada);
+                    switch (en)
+                    {
+                    case 1:
+                        break;
+                    case 2:
+                       
+                        paredeNew = 0;
+                        treeBGrap = nullptr;
+                        paredeOld = 50000;
+                        listNivel = nodoFound->getProject()->getListNivel()->getHead();
+                        //Recorriendo lista de proyectos (ABB)
+                        while (listNivel != NULL)
+                        {
+                            NodoO* listObjetos = listNivel->getArbolB()->getListObjetos()->getHead();
+                            //Recorriendo lista de objetos del ABB
+                            while (listObjetos != NULL)
+                            {
+                                NodoP* puntos = listObjetos->getObjeto()->getList()->getHead();
+
+                                while (puntos != NULL)
+                                {
+                                    if (listObjetos->getObjeto()->getId() == -1)
+                                    {
+                                        paredeNew++;
+                                    }
+
+                                    puntos = puntos->getSiguiente();
+                                }
+
+                                if (listObjetos->getObjeto()->getId() == -1)
+                                {
+                                    if (paredeNew <= paredeOld)
+                                    {
+                                        paredeOld = paredeNew;
+                                        treeBGrap = listNivel->getArbolB();
+                                    }
+                                }
+                                listObjetos = listObjetos->getSiguiente();
+                            }
+                            //matrix->graficar();
+                            listNivel = listNivel->getSiguiente();
+                        }
+
+                        if (treeBGrap != nullptr)
+                        {
+                            graficarNivel(treeBGrap);
+                        }
+                        break;
+                    case 3:
+                        paredeNew = 0;
+                        treeBGrap = nullptr;
+                        paredeOld = 0;
+                        listNivel = nodoFound->getProject()->getListNivel()->getHead();
+                        //Recorriendo lista de proyectos (ABB)
+                        while (listNivel != NULL)
+                        {
+                            NodoO* listObjetos = listNivel->getArbolB()->getListObjetos()->getHead();
+                            //Recorriendo lista de objetos del ABB
+                            while (listObjetos != NULL)
+                            {
+                                NodoP* puntos = listObjetos->getObjeto()->getList()->getHead();
+
+                                while (puntos != NULL)
+                                {
+                                    if (listObjetos->getObjeto()->getId() == -1)
+                                    {
+                                        paredeNew++;
+                                    }
+
+                                    puntos = puntos->getSiguiente();
+                                }
+
+                                if (listObjetos->getObjeto()->getId() == -1)
+                                {
+                                    if (paredeNew >= paredeOld)
+                                    {
+                                        paredeOld = paredeNew;
+                                        treeBGrap = listNivel->getArbolB();
+                                    }
+                                }
+                                listObjetos = listObjetos->getSiguiente();
+                            }
+                            //matrix->graficar();
+                            listNivel = listNivel->getSiguiente();
+                        }
+
+                        if (treeBGrap != nullptr)
+                        {
+                            graficarNivel(treeBGrap);
+                        }
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                    }
+                }
+                else
+                {
+                    en = -1;
+                }
+            } while (en != 6);
+
+
+        }
+        else
+        {
+            cout << "Numero no valido" << endl;
+            cin >> id;
+            contador = 1;
+        }
+    } while (contador != 0);
+   
+}
+
+void MainMenu::nivelDesc()
+{
+    int contador;
+    NodoProject* project = treeAVL->getListProyectos()->getHead();
+    while (project != NULL)
+    {
+        contador = 0;
+        //Nodo Simple List de arbol binario
+        NodoSLB* niveles = project->getProject()->getListNivel()->getHead();
+        while (niveles != NULL)
+        {
+            contador++;
+            niveles = niveles->getSiguiente();
+        }
+
+        project->getProject()->setCantNivel(contador);
+        project = project->getSiguiente();
+    }
+}
+
+void MainMenu::nivelAsc()
+{
+    int contador;
+    int coutProject = 0;
+
+    NodoProject* project = treeAVL->getListProyectos()->getHead();
+    while (project != NULL)
+    {
+        contador = 0;
+        //Nodo Simple List de arbol binario
+        NodoSLB* niveles = project->getProject()->getListNivel()->getHead();
+        while (niveles != NULL)
+        {
+            contador++;
+            niveles = niveles->getSiguiente();
+        }
+
+        coutProject++;
+        project->getProject()->setCantNivel(contador);
+        project = project->getSiguiente();
+    }
+
+}
+
+bool MainMenu::valorAscii(string cadena)
+{
+    int valor = 0;
+    char caracter;
+    for (int i = 0; i <= cadena.length(); i++)
+    {
+        caracter = cadena[i];
+        valor = valor + caracter;
+    }
+
+    if ((valor >= 48 && valor <= 57))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }

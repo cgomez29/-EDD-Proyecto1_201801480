@@ -43,3 +43,13 @@ void Project::setId(int id)
 {
 	this->id = id;
 }
+
+int Project::getCantNivel()
+{
+	return this->cantNiveles;
+}
+
+void Project::setCantNivel(int cant)
+{
+	this->cantNiveles = cant;
+}

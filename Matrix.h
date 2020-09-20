@@ -28,6 +28,7 @@ private:
 	void add(Objeto* obj, string x, string y);
 	void setPointEmpty();
 	bool existePosicion(string x, string y);
+	int coutEspacio;
 
 public:
 	Matrix();
@@ -38,6 +39,8 @@ public:
 	string getName();
 	void setId(int id);
 	int getId();
+	void setCoutEspacio(int id);
+	int getCoutEspacio();
 };
 
 #endif //MATRIX_H

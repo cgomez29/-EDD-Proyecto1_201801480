@@ -14,6 +14,7 @@ private:
 	int id;
 	string name;
 	SimpleListArbolB* listNivel;
+	int cantNiveles;
 
 public:
 	Project();
@@ -24,6 +25,8 @@ public:
 	void setName(string name);
 	void setId(int id);
 	void setList(SimpleListArbolB* list);
+	int getCantNivel();
+	void setCantNivel(int cant);
 };
 
 #endif // PROJECT_H

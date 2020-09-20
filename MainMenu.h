@@ -1,4 +1,3 @@
-#include "ControllerProject.h"
 #include "conio.h"
 #include "ReadJSON.h"
 #include <iostream>
@@ -15,10 +14,13 @@ class MainMenu
 {
 
 private:
-    ControllerProject* controller;
-    ReadJSON* readJson = new ReadJSON();
+    //Arbol global de proyectos
     ArbolAVL* treeAVL = new ArbolAVL();
+    //Arbol global de librerias
     ArbolB* treeB = new ArbolB();
+    // Lectura de .json
+    ReadJSON* readJson = new ReadJSON();
+    
     void llenarArbolB(SimpleListLibreria* list);
     void llenarArbolAVL(SimpleListProject* list);
     void verProjectos();
@@ -36,6 +38,11 @@ private:
     void eliminarObjeto(ArbolB* nivel);
     void copiarNivel(Project* project);
     void graficarNivel(ArbolB* nivel);
+    void reportes();
+    bool valorAscii(string cadena);
+    void nivelDesc();
+    void nivelAsc();
+    void reportInPorject();
 
 public:
     MainMenu();
