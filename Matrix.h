@@ -26,11 +26,11 @@ private:
 	Nodo* getUltimoV(Cabecera* cabecera, string y);
 	Nodo* getUltimoH(Cabecera* cabecera, string x);
 	void add(Objeto* obj, string x, string y);
-	void setPointEmpty();
 	bool existePosicion(string x, string y);
 	int coutEspacio;
 
 public:
+	void setPointEmpty();
 	Matrix();
 	~Matrix();
 	void add(int id, string nombre, string letter, string color, string x, string y);

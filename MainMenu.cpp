@@ -913,8 +913,10 @@ void MainMenu::reportInPorject()
         if (nodoFound != nullptr)
         {
             int paredeNew;
+            int windowNew;
             NodoSLB* listNivel;
             int paredeOld;
+            int windowOld;
             ArbolB* treeBGrap;
             string entrada = "";
             int en = 0;
@@ -937,9 +939,58 @@ void MainMenu::reportInPorject()
                     switch (en)
                     {
                     case 1:
+                        paredeNew = 0;
+                        treeBGrap = nullptr;
+                        paredeOld = 0;
+                        listNivel = nodoFound->getProject()->getListNivel()->getHead();
+                        //Recorriendo lista de proyectos (ABB)
+
+                        while (listNivel != NULL)
+                        {
+                            paredeNew = 0;
+                            Matrix* matrix = new Matrix();
+                            NodoO* listObjetos = listNivel->getArbolB()->getListObjetos()->getHead();
+                            //listNivel->getArbolB()->graficar();
+                            //Recorriendo lista de objetos del ABB
+                            while (listObjetos != NULL)
+                            {
+                                //cout << "EFE " << listObjetos->getObjeto()->getName() << endl;
+                                int id = listObjetos->getObjeto()->getId();
+                                string nombre = listObjetos->getObjeto()->getName();
+                                string letter = listObjetos->getObjeto()->getLetter();
+                                string color = listObjetos->getObjeto()->getColor();
+
+                                NodoP* puntos = listObjetos->getObjeto()->getList()->getHead();
+
+                                while (puntos != NULL)
+                                {
+                                    string x = puntos->getPoint().getX();
+                                    string y = puntos->getPoint().getY();
+                                    matrix->add(id, nombre, letter, color, x, y);
+                                    puntos = puntos->getSiguiente();
+                                }
+
+                                matrix->setName(listNivel->getArbolB()->getNombre());
+                                listObjetos = listObjetos->getSiguiente();
+                            }
+                            matrix->setPointEmpty();
+                            paredeNew = matrix->getCoutEspacio();
+
+                            if (paredeNew >= paredeOld)
+                            {
+                                paredeOld = paredeNew;
+                                treeBGrap = listNivel->getArbolB();
+                            }
+                            listNivel = listNivel->getSiguiente();
+                        }
+                        if (treeBGrap != nullptr)
+                        {
+                            graficarNivel(treeBGrap);
+                        }
+
                         break;
                     case 2:
-                       
+
                         paredeNew = 0;
                         treeBGrap = nullptr;
                         paredeOld = 50000;
@@ -947,6 +998,7 @@ void MainMenu::reportInPorject()
                         //Recorriendo lista de proyectos (ABB)
                         while (listNivel != NULL)
                         {
+                            paredeNew = 0;
                             NodoO* listObjetos = listNivel->getArbolB()->getListObjetos()->getHead();
                             //Recorriendo lista de objetos del ABB
                             while (listObjetos != NULL)
@@ -990,6 +1042,7 @@ void MainMenu::reportInPorject()
                         //Recorriendo lista de proyectos (ABB)
                         while (listNivel != NULL)
                         {
+                            paredeNew = 0;
                             NodoO* listObjetos = listNivel->getArbolB()->getListObjetos()->getHead();
                             //Recorriendo lista de objetos del ABB
                             while (listObjetos != NULL)
@@ -1026,8 +1079,143 @@ void MainMenu::reportInPorject()
                         }
                         break;
                     case 4:
+                        paredeNew = 0;
+                        treeBGrap = nullptr;
+                        paredeOld = 0;
+                        windowOld = 0;
+                        windowNew = 0;
+                        listNivel = nodoFound->getProject()->getListNivel()->getHead();
+                        //Recorriendo lista de proyectos (ABB)
+
+                        while (listNivel != NULL)
+                        {
+                            windowNew = 0;
+                            Matrix* matrix = new Matrix();
+                            NodoO* listObjetos = listNivel->getArbolB()->getListObjetos()->getHead();
+                            //listNivel->getArbolB()->graficar();
+                            //Recorriendo lista de objetos del ABB
+                            while (listObjetos != NULL)
+                            {
+                                //cout << "EFE " << listObjetos->getObjeto()->getName() << endl;
+                                int id = listObjetos->getObjeto()->getId();
+                                string nombre = listObjetos->getObjeto()->getName();
+                                string letter = listObjetos->getObjeto()->getLetter();
+                                string color = listObjetos->getObjeto()->getColor();
+
+                                NodoP* puntos = listObjetos->getObjeto()->getList()->getHead();
+
+                                while (puntos != NULL)
+                                {
+                                    if (listObjetos->getObjeto()->getId() == -2)
+                                    {
+                                        windowNew++;
+                                    }
+                                    string x = puntos->getPoint().getX();
+                                    string y = puntos->getPoint().getY();
+                                    matrix->add(id, nombre, letter, color, x, y);
+                                    puntos = puntos->getSiguiente();
+                                }
+
+
+                                if (listObjetos->getObjeto()->getId() == -2)
+                                {
+                                    if (windowNew >= windowOld)
+                                    {
+                                        windowOld = windowNew;
+                                    }
+                                }
+                                matrix->setName(listNivel->getArbolB()->getNombre());
+                                listObjetos = listObjetos->getSiguiente();
+                            }
+                            matrix->setPointEmpty();
+                            paredeNew = matrix->getCoutEspacio();
+
+                            if (paredeNew >= paredeOld && windowNew >= windowOld)
+                            {
+                                paredeOld = paredeNew;
+                                treeBGrap = listNivel->getArbolB();
+                            }
+                            listNivel = listNivel->getSiguiente();
+                        }
+                        if (treeBGrap != nullptr)
+                        {
+                            graficarNivel(treeBGrap);
+                        }
+
+
                         break;
                     case 5:
+
+                        paredeNew = 0;
+                        treeBGrap = nullptr;
+                        paredeOld = 0;
+                        windowOld = 50000;
+                        windowNew = 0;
+                        listNivel = nodoFound->getProject()->getListNivel()->getHead();
+                        //Recorriendo lista de proyectos (ABB)
+
+                        while (listNivel != NULL)
+                        {
+                            windowNew = 0;
+                            Matrix* matrix = new Matrix();
+                            NodoO* listObjetos = listNivel->getArbolB()->getListObjetos()->getHead();
+                            //listNivel->getArbolB()->graficar();
+                            //Recorriendo lista de objetos del ABB
+                            while (listObjetos != NULL)
+                            {
+                                //cout << "EFE " << listObjetos->getObjeto()->getName() << endl;
+                                int id = listObjetos->getObjeto()->getId();
+                                string nombre = listObjetos->getObjeto()->getName();
+                                string letter = listObjetos->getObjeto()->getLetter();
+                                string color = listObjetos->getObjeto()->getColor();
+
+                                NodoP* puntos = listObjetos->getObjeto()->getList()->getHead();
+
+                                while (puntos != NULL)
+                                {
+                                    if (listObjetos->getObjeto()->getId() == -2)
+                                    {
+                                        windowNew++;
+                                    }
+                                    string x = puntos->getPoint().getX();
+                                    string y = puntos->getPoint().getY();
+                                    matrix->add(id, nombre, letter, color, x, y);
+                                    puntos = puntos->getSiguiente();
+                                }
+
+
+                                if (listObjetos->getObjeto()->getId() == -2)
+                                {
+                                    cout << "weDNEW : " << windowNew;
+                                    cout << "weDOLD : " << windowOld;
+                                    int xsd;
+                                    cin >> xsd;
+                                    if (windowNew <= windowOld)
+                                    {
+                                        windowOld = windowNew;
+                                    }
+                                }
+                                matrix->setName(listNivel->getArbolB()->getNombre());
+                                listObjetos = listObjetos->getSiguiente();
+                            }
+                            matrix->setPointEmpty();
+                            paredeNew = matrix->getCoutEspacio();
+
+                            if (paredeNew >= paredeOld && windowNew <= windowOld)
+                            {
+                                paredeOld = paredeNew;
+                                treeBGrap = listNivel->getArbolB();
+                            }
+                            listNivel = listNivel->getSiguiente();
+                        }
+                   
+                        if (treeBGrap != nullptr)
+                        {
+                            graficarNivel(treeBGrap);
+                        }
+
+
+
                         break;
                     }
                 }
