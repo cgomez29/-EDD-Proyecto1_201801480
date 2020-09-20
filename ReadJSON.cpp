@@ -116,6 +116,8 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 
 	for (int i = 0; i < length; i++)
 	{
+		// El id2 es igual a cero cada vez que se incia un proyecto
+		id2 = 0;
 		json proyecto = j["proyectos"][i];
 		nombreProyecto = proyecto["nombre"];
 		json niveles = proyecto["niveles"];

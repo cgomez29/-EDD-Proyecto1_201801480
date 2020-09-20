@@ -32,6 +32,8 @@ private:
     void eliminarPared(ArbolB* nivel);
     bool isNum(string valor);
     void guardarProyectos();
+    void agregarObjeto();
+    void eliminarObjeto(ArbolB* nivel);
 
 public:
     MainMenu();

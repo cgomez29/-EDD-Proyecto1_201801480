@@ -42,12 +42,12 @@ NodoB* ArbolB::insert(NodoB* raiz, Objeto* dato)
 	}
 	else
 	{
-		if (dato->getId2() < raiz->getObjeto()->getId2())
+		if (dato->getId() < raiz->getObjeto()->getId())
 		{
 			NodoB* izq = insert(raiz->getLeft(), dato);
 			raiz->setLeft(izq);
 		}
-		else if (dato->getId2() > raiz->getObjeto()->getId2())
+		else if (dato->getId() > raiz->getObjeto()->getId())
 		{
 			NodoB* der = insert(raiz->getRigth(), dato);
 			raiz->setRigth(der);
@@ -71,7 +71,7 @@ NodoB* ArbolB::delete_nodo(NodoB* raiz, int id)
 	{
 		return nullptr;
 	}
-	if (id == raiz->getObjeto()->getId2())
+	if (id == raiz->getObjeto()->getId())
 	{
 		//cuando no tiene ningun hijo
 		if (raiz->getLeft() == nullptr && raiz->getRigth() == nullptr)
@@ -90,11 +90,11 @@ NodoB* ArbolB::delete_nodo(NodoB* raiz, int id)
 		//cuando tiene dos hijos
 		Objeto* smallValue = findNodo(raiz->getRigth());
 		raiz->setObjeto(smallValue);
-		raiz->setRigth(delete_nodo(raiz->getRigth(), smallValue->getId2()));
+		raiz->setRigth(delete_nodo(raiz->getRigth(), smallValue->getId()));
 		return raiz;
 	}
 
-	if (id < raiz->getObjeto()->getId2())
+	if (id < raiz->getObjeto()->getId())
 	{
 		raiz->setLeft(delete_nodo(raiz->getLeft(), id));
 		return raiz;
@@ -171,12 +171,12 @@ NodoB* ArbolB::buscarNodo(NodoB* root, int id)
 	{
 		return nullptr;
 	}
-	if (root->getObjeto()->getId2() == id)
+	if (root->getObjeto()->getId() == id)
 	{
 		return root;
 	}
 
-	if (root->getObjeto()->getId2() > id)
+	if (root->getObjeto()->getId() > id)
 	{
 		return buscarNodo(root->getLeft(), id);
 	}
@@ -200,7 +200,7 @@ void ArbolB::inOrden(NodoB* nodo)
 		inOrden(nodo->getLeft());
 		if (nodo->getObjeto()->getId() != -1 && nodo->getObjeto()->getId() != -2)
 		{
-			cout << nodo->getObjeto()->getId() << ". " << nodo->getObjeto()->getName() << endl;
+			cout << nodo->getObjeto()->getId2() << ". " << nodo->getObjeto()->getName() << endl;
 		}
 		inOrden(nodo->getRigth());
 	}

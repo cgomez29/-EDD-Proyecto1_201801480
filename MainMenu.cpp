@@ -256,12 +256,11 @@ void MainMenu::editarNivel(Project* project)
             switch (id)
             {
             case 1:
+                //metodo para agregar objeto
+                agregarObjeto();
                 break;
             case 2:
-                cout << " Ingrese numero de objeto a eliminar:" << endl;
-                cout << ">> ";
-                cin >> id;
-                nivel->delete_nodo(id);
+                eliminarObjeto(nivel);
                 id = -1;
                 break;
             case 3:
@@ -473,6 +472,53 @@ void MainMenu::graficarProyectos()
             contador = 1;
         }
     } while (contador != 0);
+}
+
+//Metodo para agregar un objeto
+void MainMenu::agregarObjeto()
+{
+    cout << "   Agregar objeto" << endl;
+    cout << "Lista de objetos en librerias externa" << endl;
+    treeB->inOrden();
+    cout << endl;
+    int x;
+
+    try
+    {
+        cin >> x;
+    }
+    catch (const std::exception&)
+    {
+        x = -1;
+    }
+
+}
+
+//metodo privado para eliminar un objeto de un nivel de tipoArbolB
+void MainMenu::eliminarObjeto(ArbolB* nivel)
+{
+    cout << " Ingrese numero de objeto a eliminar:" << endl;
+    cout << ">> ";
+    int id;
+    cin >> id;
+    NodoO* auxO;
+    auxO = nivel->getListObjetos()->getHead();
+    bool isdelete;
+    isdelete = false;
+    while (auxO != NULL)
+    {
+        if (auxO->getObjeto()->getId2() == id) {
+            nivel->delete_nodo(id);
+            isdelete = true;
+        }
+        auxO = auxO->getSiguiente();
+    }
+    if (!isdelete)
+    {
+        cout << " Objeto eliminado" << endl;
+        int cds;
+        cin >> cds;
+    }
 }
 
 //metodo privado para eliminar una pared recibe un nivel tipo ArbolB 
