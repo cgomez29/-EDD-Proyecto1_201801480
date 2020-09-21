@@ -8,6 +8,8 @@
 #include "NodoProject.h"
 #include "SimpleListArbolB.h"
 #include "NodoSLB.h"
+#include "NodoAVL.h"
+#include "Project.h"
 using namespace std;
 
 class MainMenu

@@ -28,56 +28,61 @@ SimpleListLibreria* ReadJSON::leerLibrerias(string nameFile)
 
 	string path = "C:\\Users\\crisg\\Desktop\\Librerias.json";
 
-	ifstream file(path);
+	ifstream file(nameFile);
 	json j;
 
-	file >> j;
-	file.close();
-
-	int length = j["Libreria"].size();
-
-	int id = 0;
-	string nombre = "";
-	string letra = "";
-	string color = "";
-	string puntos = {};
-	int x = 0;
-	int y = 0;
-
-	int size = 0;
-
-	int id2 = 0;
-
-	SimpleListLibreria* listaObjeto = new SimpleListLibreria();
-
-	for (int i = 0; i < length; i++)
+	if (file)
 	{
-		id =  j["Libreria"][i]["identificador"];
-		nombre = j["Libreria"][i]["nombre"];
-		letra = j["Libreria"][i]["letra"];
-		color = j["Libreria"][i]["color"];
+		file >> j;
+		file.close();
 
-		size = j["Libreria"][i]["puntos"].size();
-		SimpleListP* list = new SimpleListP();
+		int length = j["Libreria"].size();
 
-		for (int k = 0; k < size; k++)
+		int id = 0;
+		string nombre = "";
+		string letra = "";
+		string color = "";
+		string puntos = {};
+		int x = 0;
+		int y = 0;
+
+		int size = 0;
+
+		int id2 = 0;
+
+		SimpleListLibreria* listaObjeto = new SimpleListLibreria();
+
+		for (int i = 0; i < length; i++)
 		{
-			x = j["Libreria"][i]["puntos"][k]["x"];
-			y = j["Libreria"][i]["puntos"][k]["y"];
-			
-			Point p;
-			p.setX(x + "");
-			p.setY(y + "");
-			list->add(p);
+			id = j["Libreria"][i]["identificador"];
+			nombre = j["Libreria"][i]["nombre"];
+			letra = j["Libreria"][i]["letra"];
+			color = j["Libreria"][i]["color"];
+
+			size = j["Libreria"][i]["puntos"].size();
+			SimpleListP* list = new SimpleListP();
+
+			for (int k = 0; k < size; k++)
+			{
+				x = j["Libreria"][i]["puntos"][k]["x"];
+				y = j["Libreria"][i]["puntos"][k]["y"];
+
+				Point p;
+				p.setX(x + "");
+				p.setY(y + "");
+				list->add(p);
+			}
+			id2++;
+			Objeto* obj = new Objeto(id, nombre, letra, color, list);
+			obj->setId2(id2);
+			listaObjeto->add(obj);
 		}
-		id2++;
-		Objeto* obj = new Objeto(id, nombre, letra, color, list);
-		obj->setId2(id2);
-		listaObjeto->add(obj);
+		return listaObjeto;
+	} 
+	else
+	{
+		return nullptr;
 	}
-
-	return listaObjeto;
-
 }
 
 
@@ -85,58 +90,248 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 {
 	string path = "C:\\Users\\crisg\\Desktop\\Proyectos.json";
  
-	ifstream file(path);
+	ifstream file(nameFile);
 	json j;
 
-	file >> j;
-	file.close();
-
-	string nombreProyecto = "";
-	string nameNivel = "";
-	int inicioX = 0;
-	int inicioY = 0;
-	int finalX = 0;
-	int finalY = 0;
-	string colorParedes = "";
-
-	// Ventanas
-
-	//Objetos
-	int id = 0;
-	string nombre = "";
-	string letra = "";
-	string color = "";
-	int x = 0;
-	int y = 0;
-	int lengthNiveles = 0;
-
-	int length = j["proyectos"].size();
-	int id2 = 0;
-	SimpleListProject* listProject = new SimpleListProject();
-
-	for (int i = 0; i < length; i++)
+	if (file)
 	{
-		// El id2 es igual a cero cada vez que se incia un proyecto
-		id2 = 0;
-		json proyecto = j["proyectos"][i];
-		nombreProyecto = proyecto["nombre"];
-		json niveles = proyecto["niveles"];
+		file >> j;
+		file.close();
 
+		string nombreProyecto = "";
+		string nameNivel = "";
+		int inicioX = 0;
+		int inicioY = 0;
+		int finalX = 0;
+		int finalY = 0;
+		string colorParedes = "";
+
+		// Ventanas
+
+		//Objetos
+		int id = 0;
+		string nombre = "";
+		string letra = "";
+		string color = "";
+		int x = 0;
+		int y = 0;
+		int lengthNiveles = 0;
+
+		int length = j["proyectos"].size();
+		int id2 = 0;
+		SimpleListProject* listProject = new SimpleListProject();
+
+		for (int i = 0; i < length; i++)
+		{
+			// El id2 es igual a cero cada vez que se incia un proyecto
+			id2 = 0;
+			json proyecto = j["proyectos"][i];
+			nombreProyecto = proyecto["nombre"];
+			json niveles = proyecto["niveles"];
+
+			SimpleListArbolB* listNivel = new SimpleListArbolB();
+
+			if (niveles.size() != 0)
+			{
+				for (int k = 0; k < niveles.size(); k++)
+				{
+					json nivel = niveles[k];
+					if (nivel.size() != 0)
+					{
+						// creando nivel
+						ArbolB* arbolB = new ArbolB();
+						nameNivel = to_string(nivel["nivel"]);
+
+						if (nivel["paredes"].size() != 0) {
+
+							SimpleListP* listPoiters = new SimpleListP();
+							for (int a = 0; a < nivel["paredes"].size(); a++)
+							{
+								json paredes = nivel["paredes"][a];
+								inicioX = paredes["inicio"][0];
+								inicioY = paredes["inicio"][1];
+								finalX = paredes["final"][0];
+								finalY = paredes["final"][1];
+								colorParedes = paredes["color"];
+
+								//cout << paredes << endl;
+								//agregando paredes a la matrix 
+								//creando puntos
+								if (inicioY == finalY)
+								{
+									int contador = inicioX;
+									while (contador <= finalX)
+									{
+										Point point = Point(to_string(contador), to_string(inicioY));
+										listPoiters->add(point);
+										//matrix->add(0, "Pared", "P", colorParedes, to_string(contador), to_string(inicioY));
+										contador = contador + 1;
+									}
+								}
+								else
+								{
+									int contador = inicioY;
+									while (contador <= finalY)
+									{
+										Point point = Point(to_string(inicioX), to_string(contador));
+										listPoiters->add(point);
+										//matrix->add(0, "Pared", "P", colorParedes, to_string(inicioX), to_string(contador));
+										contador = contador + 1;
+									}
+								}
+
+							}
+							Objeto* obj = new Objeto(-1, "Pared", "P", colorParedes, listPoiters);
+							obj->setId2(-1);
+							arbolB->insert(obj);
+						}
+
+						if (nivel["ventanas"].size() != 0)
+						{
+							SimpleListP* listPoiters = new SimpleListP();
+							for (int b = 0; b < nivel["ventanas"].size(); b++)
+							{
+								json ventanas = nivel["ventanas"][b];
+								inicioX = ventanas["inicio"][0];
+								inicioY = ventanas["inicio"][1];
+								finalX = ventanas["final"][0];
+								finalY = ventanas["final"][1];
+								//colorParedes = paredes["color"];
+
+								//cout << paredes << endl;
+								//agregando paredes a la matrix 
+								//creando puntos
+								if (inicioY == finalY)
+								{
+									int contador = inicioX;
+									while (contador <= finalX)
+									{
+										Point point = Point(to_string(contador), to_string(inicioY));
+										listPoiters->add(point);
+										contador = contador + 1;
+									}
+								}
+								else
+								{
+									int contador = inicioY;
+									while (contador <= finalY)
+									{
+										Point point = Point(to_string(inicioX), to_string(contador));
+										listPoiters->add(point);
+										contador = contador + 1;
+									}
+								}
+
+							}
+							Objeto* obj = new Objeto(-2, "Ventanas", "V", "#85e0e0", listPoiters);
+							obj->setId2(-2);
+							arbolB->insert(obj);
+						}
+
+						if (nivel["objetos"] != NULL)
+						{
+							for (int o = 0; o < nivel["objetos"].size(); o++)
+							{
+								json objetos = nivel["objetos"];
+
+								id = objetos[o]["identificador"];
+								nombre = objetos[o]["nombre"];
+								letra = objetos[o]["letra"];
+								color = objetos[o]["color"];
+								json puntos = objetos[o]["puntos"];
+								SimpleListP* listPoiters = new SimpleListP();
+
+								for (int p = 0; p < puntos.size(); p++)
+								{
+									x = puntos[p]["x"];
+									y = puntos[p]["y"];
+									//matrix->add(id, nombre, letra, color, to_string(x), to_string(y));
+									Point point = Point(to_string(x), to_string(y));
+									listPoiters->add(point);
+								}
+								id2++;
+								Objeto* obj = new Objeto(id, nombre, letra, color, listPoiters);
+								obj->setId2(id2);
+								arbolB->insert(obj);
+							}
+
+						}
+						//Seteando nombre de nivel
+						arbolB->setNombre(nameNivel);
+						listNivel->add(arbolB);
+					}
+				}
+				//matrix->graficar();
+
+			}
+
+			Project* project = new Project(nombreProyecto, listNivel);
+			listProject->add(project);
+		}
+		cout << "Archivo cargado exitosamente!" << endl;
+		string xss;
+		cin >> xss;
+		return listProject;
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+
+SimpleListArbolB* ReadJSON::leerNivel(string nameFile)
+{
+	//string path = "C:\\Users\\crisg\\Desktop\\" + nameFile;
+	string path = "C:\\Users\\crisg\\Desktop\\Niveles.json";
+
+	ifstream file(nameFile);
+	json j;
+
+	if (file)
+	{
+		file >> j;
+		file.close();
+
+		string nameNivel = "";
+		int inicioX = 0;
+		int inicioY = 0;
+		int finalX = 0;
+		int finalY = 0;
+		string colorParedes = "";
+
+		// Ventanas
+
+		//Objetos
+		int id = 0;
+		string nombre = "";
+		string letra = "";
+		string color = "";
+		int x = 0;
+		int y = 0;
+		int lengthNiveles = 0;
+
+
+		json niveles = j["niveles"];
+
+		int id2 = 0;
 		SimpleListArbolB* listNivel = new SimpleListArbolB();
 
-		if (niveles.size() != 0)
+		if (niveles != NULL)
 		{
 			for (int k = 0; k < niveles.size(); k++)
 			{
 				json nivel = niveles[k];
+
 				if (nivel.size() != 0)
 				{
 					// creando nivel
 					ArbolB* arbolB = new ArbolB();
+
 					nameNivel = to_string(nivel["nivel"]);
+					//Seteando nombre de nivel
+					arbolB->setNombre(nameNivel);
 
-					if (nivel["paredes"].size() != 0) {
-
+					if (nivel["paredes"] != NULL) {
 						SimpleListP* listPoiters = new SimpleListP();
 						for (int a = 0; a < nivel["paredes"].size(); a++)
 						{
@@ -147,7 +342,7 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 							finalY = paredes["final"][1];
 							colorParedes = paredes["color"];
 
-							//cout << paredes << endl;
+							cout << paredes << endl;
 							//agregando paredes a la matrix 
 							//creando puntos
 							if (inicioY == finalY)
@@ -175,12 +370,13 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 
 						}
 						Objeto* obj = new Objeto(-1, "Pared", "P", colorParedes, listPoiters);
-						obj->setId2(-1);
 						arbolB->insert(obj);
+
 					}
 
-					if (nivel["ventanas"].size() != 0)
+					if (nivel["ventanas"] != NULL)
 					{
+						//Puntos de ventanas
 						SimpleListP* listPoiters = new SimpleListP();
 						for (int b = 0; b < nivel["ventanas"].size(); b++)
 						{
@@ -189,11 +385,7 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 							inicioY = ventanas["inicio"][1];
 							finalX = ventanas["final"][0];
 							finalY = ventanas["final"][1];
-							//colorParedes = paredes["color"];
 
-							//cout << paredes << endl;
-							//agregando paredes a la matrix 
-							//creando puntos
 							if (inicioY == finalY)
 							{
 								int contador = inicioX;
@@ -217,7 +409,6 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 
 						}
 						Objeto* obj = new Objeto(-2, "Ventanas", "V", "#85e0e0", listPoiters);
-						obj->setId2(-2);
 						arbolB->insert(obj);
 					}
 
@@ -247,189 +438,17 @@ SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 							obj->setId2(id2);
 							arbolB->insert(obj);
 						}
-
 					}
-					//Seteando nombre de nivel
-					arbolB->setNombre(nameNivel);
 					listNivel->add(arbolB);
 				}
 			}
-			//matrix->graficar();
-		
 		}
-		
-		Project* project = new Project(nombreProyecto, listNivel);
-		listProject->add(project);
+		return listNivel;
 	}
-	cout << "Archivo cargado exitosamente!" << endl;
-	string xss;
-	cin >> xss;
-	return listProject;
-}
-
-SimpleListArbolB* ReadJSON::leerNivel(string nameFile)
-{
-	//string path = "C:\\Users\\crisg\\Desktop\\" + nameFile;
-	string path = "C:\\Users\\crisg\\Desktop\\Niveles.json";
-
-	ifstream file(path);
-	json j;
-
-	file >> j;
-	file.close();
-
-	string nameNivel = "";
-	int inicioX = 0;
-	int inicioY = 0;
-	int finalX = 0;
-	int finalY = 0;
-	string colorParedes = "";
-
-	// Ventanas
-
-	//Objetos
-	int id = 0;
-	string nombre = "";
-	string letra = "";
-	string color = "";
-	int x = 0;
-	int y = 0;
-	int lengthNiveles = 0;
-
-	
-	json niveles = j["niveles"];
-
-	int id2 = 0;
-	SimpleListArbolB* listNivel = new SimpleListArbolB();
-
-	if (niveles != NULL)
+	else
 	{
-		for (int k = 0; k < niveles.size(); k++)
-		{
-			json nivel = niveles[k];
-			
-			if (nivel.size() != 0)
-			{
-				// creando nivel
-				ArbolB* arbolB = new ArbolB();
-
-				nameNivel = to_string(nivel["nivel"]);
-				//Seteando nombre de nivel
-				arbolB->setNombre(nameNivel);
-
-				if (nivel["paredes"] != NULL) {
-					SimpleListP* listPoiters = new SimpleListP();
-					for (int a = 0; a < nivel["paredes"].size(); a++)
-					{
-						json paredes = nivel["paredes"][a];
-						inicioX = paredes["inicio"][0];
-						inicioY = paredes["inicio"][1];
-						finalX = paredes["final"][0];
-						finalY = paredes["final"][1];
-						colorParedes = paredes["color"];
-
-						cout << paredes << endl;
-						//agregando paredes a la matrix 
-						//creando puntos
-						if (inicioY == finalY)
-						{
-							int contador = inicioX;
-							while (contador <= finalX)
-							{
-								Point point = Point(to_string(contador), to_string(inicioY));
-								listPoiters->add(point);
-								//matrix->add(0, "Pared", "P", colorParedes, to_string(contador), to_string(inicioY));
-								contador = contador + 1;
-							}
-						}
-						else
-						{
-							int contador = inicioY;
-							while (contador <= finalY)
-							{
-								Point point = Point(to_string(inicioX), to_string(contador));
-								listPoiters->add(point);
-								//matrix->add(0, "Pared", "P", colorParedes, to_string(inicioX), to_string(contador));
-								contador = contador + 1;
-							}
-						}
-
-					}
-					Objeto* obj = new Objeto(-1, "Pared", "P", colorParedes, listPoiters);
-					arbolB->insert(obj);
-
-				}
-
-				if (nivel["ventanas"] != NULL)
-				{
-					//Puntos de ventanas
-					SimpleListP* listPoiters = new SimpleListP();
-					for (int b = 0; b < nivel["ventanas"].size(); b++)
-					{
-						json ventanas = nivel["ventanas"][b];
-						inicioX = ventanas["inicio"][0];
-						inicioY = ventanas["inicio"][1];
-						finalX = ventanas["final"][0];
-						finalY = ventanas["final"][1];
-
-						if (inicioY == finalY)
-						{
-							int contador = inicioX;
-							while (contador <= finalX)
-							{
-								Point point = Point(to_string(contador), to_string(inicioY));
-								listPoiters->add(point);
-								contador = contador + 1;
-							}
-						}
-						else
-						{
-							int contador = inicioY;
-							while (contador <= finalY)
-							{
-								Point point = Point(to_string(inicioX), to_string(contador));
-								listPoiters->add(point);
-								contador = contador + 1;
-							}
-						}
-
-					}
-					Objeto* obj = new Objeto(-2, "Ventanas", "V", "#85e0e0", listPoiters);
-					arbolB->insert(obj);
-				}
-
-				if (nivel["objetos"] != NULL)
-				{
-					for (int o = 0; o < nivel["objetos"].size(); o++)
-					{
-						json objetos = nivel["objetos"];
-
-						id = objetos[o]["identificador"];
-						nombre = objetos[o]["nombre"];
-						letra = objetos[o]["letra"];
-						color = objetos[o]["color"];
-						json puntos = objetos[o]["puntos"];
-						SimpleListP* listPoiters = new SimpleListP();
-
-						for (int p = 0; p < puntos.size(); p++)
-						{
-							x = puntos[p]["x"];
-							y = puntos[p]["y"];
-							//matrix->add(id, nombre, letra, color, to_string(x), to_string(y));
-							Point point = Point(to_string(x), to_string(y));
-							listPoiters->add(point);
-						}
-						id2++;
-						Objeto* obj = new Objeto(id, nombre, letra, color, listPoiters);
-						obj->setId2(id2);
-						arbolB->insert(obj);
-					}
-				}
-				listNivel->add(arbolB);
-			}
-		}
+		return nullptr;
 	}
-	return listNivel;
 }
 
 string ReadJSON::nameFile()

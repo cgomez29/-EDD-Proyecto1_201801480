@@ -128,7 +128,7 @@ void ArbolB::graficar()
 	cadena << "node[shape=\"record\"]" << endl;
 	if (raiz != nullptr)
 	{
-		cadena << "node" << &(*this->raiz) << "[color=\"" << raiz->getObjeto()->getColor() << "\",label= \"<f0>|<f1>" << this->raiz->getObjeto()->getName()<< "|<f2>\"]" << endl;
+		cadena << "node" << &(*this->raiz) << "[color=\"" << raiz->getObjeto()->getColor() << "\",label= \"<f0>|<f1>" << "Letra: " << this->raiz->getObjeto()->getLetter() << " Nombre: " << " X: " << this->raiz->getObjeto()->getName() << " ID: " << this->raiz->getObjeto()->getId() << "|<f2>\"]" << endl;
 		this->graficar(&cadena, this->raiz, this->getRaiz()->getLeft(), true);
 		this->graficar(&cadena, this->raiz, this->getRaiz()->getRigth(), false);
 	}
@@ -148,7 +148,7 @@ void ArbolB::graficar(stringstream* cadena, NodoB* padre, NodoB* actual, bool le
 {
 	if (actual != nullptr)
 	{
-		*cadena << "node" << &(*actual) << "[color=\"" << actual->getObjeto()->getColor() <<"\",label=\"<f0>|<f1>" << actual->getObjeto()->getName() << "|<f2>\"]" << endl;
+		*cadena << "node" << &(*actual) << "[color=\"" << actual->getObjeto()->getColor() <<"\",label=\"<f0>|<f1>" << actual->getObjeto()->getColor() << "\",label= \"<f0>|<f1>" << "Letra: " << actual->getObjeto()->getLetter() << " Nombre: " << " X: " << actual->getObjeto()->getName() << " ID: " << actual->getObjeto()->getId() << "|<f2>\"]" << endl;
 		if (left)
 		{
 			*cadena << "node" << &(*padre) << ":f0->node" << &(*actual) << ":f1" << endl;
@@ -205,7 +205,7 @@ void ArbolB::inOrden(NodoB* nodo)
 		inOrden(nodo->getLeft());
 		if (nodo->getObjeto()->getId() != -1 && nodo->getObjeto()->getId() != -2)
 		{
-			cout << nodo->getObjeto()->getId2() << ". " << nodo->getObjeto()->getName() << endl;
+			cout << nodo->getObjeto()->getId2() << ". " << nodo->getObjeto()->getName() << " Punto: " << " X: " << nodo->getObjeto()->getList()->getHead()->getPoint().getX() << " Y: " << nodo->getObjeto()->getList()->getHead()->getPoint().getY() << endl;
 		}
 		inOrden(nodo->getRigth());
 	}

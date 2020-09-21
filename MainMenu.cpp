@@ -9,6 +9,7 @@ MainMenu::MainMenu()
 
 void MainMenu::menu()
 {
+    string path;
     cout << "**************************************" << endl;
     cout << "* USAC                               *" << endl;
     cout << "* ESTRUCTURAS DE DATOS               *" << endl;
@@ -17,6 +18,7 @@ void MainMenu::menu()
     cout << "* Carnet: 201801480                  *" << endl;
     cout << "**************************************" << endl;
     int entrada = 0;
+    int en = 0;
     char enter = _getch();
     //cin >> enter;
     if (enter == 13)
@@ -44,7 +46,10 @@ void MainMenu::menu()
                 editarProyecto();
                 break;
             case 3:
-                llenarArbolAVL(readJson->leerProyectos("prueba"));
+                cout << "Ingrese la direccion absoluta del archivo que desea cargar:" << endl;
+                cout << ">> ";
+                cin >> path;
+                llenarArbolAVL(readJson->leerProyectos(path));
                 break;
             case 4:
                 graficarProyectos();
@@ -53,14 +58,15 @@ void MainMenu::menu()
                 guardarProyectos();
                 break;
             case 6:
-                llenarArbolB(readJson->leerLibrerias("preuba"));
+                cout << "Ingrese la direccion absoluta del archivo que desea cargar:" << endl;
+                cout << ">> ";
+                cin >> path;
+                llenarArbolB(readJson->leerLibrerias(path));
                 break;
             case 7:
                 reportes();
                 break;
             }
-
-
 
         } while (entrada != 8);
     }
@@ -70,28 +76,38 @@ void MainMenu::menu()
 
 void MainMenu::llenarArbolB(SimpleListLibreria* list)
 {
-    NodoO* aux = list->getHead();
-    while (aux != NULL)
+    if (list != nullptr)
     {
-        treeB->insert(aux->getObjeto());
-        aux = aux->getSiguiente();
+        NodoO* aux = list->getHead();
+        while (aux != NULL)
+        {
+            treeB->insert(aux->getObjeto());
+            aux = aux->getSiguiente();
+        }
+        treeB->graficar();
+        string xsd;
+        cin >> xsd;
     }
-    treeB->graficar();
 }
 
 //Metodo para llenar el arbolAVL de proyectos
 void MainMenu::llenarArbolAVL(SimpleListProject* list)
 {
-    NodoProject* aux = list->getHead();
-
-    while (aux != NULL)
+    if (list != nullptr)
     {
-        aux->getProject()->setId(contadorProyecto);
-        treeAVL->insertar(aux->getProject());
-        aux = aux->getSiguiente();
-        contadorProyecto++;
+        NodoProject* aux = list->getHead();
+        while (aux != NULL)
+        {
+            //cout << "Nombre: " << aux->getProject()->getName() << endl;
+            aux->getProject()->setId(contadorProyecto);
+            treeAVL->insertar(aux->getProject());
+            aux = aux->getSiguiente();
+            contadorProyecto++;
+        }
+        //string xsd;
+        //cin >> xsd;
     }
-    //treeAVL->graficar();
+    
 }
 
 void MainMenu::verProjectos()
@@ -158,15 +174,17 @@ void MainMenu::verProjectos()
 
 void MainMenu::agregarNiveles(Project* project, SimpleListArbolB* list)
 {
-    NodoSLB* aux = list->getHead();
-
-    while (aux != NULL)
+    if (list != nullptr)
     {
-        project->getListNivel()->add(aux->getArbolB());
-        aux->getArbolB();// graficar nivel obtenido
-        aux = aux->getSiguiente();
-    }
+        NodoSLB* aux = list->getHead();
 
+        while (aux != NULL)
+        {
+            project->getListNivel()->add(aux->getArbolB());
+            aux->getArbolB();// graficar nivel obtenido
+            aux = aux->getSiguiente();
+        }
+    }
 }
 
 
@@ -310,15 +328,15 @@ void MainMenu::graficarNivel(ArbolB* nivel)
 void MainMenu::editarProyecto()
 {
     int contador = 0;
-    NodoAVL* nodoFound = nullptr;
-    Project* project = NULL;
+    string path = "";
+  
     do
     {
         system("cls");
         cout << "Lista de proyectos" << endl;
         treeAVL->inOrden();
         cout << endl;
-        cout << "Ingrese el numero del proyecto a graficar" << endl;
+        cout << "Ingrese el numero del proyecto a editar" << endl;
         cout << "Ingrese 0 si desea salir" << endl;
         cout << ">> ";
         int id = -1;
@@ -354,15 +372,55 @@ void MainMenu::editarProyecto()
         if (nodoFound != nullptr)
         {
             NodoSLB* headList = nodoFound->getProject()->getListNivel()->getHead();
-            project = nodoFound->getProject();
+            Project* project = nodoFound->getProject();
 
-            while (headList != NULL)
+            int entrada = 0;
+            do
+            {
+                system("cls");
+                cout << "     EDITAR PROYECTO" << endl;
+                cout << "1. Agregar nivel" << endl;
+                cout << "2. Editar nivel" << endl;
+                cout << "3. Eliminar nivel" << endl;
+                cout << "4. Eliminar proyecto" << endl;
+                cout << "5. Copiar nivel" << endl;
+                cout << "6. Salir" << endl;
+                cout << ">> ";
+                cin >> entrada;
+
+                switch (entrada)
+                {
+                case 1:
+                    cout << "Ingrese la direccion absoluta del archivo que desea cargar:" << endl;
+                    cout << ">> ";
+                    cin >> path;
+                    agregarNiveles(project, readJson->leerNivel(path));
+                    break;
+                case 2:
+                    editarNivel(project);
+                    break;
+                case 3:
+                    eliminarNivel(project);
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    copiarNivel(project);
+                    break;
+                case 6:
+                    break;
+                }
+
+
+            } while (entrada != 6);
+
+            /*while (headList != NULL)
             {
                 headList->getArbolB(); // sacar todos los nodos para graficar la matrix
                 //cin >> id;
                 headList = headList->getSiguiente();
             }
-            contador = 0;
+            contador = 0;*/
         }
         else
         {
@@ -371,47 +429,6 @@ void MainMenu::editarProyecto()
             contador = 1;
         }
     } while (contador != 0);
-
-
-    if (project != NULL)
-    {
-        int entrada = 0;
-        do
-        {
-            system("cls");
-            cout << "1. Agregar nivel" << endl;
-            cout << "2. Editar nivel" << endl;
-            cout << "3. Eliminar nivel" << endl;
-            cout << "4. Eliminar proyecto" << endl;
-            cout << "5. Copiar nivel" << endl;
-            cout << "6. Salir" << endl;
-            cout << ">> ";
-            cin >> entrada;
-
-            switch (entrada)
-            {
-            case 1:
-                agregarNiveles(project, readJson->leerNivel("prueba"));
-                break;
-            case 2:
-                editarNivel(project);
-                break;
-            case 3:
-                eliminarNivel(project);
-                break;
-            case 4:
-                break;
-            case 5:
-                copiarNivel(project);
-                break;
-            case 6:
-                break;
-            }
-
-
-        } while (entrada != 6);
-
-    }
 
 }
 
@@ -981,6 +998,7 @@ void MainMenu::reportInPorject()
                                 paredeOld = paredeNew;
                                 treeBGrap = listNivel->getArbolB();
                             }
+                            //delete matrix;
                             listNivel = listNivel->getSiguiente();
                         }
                         if (treeBGrap != nullptr)
@@ -1135,6 +1153,7 @@ void MainMenu::reportInPorject()
                                 paredeOld = paredeNew;
                                 treeBGrap = listNivel->getArbolB();
                             }
+                            //delete matrix;
                             listNivel = listNivel->getSiguiente();
                         }
                         if (treeBGrap != nullptr)
@@ -1186,10 +1205,10 @@ void MainMenu::reportInPorject()
 
                                 if (listObjetos->getObjeto()->getId() == -2)
                                 {
-                                    cout << "weDNEW : " << windowNew;
-                                    cout << "weDOLD : " << windowOld;
-                                    int xsd;
-                                    cin >> xsd;
+                                    //cout << "weDNEW : " << windowNew;
+                                    //cout << "weDOLD : " << windowOld;
+                                    //int xsd;
+                                    //cin >> xsd;
                                     if (windowNew <= windowOld)
                                     {
                                         windowOld = windowNew;
@@ -1206,6 +1225,7 @@ void MainMenu::reportInPorject()
                                 paredeOld = paredeNew;
                                 treeBGrap = listNivel->getArbolB();
                             }
+                            //delete matrix;
                             listNivel = listNivel->getSiguiente();
                         }
                    
@@ -1213,9 +1233,6 @@ void MainMenu::reportInPorject()
                         {
                             graficarNivel(treeBGrap);
                         }
-
-
-
                         break;
                     }
                 }
