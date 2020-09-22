@@ -29,6 +29,9 @@ private:
 	void inOrden(NodoAVL* nodo);
 	NodoAVL* buscarNodo(NodoAVL* root, int nombre);
 	SimpleListProject* llenarLista(NodoAVL* root, SimpleListProject* list);
+	NodoAVL* delete_nodo(NodoAVL* raiz, int id);
+	Project* findNodo(NodoAVL* raiz);
+
 public:
 	ArbolAVL();
 	~ArbolAVL();
@@ -38,6 +41,8 @@ public:
 	void inOrden();
 	NodoAVL* buscarNodo(string nombre);
 	SimpleListProject* getListProyectos();
+	void delete_nodo(string id);
+
 };
 
 #endif // ARBOLAVL_H

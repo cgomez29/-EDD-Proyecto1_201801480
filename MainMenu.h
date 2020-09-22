@@ -45,6 +45,7 @@ private:
     void nivelDesc();
     void nivelAsc();
     void reportInPorject();
+    void eliminarProyecto(Project* project);
 
 public:
     MainMenu();

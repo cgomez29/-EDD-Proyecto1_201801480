@@ -46,11 +46,11 @@ void MainMenu::menu()
                 editarProyecto();
                 break;
             case 3:
-                //cout << "Ingrese la direccion absoluta del archivo que desea cargar:" << endl;
-                //cout << ">> ";
-                //cin >> path;
-                //llenarArbolAVL(readJson->leerProyectos(path));
-                llenarArbolAVL(readJson->leerProyectos("C:\\Users\\crisg\\Desktop\\save_proyecto.json"));
+                cout << "Ingrese la direccion absoluta del archivo que desea cargar:" << endl;
+                cout << ">> ";
+                cin >> path;
+                llenarArbolAVL(readJson->leerProyectos(path));
+                //llenarArbolAVL(readJson->leerProyectos("C:\\Users\\crisg\\Desktop\\save_proyecto.json"));
                 break;
             case 4:
                 graficarProyectos();
@@ -380,6 +380,7 @@ void MainMenu::editarProyecto()
             {
                 system("cls");
                 cout << "     EDITAR PROYECTO" << endl;
+                cout << " Proyecto editando: " << project->getName() << endl;
                 cout << "1. Agregar nivel" << endl;
                 cout << "2. Editar nivel" << endl;
                 cout << "3. Eliminar nivel" << endl;
@@ -404,6 +405,8 @@ void MainMenu::editarProyecto()
                     eliminarNivel(project);
                     break;
                 case 4:
+                    eliminarProyecto(project);
+                    entrada = 6;
                     break;
                 case 5:
                     copiarNivel(project);
@@ -431,6 +434,29 @@ void MainMenu::editarProyecto()
         }
     } while (contador != 0);
 
+}
+
+void MainMenu::eliminarProyecto(Project* project)
+{
+    int counter = 1;
+    string yesno = "";
+    do
+    {
+        system("cls");
+        cout << "Esta seguro de eliminar el proyecto " << "'" << project->getName() << "'" << " ?" << endl;
+        cout << "  Escriba y/n" << endl;
+        cout << ">> ";
+        cin >> yesno;
+
+        if (yesno == "y") {
+            treeAVL->delete_nodo(project->getName());
+            break;
+        } 
+        else
+        {
+            break;
+        }
+    } while (counter != 0);
 }
 
 void MainMenu::graficarProyectos()

@@ -324,3 +324,64 @@ SimpleListProject* ArbolAVL::llenarLista(NodoAVL* root, SimpleListProject* list)
 	}
 
 }
+
+//Metodo publico para la eliminacion de un nodo por id
+void ArbolAVL::delete_nodo(string name)
+{
+	this->raiz = delete_nodo(this->raiz, valorAscii(name));
+}
+
+//Metodo privado para la eliminacion de un nodo por id
+NodoAVL* ArbolAVL::delete_nodo(NodoAVL* raiz, int name)
+{
+	if (raiz == nullptr)
+	{
+		return nullptr;
+	}
+	if (name == valorAscii(raiz->getProject()->getName()))
+	{
+		//cuando no tiene ningun hijo
+		if (raiz->getLeft() == nullptr && raiz->getRigth() == nullptr)
+		{
+			return nullptr;
+		}
+		//cuando tiene un solo hijo
+		if (raiz->getRigth() == nullptr)
+		{	
+			raiz->setFactor(-1);
+			return raiz->getLeft();
+		}
+		if (raiz->getLeft() == nullptr)
+		{
+			raiz->setFactor(1);
+			return raiz->getRigth();
+		}
+		//cuando tiene dos hijos
+		Project* smallValue = findNodo(raiz->getRigth());
+		raiz->setProject(smallValue);
+		raiz->setRigth(delete_nodo(raiz->getRigth(), valorAscii(smallValue->getName())));
+		raiz->setFactor(-1);
+		return raiz;
+	}
+
+	if (name < valorAscii(raiz->getProject()->getName()))
+	{
+		raiz->setLeft(delete_nodo(raiz->getLeft(), name));
+		return raiz;
+	}
+	raiz->setRigth(delete_nodo(raiz->getRigth(), name));
+	return raiz;
+}
+
+Project* ArbolAVL::findNodo(NodoAVL* raiz)
+{
+	// buscando el valor mas pequeño
+	if (raiz->getLeft() == nullptr)
+	{
+		return raiz->getProject();
+	}
+	else
+	{
+		return findNodo(raiz->getLeft());
+	}
+}
