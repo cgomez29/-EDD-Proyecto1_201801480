@@ -46,10 +46,11 @@ void MainMenu::menu()
                 editarProyecto();
                 break;
             case 3:
-                cout << "Ingrese la direccion absoluta del archivo que desea cargar:" << endl;
-                cout << ">> ";
-                cin >> path;
-                llenarArbolAVL(readJson->leerProyectos(path));
+                //cout << "Ingrese la direccion absoluta del archivo que desea cargar:" << endl;
+                //cout << ">> ";
+                //cin >> path;
+                //llenarArbolAVL(readJson->leerProyectos(path));
+                llenarArbolAVL(readJson->leerProyectos("C:\\Users\\crisg\\Desktop\\save_proyecto.json"));
                 break;
             case 4:
                 graficarProyectos();
@@ -59,7 +60,7 @@ void MainMenu::menu()
                 break;
             case 6:
                 cout << "Ingrese la direccion absoluta del archivo que desea cargar:" << endl;
-                cout << ">> ";
+                cout << ">> "; 
                 cin >> path;
                 llenarArbolB(readJson->leerLibrerias(path));
                 break;

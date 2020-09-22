@@ -85,7 +85,6 @@ SimpleListLibreria* ReadJSON::leerLibrerias(string nameFile)
 	}
 }
 
-
 SimpleListProject* ReadJSON::leerProyectos(string nameFile)
 {
 	string path = "C:\\Users\\crisg\\Desktop\\Proyectos.json";
@@ -506,13 +505,15 @@ void ReadJSON::guardarProyecto(NodoProject* aux)
 	int contadorm = 0;
 	int contadork = 0;
 	int contadoro = 0;
+	int contadorp = 0;
+	int contadorq = 0;
 
 	while (aux != NULL)
 	{
 		// array de proyectos
 		json proyecto;
 		proyecto["nombre"] = aux->getProject()->getName();
-
+		contadorj = 0;
 		json niveles = {};
 		NodoSLB* auxNivel = aux->getProject()->getListNivel()->getHead();
 		while (auxNivel != NULL)
@@ -524,29 +525,71 @@ void ReadJSON::guardarProyecto(NodoProject* aux)
 
 			//array paredes
 			json paredes = {};
-			for (int k = 0; k < 2; k++)
+			contadork = 0;
+			
+			int paredNewX = 0;
+			int paredNewY = 0;
+			int paredOldX = 0;
+			int paredOldY = 0;
+			int inicioX = 0;
+			int finX = 0;
+			int inicioY = 0;
+			int finY = 0;
+
+			bool coute = true;
+			bool bandera = false;
+			bool bandera2 = true;
+			bool bandera3 = true;
+
+			while (auxOBJ != NULL)
 			{
-				json pared;
-				pared["inicio"] = { 0,0 };
-				pared["final"] = { 0,0 };
-				pared["color"] = "colorsito";
-				paredes[k] = pared;
+				if (auxOBJ->getObjeto()->getId() == -1)
+				{
+					json pared;
+					NodoP* auxPuntos = auxOBJ->getObjeto()->getList()->getHead();
+					while (auxPuntos != NULL)
+					{
+						pared["inicio"] = { stoi(auxPuntos->getPoint().getX()), stoi(auxPuntos->getPoint().getY()) };
+						pared["final"] = { stoi(auxPuntos->getPoint().getX()), stoi(auxPuntos->getPoint().getY()) };
+						pared["color"] = auxOBJ->getObjeto()->getColor();
+						paredes[contadork] = pared;
+						contadork++;
+
+						auxPuntos = auxPuntos->getSiguiente();
+					}
+				}
+				auxOBJ = auxOBJ->getSiguiente();
 			}
 			nivel["paredes"] = paredes;
+			
+			auxOBJ = auxNivel->getArbolB()->getListObjetos()->getHead();
+
 			//array ventanas
 			json ventanas = {};
-			for (int m = 0; m < 2; m++)
+			contadorm = 0;
+			while (auxOBJ != NULL)
 			{
-				json ventana;
-				ventana["inicio"] = { 0,0 };
-				ventana["final"] = { 0,0 };
-				ventanas[m] = ventana;
+				if (auxOBJ->getObjeto()->getId() == -2)
+				{
+					NodoP* auxPuntos = auxOBJ->getObjeto()->getList()->getHead();
+					while (auxPuntos != NULL)
+					{
+						json ventana;
+						ventana["inicio"] = { stoi(auxPuntos->getPoint().getX()),stoi(auxPuntos->getPoint().getY()) };
+						ventana["final"] = { stoi(auxPuntos->getPoint().getX()),stoi(auxPuntos->getPoint().getY()) };
+						ventanas[contadorm] = ventana;
+						contadorm++;
+						auxPuntos = auxPuntos->getSiguiente();
+					}
+				}
+				auxOBJ = auxOBJ->getSiguiente();
 			}
 			nivel["ventanas"] = ventanas;
 
-			
+			auxOBJ = auxNivel->getArbolB()->getListObjetos()->getHead();
 			//array objetos
 			json objetos = {};
+			contadorn = 0;
 			while (auxOBJ != NULL)
 			{
 				if (auxOBJ->getObjeto()->getId2() != -2 && auxOBJ->getObjeto()->getId2() != -1)
@@ -561,12 +604,13 @@ void ReadJSON::guardarProyecto(NodoProject* aux)
 					json puntos = {};
 
 					NodoP* auxPuntos = auxOBJ->getObjeto()->getList()->getHead();
-
+					contadoro = 0;
 					while (auxPuntos != NULL)
 					{
 						json punto;
-						punto["x"] = auxPuntos->getPoint().getX();
-						punto["y"] = auxPuntos->getPoint().getY();
+						punto["x"] = stoi(auxPuntos->getPoint().getX());
+						punto["y"] = stoi(auxPuntos->getPoint().getY());
+
 						puntos[contadoro] = punto;
 						auxPuntos = auxPuntos->getSiguiente();
 						contadoro++;
@@ -579,7 +623,9 @@ void ReadJSON::guardarProyecto(NodoProject* aux)
 				}
 				auxOBJ = auxOBJ->getSiguiente();
 			}
+
 			nivel["objetos"] = objetos;
+			
 			niveles[contadorj] = nivel;
 
 			auxNivel = auxNivel->getSiguiente();
@@ -593,6 +639,7 @@ void ReadJSON::guardarProyecto(NodoProject* aux)
 	}
 
 	j["proyectos"] = proyectos;
-	delete aux;
 	cout << j << endl;
+	int xsd;
+	cin >> xsd;
 }
