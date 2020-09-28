@@ -304,14 +304,13 @@ void Matrix::setPointEmpty()
 		auxH = (Cabecera*)auxH->getNext();
 	}
 
-	//imprime el tamaño maximo de la fila y columna
-	//cout << "X max: " << x << " Y max: " << y  << endl;
 
 	for (int i = 0; i < y; i++)
 	{
 		for (int j = 0; j < x; j++)
 		{
 			coutEspacio++;
+			//cout << "X max: " << j << " Y max: " << i  << endl;
 										// j = x ; i = y
 			add(-1000000, "", "", "white", to_string(j), to_string(i));
 		}

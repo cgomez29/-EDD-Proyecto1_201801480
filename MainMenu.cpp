@@ -50,7 +50,7 @@ void MainMenu::menu()
                 cout << ">> ";
                 cin >> path;
                 llenarArbolAVL(readJson->leerProyectos(path));
-                //llenarArbolAVL(readJson->leerProyectos("C:\\Users\\crisg\\Desktop\\save_proyecto.json"));
+                //llenarArbolAVL(readJson->leerProyectos("C:\\Users\\crisg\\Desktop\\Proyectos.json"));
                 break;
             case 4:
                 graficarProyectos();
@@ -63,6 +63,7 @@ void MainMenu::menu()
                 cout << ">> "; 
                 cin >> path;
                 llenarArbolB(readJson->leerLibrerias(path));
+                //llenarArbolB(readJson->leerLibrerias("C:\\Users\\crisg\\Desktop\\Librerias.json"));
                 break;
             case 7:
                 reportes();
@@ -561,15 +562,10 @@ void MainMenu::agregarObjeto()
     treeB->inOrden();
     cout << endl;
     int x;
-
-    try
-    {
-        cin >> x;
-    }
-    catch (const std::exception&)
-    {
-        x = -1;
-    }
+    // validar nuevos objetos
+    
+    cin >> x;
+    
 
 }
 
@@ -1322,7 +1318,6 @@ void MainMenu::nivelAsc()
         project->getProject()->setCantNivel(contador);
         project = project->getSiguiente();
     }
-
 }
 
 bool MainMenu::valorAscii(string cadena)
